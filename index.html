@@ -1,7 +1,7 @@
 
     <!doctype html><html lang="es"><head>
       <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Propuesta de Programa de Incentivos 2026</title>
+      <title>Lista de zonas priorizadas para el Programa de Incentivos 2026</title>
       
     <style>
       :root {
@@ -14,7 +14,7 @@
       .logo { position:absolute; right:20px; top:12px; height:48px; width:auto; border-radius:6px; object-fit:contain; }
       .container { max-width:1100px; margin:0 auto; padding:24px 16px; }
       h1 { margin-top:8px; font-size: clamp(22px, 3.2vw, 34px); }
-      p  { font-size: clamp(14px, 2vw, 16px); line-height:1.6; }
+      .lead { font-size: clamp(14px, 2vw, 16px); line-height:1.6; }
 
       /* >>> Parche hero sin recorte <<< */
       .hero {
@@ -27,7 +27,12 @@
         object-fit:contain;
       }
 
-      .buttons { display:flex; flex-wrap:wrap; gap:12px; margin:18px 0 6px; }
+      /* Botonera principal centrada */
+      .main-actions {
+        display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+        margin: 6px 0 18px;
+      }
+
       .btn {
         display:inline-block; padding:12px 16px; border-radius:12px;
         text-decoration:none; color:#fff; font-weight:600;
@@ -56,6 +61,7 @@
       .dl { background:var(--dark); color:#fff; }
       .map { background:#ffffff; color:var(--blue); border:1px solid var(--blue); }
       .btn-like { background:#e5e7eb; color:#6b7280; border:1px solid #e5e7eb; }
+
       .back {
         position: fixed; top: 14px; left: 14px; z-index: 9999;
         background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:8px 12px;
@@ -66,27 +72,42 @@
       footer { padding:18px; text-align:center; color:#6b7280; font-size:13px; }
 
       /* ----- Barra de filtros ----- */
+      .filters-wrap { margin:12px 0; }
+      .filters-title { font-weight:700; font-size:14px; margin: 0 0 8px; color:#111827; }
       .filters {
-        display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+        display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end;
         background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:10px;
-        box-shadow:0 2px 8px rgba(0,0,0,0.06); margin:12px 0;
+        box-shadow:0 2px 8px rgba(0,0,0,0.06);
       }
+      .filters .field { display:flex; flex-direction:column; gap:6px; min-width:240px; flex:1; }
       .filters label { font-size:13px; color:#374151; }
       .filters input {
-        flex: 1 1 200px;
         border:1px solid #e5e7eb; border-radius:8px; padding:8px 10px; font-size:14px;
+        width:100%;
       }
-      .filters .actions { display:flex; gap:8px; margin-left:auto; }
+      /* Hacemos Distrito más largo y UBIGEO compacto con etiqueta a la izquierda */
+      .filters .field.dist { min-width:360px; flex:2; }
+      .filters .ubigeo-inline { display:flex; align-items:center; gap:10px; min-width:260px; }
+      .filters .ubigeo-inline label { margin:0; white-space:nowrap; }
+      .filters .ubigeo-inline input { flex:1; }
+
+      .filters .actions { display:flex; gap:8px; margin-left:auto; align-self:flex-end; }
       .filters .actions button {
         border:0; border-radius:10px; padding:8px 12px; font-weight:700; cursor:pointer;
+        font-size:14px;
       }
       .filters .actions .primary { background: var(--dark); color:#fff; }
       .filters .actions .accent  { background: var(--blue); color:#fff; }
       .filters .actions .secondary { background:#e5e7eb; color:#111827; }
 
+      /* Botón resumen más pequeño y texto auxiliar */
+      .resumen-line { display:flex; align-items:center; gap:12px; margin:10px 0 8px; }
+      .btn.small { padding:8px 12px; border-radius:10px; font-size:14px; }
+      .hint-line { font-size:14px; color:#374151; }
+
       @media (max-width: 700px) {
-        .filters { gap:10px; }
         .filters .actions { width:100%; justify-content:flex-end; flex-wrap:wrap; }
+        .filters .field.dist { min-width:240px; flex:1; }
       }
       @media (max-width: 480px) {
         .logo { height:40px; top:10px; }
@@ -98,19 +119,19 @@
     <header>
       <img class="logo" src="assets/img/logo.jpg" alt="logo">
       <div class="container">
-        <h1>Propuesta de Programa de Incentivos 2026</h1>
+        <h1>Lista de zonas priorizadas para el Programa de Incentivos 2026</h1>
       </div>
     </header>
     
       <div class="container">
-        <p>En esta edición se planea trabajar con más de 250 municipalidades a nivel nacional en busca de mejorar la seguridad vial.</p>
-        <div style="margin:14px 0 18px;"><img class="hero" src="assets/img/home.jpg" alt="imagen"></div>
-        <div class="buttons">
+        <div class="lead"><p>En esta edición se planea trabajar con 252 municipalidades a nivel nacional en busca de mejorar la seguridad vial en zonas escolares, intersecciones y establecimientos de salud de primer nivel de atención.</p><p>Las listas de zonas priorizadas se encuentran por tipo de zona: Zonas escolares, intersecciones y establecimientos de salud.</p><p>Por ello se tiene abajo del presente texto 3 botones: Zonas Escolares (verde), Intersecciones (naranja) y Establecimientos de Salud (azul), que al dar click en cualquiera de los botones le derivará a las listas de priorización por cada municipalidad.</p><p><strong>Por ello, para identificar la lista de zonas priorizadas para cada tipo de zona, de click en el botón que se encuentra abajo correspondiente al tipo de zona cuya lista de priorización quiere identificar:</strong></p></div>
+        <div class="main-actions">
           <a class="btn zonas" href="ZonasEscolares/index.html">Zonas Escolares</a>
           <a class="btn inter" href="Intersecciones/index.html">Intersecciones</a>
           <a class="btn estab" href="EstablecimientoSalud/index.html">Establecimientos de Salud</a>
         </div>
+        <div style="margin:14px 0 18px;"><img class="hero" src="assets/img/home.jpg" alt="imagen"></div>
       </div>
-      <footer>PI 2026 · Dirección de Seguridad Vial — Generado automáticamente</footer>
+      <footer>PI 2026 · Dirección de Seguridad Vial</footer>
     </body></html>
     

@@ -1,7 +1,7 @@
 
     <!doctype html><html lang="es"><head>
       <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Zonas Escolares Priorizadas</title>
+      <title>Lista de Zonas Escolares Priorizadas</title>
       
     <style>
       :root {
@@ -14,7 +14,7 @@
       .logo { position:absolute; right:20px; top:12px; height:48px; width:auto; border-radius:6px; object-fit:contain; }
       .container { max-width:1100px; margin:0 auto; padding:24px 16px; }
       h1 { margin-top:8px; font-size: clamp(22px, 3.2vw, 34px); }
-      p  { font-size: clamp(14px, 2vw, 16px); line-height:1.6; }
+      .lead { font-size: clamp(14px, 2vw, 16px); line-height:1.6; }
 
       /* >>> Parche hero sin recorte <<< */
       .hero {
@@ -27,7 +27,12 @@
         object-fit:contain;
       }
 
-      .buttons { display:flex; flex-wrap:wrap; gap:12px; margin:18px 0 6px; }
+      /* Botonera principal centrada */
+      .main-actions {
+        display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+        margin: 6px 0 18px;
+      }
+
       .btn {
         display:inline-block; padding:12px 16px; border-radius:12px;
         text-decoration:none; color:#fff; font-weight:600;
@@ -56,6 +61,7 @@
       .dl { background:var(--dark); color:#fff; }
       .map { background:#ffffff; color:var(--blue); border:1px solid var(--blue); }
       .btn-like { background:#e5e7eb; color:#6b7280; border:1px solid #e5e7eb; }
+
       .back {
         position: fixed; top: 14px; left: 14px; z-index: 9999;
         background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:8px 12px;
@@ -66,27 +72,42 @@
       footer { padding:18px; text-align:center; color:#6b7280; font-size:13px; }
 
       /* ----- Barra de filtros ----- */
+      .filters-wrap { margin:12px 0; }
+      .filters-title { font-weight:700; font-size:14px; margin: 0 0 8px; color:#111827; }
       .filters {
-        display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+        display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end;
         background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:10px;
-        box-shadow:0 2px 8px rgba(0,0,0,0.06); margin:12px 0;
+        box-shadow:0 2px 8px rgba(0,0,0,0.06);
       }
+      .filters .field { display:flex; flex-direction:column; gap:6px; min-width:240px; flex:1; }
       .filters label { font-size:13px; color:#374151; }
       .filters input {
-        flex: 1 1 200px;
         border:1px solid #e5e7eb; border-radius:8px; padding:8px 10px; font-size:14px;
+        width:100%;
       }
-      .filters .actions { display:flex; gap:8px; margin-left:auto; }
+      /* Hacemos Distrito más largo y UBIGEO compacto con etiqueta a la izquierda */
+      .filters .field.dist { min-width:360px; flex:2; }
+      .filters .ubigeo-inline { display:flex; align-items:center; gap:10px; min-width:260px; }
+      .filters .ubigeo-inline label { margin:0; white-space:nowrap; }
+      .filters .ubigeo-inline input { flex:1; }
+
+      .filters .actions { display:flex; gap:8px; margin-left:auto; align-self:flex-end; }
       .filters .actions button {
         border:0; border-radius:10px; padding:8px 12px; font-weight:700; cursor:pointer;
+        font-size:14px;
       }
       .filters .actions .primary { background: var(--dark); color:#fff; }
       .filters .actions .accent  { background: var(--blue); color:#fff; }
       .filters .actions .secondary { background:#e5e7eb; color:#111827; }
 
+      /* Botón resumen más pequeño y texto auxiliar */
+      .resumen-line { display:flex; align-items:center; gap:12px; margin:10px 0 8px; }
+      .btn.small { padding:8px 12px; border-radius:10px; font-size:14px; }
+      .hint-line { font-size:14px; color:#374151; }
+
       @media (max-width: 700px) {
-        .filters { gap:10px; }
         .filters .actions { width:100%; justify-content:flex-end; flex-wrap:wrap; }
+        .filters .field.dist { min-width:240px; flex:1; }
       }
       @media (max-width: 480px) {
         .logo { height:40px; top:10px; }
@@ -99,36 +120,51 @@
     <header>
       <img class="logo" src="../assets/img/logo.jpg" alt="logo">
       <div class="container">
-        <h1>Zonas Escolares Priorizadas</h1>
+        <h1>Lista de Zonas Escolares Priorizadas</h1>
       </div>
     </header>
     
       <div class="container">
-        <p>Se ha priorizado las siguientes municipalidades y zonas escolares en función a los registros de zonas escolares con bajo nivel de seguridad vial en el aplicativo Entornos Seguros, en base a la siniestralidad fatal que tiene registrado el ONSV y en base de la cantidad de estudiantes que reporta ESCALE-MINEDU.</p>
+        <div class="lead"><p><strong><u>Criterios de priorización usados:</u></strong></p><p>Los criterios de priorización de estas zonas escolares se basan en:<br>- Registros de zonas escolares riesgosas en la app: <a href="https://entornoseguro.mtc.gob.pe" target="_blank" rel="noopener noreferrer">entornoseguro.mtc.gob.pe</a><br>- Registros de siniestros.<br>- Cantidad de estudiantes.</p><p><strong><u>Instrucciones:</u></strong></p><p><strong>Debajo de la imagen</strong> se tiene el botón: &quot;Descargar Excel de todas las municipalidades&quot;. Al dar click en dicho botón, se descargará la lista total de zonas escolares priorizadas de todas las municipalidades participantes en el PI 2026.</p><p>Sin embargo, <strong>también se puede descargar la lista de zonas escolares priorizadas de una municipalidad en especifico y visualizarlo en un mapa interactivo</strong>, para eso se tiene los filtros:<br>- Por Departamento<br>- Por Provincia<br>- Por Distrito<br>- Por Ubigeo</p><p>Como mínimo se debe llenar con un criterio de filtro para realizar el filtro, para ello se tiene los siguientes botones que al dar click realiza las siguientes acciones:<br>- Buscar: Solo muestra las municipalidades que tienen coincidencia con los criterios de filtro elegidos.<br>- Traer coincidencias arriba: Las municipalidades que tienen coincidencia con los criterios de filtro son subidos al inicio de la lista sin eliminar la visualización de las otras municipalidades.<br>- Limpiar: Elimina los filtros realizados.</p><p>Finalmente, <strong>en cada cada recuadro de municipalidad se observa los botones:</strong><br>- Descargar Excel: Descarga en excel la lista de zonas escolares priorizadas de esa municipalidad.<br>- Abrir mapa: Abre un mapa interactivo donde se puede buscar las ubicaciones de las zonas escolares priorizadas.</p><p><strong>Para regresar a la página de inicio</strong> donde se observe los 3 indicadores, dar click en el botón Regresar, ubicado en la esquina superior izquierda.</p></div>
         <div style="margin:14px 0 18px;"><img class="hero" src="../assets/img/zonas.jpg" alt="zonas"></div>
 
         
-    <div class="filters">
-      <label>Departamento</label>
-      <input id="f_dep" type="text" placeholder="Ejem: Lima">
-      <label>Provincia</label>
-      <input id="f_prov" type="text" placeholder="Ejem: Lima">
-      <label>Distrito</label>
-      <input id="f_dist" type="text" placeholder="Ejem: San Juan de Lurigancho">
-      <label>UBIGEO</label>
-      <input id="f_ubi" type="text" placeholder="Ejem: 060101">
+        <div class="resumen-line">
+          <a class="btn estab small" href="../Resumen/ZonasEscolares_resumen.xlsx" download>Descargar Excel de todas las municipalidades</a>
+          <span class="hint-line">o buscar municipalidades de acuerdo a filtros:</span>
+        </div>
+        
+        
+    <div class="filters-wrap">
+      <div class="filters-title">Filtros</div>
+      <div class="filters">
+        <div class="field">
+          <label>Departamento</label>
+          <input id="f_dep" type="text" placeholder="Ejem: Lima">
+        </div>
+        <div class="field">
+          <label>Provincia</label>
+          <input id="f_prov" type="text" placeholder="Ejem: Lima">
+        </div>
+        <div class="field dist">
+          <label>Distrito</label>
+          <input id="f_dist" type="text" placeholder="Ejem: San Juan de Lurigancho">
+        </div>
+        <div class="ubigeo-inline">
+          <label>UBIGEO</label>
+          <input id="f_ubi" type="text" placeholder="Ejem: 060101">
+        </div>
 
-      <div class="actions">
-        <button id="f_apply" class="primary">Buscar</button>
-        <button id="f_top" class="accent">Traer coincidencias arriba</button>
-        <button id="f_clear" class="secondary">Limpiar</button>
+        <div class="actions">
+          <button id="f_apply" class="primary">Buscar</button>
+          <button id="f_top" class="accent">Traer coincidencias arriba</button>
+          <button id="f_clear" class="secondary">Limpiar</button>
+        </div>
       </div>
     </div>
     <script>
       (function(){
-        function norm(s){
-          return (s || '').toLowerCase().replace(/\s+|_/g, '');
-        }
+        function norm(s){ return (s || '').toLowerCase().replace(/\s+|_/g, ''); }
         function getCards(){
           var grid = document.querySelector('.grid');
           return grid ? Array.from(grid.querySelectorAll('.card')) : [];
@@ -188,11 +224,9 @@
           }
 
           function clearAll(){
-            var dep  = document.getElementById('f_dep');
-            var prov = document.getElementById('f_prov');
-            var dist = document.getElementById('f_dist');
-            var ubi  = document.getElementById('f_ubi');
-            dep.value = prov.value = dist.value = ubi.value = '';
+            ['f_dep','f_prov','f_dist','f_ubi'].forEach(function(id){
+              var el = document.getElementById(id); if(el) el.value='';
+            });
             getCards().forEach(function(card){ card.style.display = ''; });
           }
 
@@ -2092,6 +2126,6 @@
         
         </div>
       </div>
-      <footer>PI 2026 · Dirección de Seguridad Vial — Generado automáticamente</footer>
+      <footer>PI 2026 · Dirección de Seguridad Vial</footer>
     </body></html>
     

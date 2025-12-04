@@ -22,11 +22,13 @@ Reglas:
 - Intersecciones y Establecimientos: escanean /<sección>/excels y buscan UBIGEO en el catálogo por slug (y fallback por componentes).
 - Si el mapa no existe, el botón aparece deshabilitado.
 - Filtros: Departamento + Provincia + Distrito + UBIGEO (AND). Comparación ignora espacios y guiones bajos.
+- Home y secciones aceptan Markdown inline en el body: **negrita**, *cursiva*; doble salto = nuevo párrafo; salto simple = <br>.
 """
 
 from pathlib import Path
 import pandas as pd
 import html
+import re
 
 # ---------- Config ----------
 ROOT = Path(".")
@@ -51,6 +53,11 @@ ZONAS_HTML = ZONAS_DIR / "index.html"
 INTER_HTML = INTER_DIR / "index.html"
 ESTAB_HTML = ESTAB_DIR / "index.html"
 
+RESUMEN_DIR = ROOT / "Resumen"
+ZONAS_RESUMEN_XLSX = RESUMEN_DIR / "ZonasEscolares_resumen.xlsx"
+INTER_RESUMEN_XLSX = RESUMEN_DIR / "Intersecciones_resumen.xlsx"
+ESTAB_RESUMEN_XLSX = RESUMEN_DIR / "EstablecimientoSalud_resumen.xlsx"
+
 # ---------- Util ----------
 def read_txt(path: Path, default: str = "") -> str:
     try:
@@ -62,6 +69,31 @@ def read_txt(path: Path, default: str = "") -> str:
 
 def esc(s: str) -> str:
     return html.escape(s or "")
+
+# Markdown inline: **negrita**, *cursiva*, saltos
+def md_inline(s: str) -> str:
+    s = s or ""
+    # escapamos HTML para evitar inyección
+    s = html.escape(s)
+    # Enlaces: [texto](https://dominio/...)
+    s = re.sub(
+        r'\[([^\]]+)\]\((https?://[^\s)]+)\)',
+        r'<a href="\2" target="_blank" rel="noopener noreferrer">\1</a>',
+        s
+    )
+    # negrita y cursiva
+    s = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", s)
+    s = re.sub(r"\*(.+?)\*",     r"<em>\1</em>", s)
+    # Subrayado __...__
+    s = re.sub(r'__(.+?)__', r'<u>\1</u>', s)
+    # normalizamos saltos
+    s = s.replace("\r\n", "\n").strip()
+    if not s:
+        return "<p></p>"
+    # doble salto = nuevo párrafo; simple = <br>
+    parts = [p.strip() for p in s.split("\n\n") if p.strip()]
+    parts = [p.replace("\n", "<br>") for p in parts]
+    return "".join(f"<p>{p}</p>" for p in parts)
 
 def ensure_dirs():
     ZONAS_DIR.mkdir(parents=True, exist_ok=True)
@@ -82,7 +114,7 @@ def css_block():
       .logo { position:absolute; right:20px; top:12px; height:48px; width:auto; border-radius:6px; object-fit:contain; }
       .container { max-width:1100px; margin:0 auto; padding:24px 16px; }
       h1 { margin-top:8px; font-size: clamp(22px, 3.2vw, 34px); }
-      p  { font-size: clamp(14px, 2vw, 16px); line-height:1.6; }
+      .lead { font-size: clamp(14px, 2vw, 16px); line-height:1.6; }
 
       /* >>> Parche hero sin recorte <<< */
       .hero {
@@ -95,7 +127,12 @@ def css_block():
         object-fit:contain;
       }
 
-      .buttons { display:flex; flex-wrap:wrap; gap:12px; margin:18px 0 6px; }
+      /* Botonera principal centrada */
+      .main-actions {
+        display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+        margin: 6px 0 18px;
+      }
+
       .btn {
         display:inline-block; padding:12px 16px; border-radius:12px;
         text-decoration:none; color:#fff; font-weight:600;
@@ -124,6 +161,7 @@ def css_block():
       .dl { background:var(--dark); color:#fff; }
       .map { background:#ffffff; color:var(--blue); border:1px solid var(--blue); }
       .btn-like { background:#e5e7eb; color:#6b7280; border:1px solid #e5e7eb; }
+
       .back {
         position: fixed; top: 14px; left: 14px; z-index: 9999;
         background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:8px 12px;
@@ -134,27 +172,42 @@ def css_block():
       footer { padding:18px; text-align:center; color:#6b7280; font-size:13px; }
 
       /* ----- Barra de filtros ----- */
+      .filters-wrap { margin:12px 0; }
+      .filters-title { font-weight:700; font-size:14px; margin: 0 0 8px; color:#111827; }
       .filters {
-        display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+        display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end;
         background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:10px;
-        box-shadow:0 2px 8px rgba(0,0,0,0.06); margin:12px 0;
+        box-shadow:0 2px 8px rgba(0,0,0,0.06);
       }
+      .filters .field { display:flex; flex-direction:column; gap:6px; min-width:240px; flex:1; }
       .filters label { font-size:13px; color:#374151; }
       .filters input {
-        flex: 1 1 200px;
         border:1px solid #e5e7eb; border-radius:8px; padding:8px 10px; font-size:14px;
+        width:100%;
       }
-      .filters .actions { display:flex; gap:8px; margin-left:auto; }
+      /* Hacemos Distrito más largo y UBIGEO compacto con etiqueta a la izquierda */
+      .filters .field.dist { min-width:360px; flex:2; }
+      .filters .ubigeo-inline { display:flex; align-items:center; gap:10px; min-width:260px; }
+      .filters .ubigeo-inline label { margin:0; white-space:nowrap; }
+      .filters .ubigeo-inline input { flex:1; }
+
+      .filters .actions { display:flex; gap:8px; margin-left:auto; align-self:flex-end; }
       .filters .actions button {
         border:0; border-radius:10px; padding:8px 12px; font-weight:700; cursor:pointer;
+        font-size:14px;
       }
       .filters .actions .primary { background: var(--dark); color:#fff; }
       .filters .actions .accent  { background: var(--blue); color:#fff; }
       .filters .actions .secondary { background:#e5e7eb; color:#111827; }
 
+      /* Botón resumen más pequeño y texto auxiliar */
+      .resumen-line { display:flex; align-items:center; gap:12px; margin:10px 0 8px; }
+      .btn.small { padding:8px 12px; border-radius:10px; font-size:14px; }
+      .hint-line { font-size:14px; color:#374151; }
+
       @media (max-width: 700px) {
-        .filters { gap:10px; }
         .filters .actions { width:100%; justify-content:flex-end; flex-wrap:wrap; }
+        .filters .field.dist { min-width:240px; flex:1; }
       }
       @media (max-width: 480px) {
         .logo { height:40px; top:10px; }
@@ -180,27 +233,36 @@ def hero_img_html(base_prefix: str, path: Path, alt: str) -> str:
 def filters_block() -> str:
     # Script espera DOMContentLoaded y recoge tarjetas en cada acción.
     return """
-    <div class="filters">
-      <label>Departamento</label>
-      <input id="f_dep" type="text" placeholder="Ejem: Lima">
-      <label>Provincia</label>
-      <input id="f_prov" type="text" placeholder="Ejem: Lima">
-      <label>Distrito</label>
-      <input id="f_dist" type="text" placeholder="Ejem: San Juan de Lurigancho">
-      <label>UBIGEO</label>
-      <input id="f_ubi" type="text" placeholder="Ejem: 060101">
+    <div class="filters-wrap">
+      <div class="filters-title">Filtros</div>
+      <div class="filters">
+        <div class="field">
+          <label>Departamento</label>
+          <input id="f_dep" type="text" placeholder="Ejem: Lima">
+        </div>
+        <div class="field">
+          <label>Provincia</label>
+          <input id="f_prov" type="text" placeholder="Ejem: Lima">
+        </div>
+        <div class="field dist">
+          <label>Distrito</label>
+          <input id="f_dist" type="text" placeholder="Ejem: San Juan de Lurigancho">
+        </div>
+        <div class="ubigeo-inline">
+          <label>UBIGEO</label>
+          <input id="f_ubi" type="text" placeholder="Ejem: 060101">
+        </div>
 
-      <div class="actions">
-        <button id="f_apply" class="primary">Buscar</button>
-        <button id="f_top" class="accent">Traer coincidencias arriba</button>
-        <button id="f_clear" class="secondary">Limpiar</button>
+        <div class="actions">
+          <button id="f_apply" class="primary">Buscar</button>
+          <button id="f_top" class="accent">Traer coincidencias arriba</button>
+          <button id="f_clear" class="secondary">Limpiar</button>
+        </div>
       </div>
     </div>
     <script>
       (function(){
-        function norm(s){
-          return (s || '').toLowerCase().replace(/\\s+|_/g, '');
-        }
+        function norm(s){ return (s || '').toLowerCase().replace(/\\s+|_/g, ''); }
         function getCards(){
           var grid = document.querySelector('.grid');
           return grid ? Array.from(grid.querySelectorAll('.card')) : [];
@@ -260,11 +322,9 @@ def filters_block() -> str:
           }
 
           function clearAll(){
-            var dep  = document.getElementById('f_dep');
-            var prov = document.getElementById('f_prov');
-            var dist = document.getElementById('f_dist');
-            var ubi  = document.getElementById('f_ubi');
-            dep.value = prov.value = dist.value = ubi.value = '';
+            ['f_dep','f_prov','f_dist','f_ubi'].forEach(function(id){
+              var el = document.getElementById(id); if(el) el.value='';
+            });
             getCards().forEach(function(card){ card.style.display = ''; });
           }
 
@@ -293,21 +353,29 @@ def home_html(title_text: str, body_text: str) -> str:
     </head><body>
       {header_block(title_text, base_prefix=base)}
       <div class="container">
-        <p>{esc(body_text)}</p>
-        <div style="margin:14px 0 18px;">{hero_html}</div>
-        <div class="buttons">
+        <div class="lead">{md_inline(body_text)}</div>
+        <div class="main-actions">
           <a class="btn zonas" href="ZonasEscolares/index.html">Zonas Escolares</a>
           <a class="btn inter" href="Intersecciones/index.html">Intersecciones</a>
           <a class="btn estab" href="EstablecimientoSalud/index.html">Establecimientos de Salud</a>
         </div>
+        <div style="margin:14px 0 18px;">{hero_html}</div>
       </div>
-      <footer>PI 2026 · Dirección de Seguridad Vial — Generado automáticamente</footer>
+      <footer>PI 2026 · Dirección de Seguridad Vial</footer>
     </body></html>
     """
 
-def zonas_html(title_text: str, body_text: str, items: list) -> str:
+def zonas_html(title_text: str, body_text: str, items: list, resumen_rel: str | None = None) -> str:
     base = "../"  # /ZonasEscolares/
     hero_html = hero_img_html(base, ZONAS_IMG, "zonas")
+    resumen_block = ""
+    if resumen_rel:
+        resumen_block = f"""
+        <div class="resumen-line">
+          <a class="btn estab small" href="{resumen_rel}" download>Descargar Excel de todas las municipalidades</a>
+          <span class="hint-line">o buscar municipalidades de acuerdo a filtros:</span>
+        </div>
+        """
     cards = []
     for it in items:
         titulo    = esc(it.get("titulo") or it.get("slug") or it.get("ubigeo") or "")
@@ -348,21 +416,30 @@ def zonas_html(title_text: str, body_text: str, items: list) -> str:
       <a class="back" href="../index.html">← Regresar</a>
       {header_block(title_text, base_prefix=base)}
       <div class="container">
-        <p>{esc(body_text)}</p>
+        <div class="lead">{md_inline(body_text)}</div>
         <div style="margin:14px 0 18px;">{hero_html}</div>
 
+        {resumen_block}
         {filters_block()}
 
         <div class="grid">
           {cards_html}
         </div>
       </div>
-      <footer>PI 2026 · Dirección de Seguridad Vial — Generado automáticamente</footer>
+      <footer>PI 2026 · Dirección de Seguridad Vial</footer>
     </body></html>
     """
 
-def list_page_html(title_text: str, body_text: str, items: list, hero_img_path: Path, base="../"):
+def list_page_html(title_text: str, body_text: str, items: list, hero_img_path: Path, base="../", resumen_rel: str | None = None):
     hero_html = hero_img_html(base, hero_img_path, "imagen")
+    resumen_block = ""
+    if resumen_rel:
+        resumen_block = f"""
+        <div class="resumen-line">
+          <a class="btn estab small" href="{resumen_rel}" download>Descargar Excel de todas las municipalidades</a>
+          <span class="hint-line">o buscar municipalidades de acuerdo a filtros:</span>
+        </div>
+        """
     cards = []
     for it in items:
         titulo    = esc(it.get("titulo") or it.get("slug") or it.get("ubigeo") or it.get("name") or "")
@@ -374,14 +451,13 @@ def list_page_html(title_text: str, body_text: str, items: list, hero_img_path: 
         data_dep  = esc(it.get("data_dep",""))
         data_prov = esc(it.get("data_prov",""))
         data_dist = esc(it.get("data_dist",""))
-        data_ubi  = esc(it.get("data_ubi",""))  # ahora poblado desde catálogo
+        data_ubi  = esc(it.get("data_ubi",""))
 
         excel_btn = (f'<a class="dl" href="{excel_rel}" download>Descargar Excel</a>'
                      if has_excel else '<span class="btn-like disabled">Sin Excel</span>')
         map_btn   = (f'<a class="map" href="{mapa_rel}" target="_blank" rel="noopener">Abrir mapa</a>'
                      if has_map else '<span class="btn-like disabled">Mapa no disponible</span>')
 
-        # << NUEVO >> Mostrar UBIGEO en la tarjeta (igual que Zonas)
         detail_html = f'<div class="muted">UBIGEO: {data_ubi}</div>' if data_ubi else ''
 
         cards.append(f"""
@@ -404,22 +480,22 @@ def list_page_html(title_text: str, body_text: str, items: list, hero_img_path: 
       <a class="back" href="../index.html">← Regresar</a>
       {header_block(title_text, base_prefix=base)}
       <div class="container">
-        <p>{esc(body_text)}</p>
+        <div class="lead">{md_inline(body_text)}</div>
         <div style="margin:14px 0 18px;">{hero_html}</div>
 
+        {resumen_block}
         {filters_block()}
 
         <div class="grid">
           {cards_html}
         </div>
       </div>
-      <footer>PI 2026 · Dirección de Seguridad Vial — Generado automáticamente</footer>
+      <footer>PI 2026 · Dirección de Seguridad Vial</footer>
     </body></html>
     """
 
 # ---------- Normalización / helpers ----------
 def _split_slug(name: str):
-    # name tipo "DEPARTAMENTO-PROVINCIA-DISTRITO" (puede traer _ en el distrito)
     parts = (name or "").split("-")
     dep  = parts[0] if len(parts) > 0 else ""
     prov = parts[1] if len(parts) > 1 else ""
@@ -427,7 +503,6 @@ def _split_slug(name: str):
     return dep, prov, dist
 
 def _norm_for_key(s: str) -> str:
-    # minúsculas y sin espacios/guiones bajos para comparación robusta
     return (s or "").lower().replace(" ", "").replace("_", "")
 
 def _key_from_parts(dep: str, prov: str, dist: str) -> str:
@@ -435,18 +510,11 @@ def _key_from_parts(dep: str, prov: str, dist: str) -> str:
 
 # ---------- Índices de catálogo para UBIGEO ----------
 def _load_catalog_index():
-    """
-    Devuelve dos índices:
-      - idx_slug:   { slug_lower : ubigeo }
-      - idx_parts:  { "dep|prov|dist" (normalizado) : ubigeo }
-    """
     if not CATALOG_CSV.exists():
         return {}, {}
     df = pd.read_csv(CATALOG_CSV, dtype=str).fillna("")
-    if "slug" not in df.columns:
-        df["slug"] = ""
-    if "ubigeo" not in df.columns:
-        df["ubigeo"] = ""
+    if "slug" not in df.columns: df["slug"] = ""
+    if "ubigeo" not in df.columns: df["ubigeo"] = ""
 
     idx_slug = {}
     idx_parts = {}
@@ -459,7 +527,6 @@ def _load_catalog_index():
             key = _key_from_parts(dep, prov, dist)
             idx_parts[key] = ubi
         else:
-            # Si no hay slug, intenta con columnas depart/prov/dist si existen
             dep = (r.get("departamento") or "").strip()
             prov = (r.get("provincia") or "").strip()
             dist = (r.get("distrito") or "").strip()
@@ -516,10 +583,8 @@ def load_catalog_zonas():
     for _, r in df.iterrows():
         excel_rel = Path(r["excel_relpath"]).as_posix()
         mapa_rel  = Path(r["map_relpath"]).as_posix()
-        if not excel_rel.startswith("../"):
-            excel_rel = f"../{excel_rel}"
-        if not mapa_rel.startswith("../"):
-            mapa_rel = f"../{mapa_rel}"
+        if not excel_rel.startswith("../"): excel_rel = f"../{excel_rel}"
+        if not mapa_rel.startswith("../"):  mapa_rel  = f"../{mapa_rel}"
 
         sugg = r.get("slug") or f"{r.get('departamento','')}-{r.get('provincia','')}-{r.get('distrito','')}"
         dep, prov, dist = _split_slug(sugg)
@@ -542,17 +607,11 @@ def load_catalog_zonas():
 
 # ---------- Escaneo genérico (Inter/Estab) con mapeo UBIGEO desde catálogo ----------
 def _scan_items_generic(base_dir: Path, section: str, idx_slug: dict, idx_parts: dict):
-    """
-    Escanea /<section>/excels y arma items; deshabilita mapa si no existe.
-    Deriva dep/prov/dist del nombre; intenta obtener UBIGEO desde catálogo:
-      1) Búsqueda por slug exacto (minúsculas).
-      2) Fallback por clave "dep|prov|dist" normalizada.
-    """
     excels_dir = base_dir / "excels"
     items = []
     if excels_dir.exists():
         for x in sorted(excels_dir.glob("*.xlsx")):
-            name = x.stem  # p.ej. DEPARTAMENTO-PROVINCIA-DISTRITO (con _ en el distrito)
+            name = x.stem  # DEPARTAMENTO-PROVINCIA-DISTRITO
             excel_rel = f"../{section}/excels/{x.name}"
             mapa_rel  = f"../{section}/maps/{name}.html"
             has_excel = True
@@ -561,7 +620,6 @@ def _scan_items_generic(base_dir: Path, section: str, idx_slug: dict, idx_parts:
 
             dep, prov, dist = _split_slug(name)
 
-            # UBIGEO desde catálogo
             ubi = ""
             slug_lower = name.lower()
             if slug_lower in idx_slug:
@@ -580,7 +638,7 @@ def _scan_items_generic(base_dir: Path, section: str, idx_slug: dict, idx_parts:
                 "data_dep":  dep,
                 "data_prov": prov,
                 "data_dist": dist,
-                "data_ubi":  ubi,   # <- ahora poblado
+                "data_ubi":  ubi,
             })
     return items
 
@@ -603,21 +661,30 @@ def build_zonas():
     title = read_txt(CONTENT / "zonas_title.txt", "Zonas Escolares")
     body  = read_txt(CONTENT / "zonas_body.txt",  "Explora los recursos por municipalidad/distrito.")
     items = load_catalog_zonas()
-    ZONAS_HTML.write_text(zonas_html(title, body, items), encoding="utf-8")
+    resumen_rel = None
+    if ZONAS_RESUMEN_XLSX.exists():
+        resumen_rel = "../Resumen/" + ZONAS_RESUMEN_XLSX.name
+    ZONAS_HTML.write_text(zonas_html(title, body, items, resumen_rel=resumen_rel), encoding="utf-8")
     print(f"[OK] {ZONAS_HTML.resolve()} (items: {len(items)})")
 
 def build_inter():
     title = read_txt(CONTENT / "inter_title.txt", "Intersecciones priorizadas")
     body  = read_txt(CONTENT / "inter_body.txt",  "Explora los recursos por municipalidad/distrito.")
     items = load_items_inter()
-    INTER_HTML.write_text(list_page_html(title, body, items, INTER_IMG), encoding="utf-8")
+    resumen_rel = None
+    if INTER_RESUMEN_XLSX.exists():
+        resumen_rel = "../Resumen/" + INTER_RESUMEN_XLSX.name
+    INTER_HTML.write_text(list_page_html(title, body, items, INTER_IMG, resumen_rel=resumen_rel), encoding="utf-8")
     print(f"[OK] {INTER_HTML.resolve()} (items: {len(items)})")
 
 def build_estab():
     title = read_txt(CONTENT / "estab_title.txt", "Establecimientos de Salud priorizados")
     body  = read_txt(CONTENT / "estab_body.txt",  "Explora los recursos por municipalidad/distrito.")
     items = load_items_estab()
-    ESTAB_HTML.write_text(list_page_html(title, body, items, ESTAB_IMG), encoding="utf-8")
+    resumen_rel = None
+    if ESTAB_RESUMEN_XLSX.exists():
+        resumen_rel = "../Resumen/" + ESTAB_RESUMEN_XLSX.name
+    ESTAB_HTML.write_text(list_page_html(title, body, items, ESTAB_IMG, resumen_rel=resumen_rel), encoding="utf-8")
     print(f"[OK] {ESTAB_HTML.resolve()} (items: {len(items)})")
 
 def main():
