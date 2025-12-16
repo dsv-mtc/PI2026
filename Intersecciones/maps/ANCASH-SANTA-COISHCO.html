@@ -17,7 +17,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_9cff7ef5953727530313730a6424bf4f {
+                #map_36fb27b6583e07ba4955a9cc95fe41ed {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -122,7 +122,7 @@
     </div>
     
     
-            <div class="folium-map" id="map_9cff7ef5953727530313730a6424bf4f" ></div>
+            <div class="folium-map" id="map_36fb27b6583e07ba4955a9cc95fe41ed" ></div>
         
     
       <div class="searchbar-wrap" id="zs_tools">
@@ -167,10 +167,10 @@
 <script>
     
     
-            var map_9cff7ef5953727530313730a6424bf4f = L.map(
-                "map_9cff7ef5953727530313730a6424bf4f",
+            var map_36fb27b6583e07ba4955a9cc95fe41ed = L.map(
+                "map_36fb27b6583e07ba4955a9cc95fe41ed",
                 {
-                    center: [-9.022504309999999, -78.61422188],
+                    center: [-9.02222465, -78.61324425],
                     crs: L.CRS.EPSG3857,
                     ...{
   "zoom": 14,
@@ -180,13 +180,13 @@
 
                 }
             );
-            L.control.scale().addTo(map_9cff7ef5953727530313730a6424bf4f);
+            L.control.scale().addTo(map_36fb27b6583e07ba4955a9cc95fe41ed);
 
             
 
         
     
-            var tile_layer_bebc62b3001d54b82c9708320259ae71 = L.tileLayer(
+            var tile_layer_018a4b69008ab369e4aec1696b741840 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -203,208 +203,232 @@
             );
         
     
-            tile_layer_bebc62b3001d54b82c9708320259ae71.addTo(map_9cff7ef5953727530313730a6424bf4f);
+            tile_layer_018a4b69008ab369e4aec1696b741840.addTo(map_36fb27b6583e07ba4955a9cc95fe41ed);
         
     
-            var feature_group_9a03a05ca111f05e3769a460bfa0fb10 = L.featureGroup(
+            var feature_group_8fe09eab23cc2bb2297c9f4fc71f08a1 = L.featureGroup(
                 {
 }
             );
         
     
-        function geo_json_68def1349bdb6b74c8ac952f9388a0a9_styler(feature) {
+        function geo_json_c306c6a26b9939b90277c39eccef295c_styler(feature) {
             switch(feature.properties.IDDPTO) {
                 default:
                     return {"color": "#222222", "fill": true, "fillColor": "#9ca3af", "fillOpacity": 0.3, "opacity": 1.0, "weight": 2.5};
             }
         }
 
-        function geo_json_68def1349bdb6b74c8ac952f9388a0a9_onEachFeature(feature, layer) {
+        function geo_json_c306c6a26b9939b90277c39eccef295c_onEachFeature(feature, layer) {
 
             layer.on({
             });
         };
-        var geo_json_68def1349bdb6b74c8ac952f9388a0a9 = L.geoJson(null, {
-                onEachFeature: geo_json_68def1349bdb6b74c8ac952f9388a0a9_onEachFeature,
+        var geo_json_c306c6a26b9939b90277c39eccef295c = L.geoJson(null, {
+                onEachFeature: geo_json_c306c6a26b9939b90277c39eccef295c_onEachFeature,
             
-                style: geo_json_68def1349bdb6b74c8ac952f9388a0a9_styler,
+                style: geo_json_c306c6a26b9939b90277c39eccef295c_styler,
             ...{
 }
         });
 
-        function geo_json_68def1349bdb6b74c8ac952f9388a0a9_add (data) {
-            geo_json_68def1349bdb6b74c8ac952f9388a0a9
+        function geo_json_c306c6a26b9939b90277c39eccef295c_add (data) {
+            geo_json_c306c6a26b9939b90277c39eccef295c
                 .addData(data);
         }
-            geo_json_68def1349bdb6b74c8ac952f9388a0a9_add({"features": [{"geometry": {"coordinates": [[[[-78.59852548799995, -9.020952726999951], [-78.5984819869999, -9.022469976999957], [-78.59844398699994, -9.023794601999953], [-78.59830461299998, -9.024742226999933], [-78.59875548799988, -9.02529822699995], [-78.60056473799995, -9.026959101999978], [-78.60161773699991, -9.02820485199993], [-78.60271511199994, -9.030103101999941], [-78.60354561199989, -9.030592476999857], [-78.60471723699993, -9.030948476999981], [-78.60575536299996, -9.031378476999976], [-78.60596211299992, -9.031463476999875], [-78.60658586199992, -9.031719726999938], [-78.6078478629999, -9.031929976999947], [-78.60879548699995, -9.032297976999928], [-78.61008573799995, -9.032401851999907], [-78.61161336299989, -9.032223726999973], [-78.61260198799988, -9.032203601999925], [-78.61345798799994, -9.032668101999889], [-78.61428711299993, -9.033117976999904], [-78.61471786199996, -9.033172351999951], [-78.6160792369999, -9.033344351999972], [-78.61766598799994, -9.033544726999878], [-78.61853448799991, -9.033711726999911], [-78.61948798799995, -9.03402797699988], [-78.62011373799993, -9.034653726999977], [-78.62157348699992, -9.035812226999894], [-78.62324186299998, -9.036298851999959], [-78.62451636299988, -9.036762351999926], [-78.62614448699998, -9.037886726999943], [-78.62712886299994, -9.039634726999964], [-78.62744098799993, -9.041000726999926], [-78.6274128629999, -9.041976101999978], [-78.62708848799997, -9.04394572699988], [-78.62690823799983, -9.045181601999843], [-78.62730423799991, -9.047171476999893], [-78.62771461199992, -9.047961851999844], [-78.62852011299998, -9.04853935199992], [-78.62972086199994, -9.048828226999944], [-78.63050786299993, -9.048947226999928], [-78.63185348699989, -9.0491328519999], [-78.63312536299998, -9.049025726999957], [-78.63425011299995, -9.048554601999967], [-78.6350547379999, -9.048062476999974], [-78.63707036299996, -9.04781635199987], [-78.63767973799997, -9.047540976999926], [-78.63762111299997, -9.04739247699996], [-78.63757611299991, -9.047238226999923], [-78.63749611199995, -9.047193351999852], [-78.63706048799997, -9.046837851999896], [-78.63698048799989, -9.046790976999944], [-78.63686136299992, -9.046673851999856], [-78.6366992369999, -9.046671851999974], [-78.63658198799999, -9.046509726999943], [-78.63622073699992, -9.0460371019999], [-78.63595111299992, -9.045556601999976], [-78.63578911299993, -9.045310601999859], [-78.63564448799997, -9.045056601999875], [-78.63510548799997, -9.044339851999894], [-78.63519723799999, -9.043933601999981], [-78.63536523799996, -9.043365226999924], [-78.63586911299996, -9.042861351999875], [-78.63608786299994, -9.042456976999915], [-78.63622848799997, -9.042087851999838], [-78.63621486299996, -9.04149022699994], [-78.63595311299991, -9.040964851999888], [-78.63576561299993, -9.040646476999939], [-78.63555848699997, -9.040374976999942], [-78.63534173799997, -9.040076226999929], [-78.63513473799998, -9.039640601999963], [-78.63509173799997, -9.039115226999968], [-78.63516211299992, -9.038402351999878], [-78.63516411299997, -9.038040976999923], [-78.63510361299996, -9.037652351999839], [-78.63491411299992, -9.03726172699993], [-78.6346992369999, -9.036691351999877], [-78.6344492369999, -9.036074226999915], [-78.63437886299994, -9.035748101999843], [-78.63438086199994, -9.035406226999953], [-78.63442973799988, -9.034880851999958], [-78.63453323799996, -9.034357476999958], [-78.63453511199998, -9.03419535199987], [-78.63446486199996, -9.033669976999931], [-78.63415823799988, -9.033216851999839], [-78.63387886299995, -9.033025351999981], [-78.63347073799997, -9.032751976999918], [-78.63331048799995, -9.032388726999955], [-78.63326761299993, -9.03195510199987], [-78.63308011299995, -9.031384851999974], [-78.63303711299994, -9.031040976999918], [-78.6330859869999, -9.030580101999874], [-78.63335348799995, -9.029894476999914], [-78.63351948799988, -9.029507851999881], [-78.63364061299995, -9.02907422699991], [-78.6336132369999, -9.028828101999977], [-78.63352536199994, -9.02859372699993], [-78.63324411299993, -9.028294976999916], [-78.63293748799998, -9.028003851999813], [-78.63255861299996, -9.027718726999922], [-78.63196873799996, -9.02749022699993], [-78.63109961299995, -9.027078101999962], [-78.63031836299996, -9.026748101999829], [-78.62991998799998, -9.02660935199998], [-78.62958598799997, -9.02638285199987], [-78.62942386299994, -9.026081976999933], [-78.62918948799995, -9.025710976999903], [-78.62899998699999, -9.025437476999912], [-78.62869336299991, -9.025093726999899], [-78.62789448799998, -9.025025226999901], [-78.62739448799994, -9.024994101999937], [-78.62699411299991, -9.02487497699991], [-78.62673436299991, -9.024781226999892], [-78.6261406129999, -9.02473247699993], [-78.6256427379999, -9.024619101999974], [-78.62519536299993, -9.024482476999935], [-78.62491798799982, -9.02403910199996], [-78.62463086299994, -9.023494101999972], [-78.62442573699997, -9.022833976999891], [-78.62438286299994, -9.022417976999918], [-78.62421286199992, -9.022119101999976], [-78.62400386299993, -9.021980476999943], [-78.62376948799994, -9.021816351999973], [-78.62362498799996, -9.021572226999922], [-78.6236093629999, -9.02131835199998], [-78.62356448799994, -9.02109185199987], [-78.62334961199997, -9.021019476999925], [-78.62311136299991, -9.021017601999972], [-78.62254686199992, -9.021058601999812], [-78.62190223799996, -9.021027351999976], [-78.62122261299993, -9.020544976999929], [-78.62096286299993, -9.019955101999813], [-78.62089648699998, -9.019130851999932], [-78.62095311299993, -9.01862697699994], [-78.62108011199996, -9.017398476999915], [-78.6213671129999, -9.016456976999905], [-78.62140623799996, -9.016318351999928], [-78.62109748799998, -9.016141851999976], [-78.62080898799991, -9.015778476999913], [-78.62060261199997, -9.015361351999957], [-78.62042311199997, -9.014998726999977], [-78.62027948799988, -9.014735726999959], [-78.62004461299989, -9.014508226999965], [-78.61985461299992, -9.014353351999944], [-78.61954636299998, -9.014224726999942], [-78.61884686299993, -9.014166101999933], [-78.61808998799995, -9.0139599769999], [-78.61739998799993, -9.013819976999969], [-78.61693998699997, -9.013459976999911], [-78.61666998799996, -9.01312010199996], [-78.61638998799998, -9.012639976999935], [-78.61604998799999, -9.012129976999915], [-78.61456998799991, -9.010759976999907], [-78.61350311299992, -9.009660976999896], [-78.61266998799994, -9.008869976999847], [-78.61204248799993, -9.00856910199991], [-78.61123998799997, -9.008273351999946], [-78.61094836299992, -9.008710851999979], [-78.61087898799997, -9.009000851999929], [-78.61065973799992, -9.009145851999847], [-78.61022298799998, -9.009218851999947], [-78.60910086299992, -9.01102922699988], [-78.60847311199996, -9.012152101999959], [-78.60762436299996, -9.013398601999825], [-78.60661648799999, -9.014150101999917], [-78.60575898799982, -9.014494851999928], [-78.6051621119999, -9.014664101999927], [-78.60477761199996, -9.01479547699995], [-78.60387586299998, -9.015219851999973], [-78.60330936199989, -9.015591976999929], [-78.60201473699988, -9.016478976999963], [-78.60112761299996, -9.016886601999943], [-78.59968936299998, -9.018157226999904], [-78.59852548799995, -9.020952726999951]]]], "type": "MultiPolygon"}, "properties": {"AREA": 1, "CAPITAL": "COISHCO", "CODCCPP": "0001", "DEPARTAMEN": "ANCASH", "DISTRITO": "COISHCO", "FUENTE": "INEI", "IDDIST": "021803", "IDDPTO": "02", "IDPROV": "0218", "PROVINCIA": "SANTA"}, "type": "Feature"}], "type": "FeatureCollection"});
+            geo_json_c306c6a26b9939b90277c39eccef295c_add({"features": [{"geometry": {"coordinates": [[[[-78.59852548799995, -9.020952726999951], [-78.5984819869999, -9.022469976999957], [-78.59844398699994, -9.023794601999953], [-78.59830461299998, -9.024742226999933], [-78.59875548799988, -9.02529822699995], [-78.60056473799995, -9.026959101999978], [-78.60161773699991, -9.02820485199993], [-78.60271511199994, -9.030103101999941], [-78.60354561199989, -9.030592476999857], [-78.60471723699993, -9.030948476999981], [-78.60575536299996, -9.031378476999976], [-78.60596211299992, -9.031463476999875], [-78.60658586199992, -9.031719726999938], [-78.6078478629999, -9.031929976999947], [-78.60879548699995, -9.032297976999928], [-78.61008573799995, -9.032401851999907], [-78.61161336299989, -9.032223726999973], [-78.61260198799988, -9.032203601999925], [-78.61345798799994, -9.032668101999889], [-78.61428711299993, -9.033117976999904], [-78.61471786199996, -9.033172351999951], [-78.6160792369999, -9.033344351999972], [-78.61766598799994, -9.033544726999878], [-78.61853448799991, -9.033711726999911], [-78.61948798799995, -9.03402797699988], [-78.62011373799993, -9.034653726999977], [-78.62157348699992, -9.035812226999894], [-78.62324186299998, -9.036298851999959], [-78.62451636299988, -9.036762351999926], [-78.62614448699998, -9.037886726999943], [-78.62712886299994, -9.039634726999964], [-78.62744098799993, -9.041000726999926], [-78.6274128629999, -9.041976101999978], [-78.62708848799997, -9.04394572699988], [-78.62690823799983, -9.045181601999843], [-78.62730423799991, -9.047171476999893], [-78.62771461199992, -9.047961851999844], [-78.62852011299998, -9.04853935199992], [-78.62972086199994, -9.048828226999944], [-78.63050786299993, -9.048947226999928], [-78.63185348699989, -9.0491328519999], [-78.63312536299998, -9.049025726999957], [-78.63425011299995, -9.048554601999967], [-78.6350547379999, -9.048062476999974], [-78.63707036299996, -9.04781635199987], [-78.63767973799997, -9.047540976999926], [-78.63762111299997, -9.04739247699996], [-78.63757611299991, -9.047238226999923], [-78.63749611199995, -9.047193351999852], [-78.63706048799997, -9.046837851999896], [-78.63698048799989, -9.046790976999944], [-78.63686136299992, -9.046673851999856], [-78.6366992369999, -9.046671851999974], [-78.63658198799999, -9.046509726999943], [-78.63622073699992, -9.0460371019999], [-78.63595111299992, -9.045556601999976], [-78.63578911299993, -9.045310601999859], [-78.63564448799997, -9.045056601999875], [-78.63510548799997, -9.044339851999894], [-78.63519723799999, -9.043933601999981], [-78.63536523799996, -9.043365226999924], [-78.63586911299996, -9.042861351999875], [-78.63608786299994, -9.042456976999915], [-78.63622848799997, -9.042087851999838], [-78.63621486299996, -9.04149022699994], [-78.63595311299991, -9.040964851999888], [-78.63576561299993, -9.040646476999939], [-78.63555848699997, -9.040374976999942], [-78.63534173799997, -9.040076226999929], [-78.63513473799998, -9.039640601999963], [-78.63509173799997, -9.039115226999968], [-78.63516211299992, -9.038402351999878], [-78.63516411299997, -9.038040976999923], [-78.63510361299996, -9.037652351999839], [-78.63491411299992, -9.03726172699993], [-78.6346992369999, -9.036691351999877], [-78.6344492369999, -9.036074226999915], [-78.63437886299994, -9.035748101999843], [-78.63438086199994, -9.035406226999953], [-78.63442973799988, -9.034880851999958], [-78.63453323799996, -9.034357476999958], [-78.63453511199998, -9.03419535199987], [-78.63446486199996, -9.033669976999931], [-78.63415823799988, -9.033216851999839], [-78.63387886299995, -9.033025351999981], [-78.63347073799997, -9.032751976999918], [-78.63331048799995, -9.032388726999955], [-78.63326761299993, -9.03195510199987], [-78.63308011299995, -9.031384851999974], [-78.63303711299994, -9.031040976999918], [-78.6330859869999, -9.030580101999874], [-78.63335348799995, -9.029894476999914], [-78.63351948799988, -9.029507851999881], [-78.63364061299995, -9.02907422699991], [-78.6336132369999, -9.028828101999977], [-78.63352536199994, -9.02859372699993], [-78.63324411299993, -9.028294976999916], [-78.63293748799998, -9.028003851999813], [-78.63255861299996, -9.027718726999922], [-78.63196873799996, -9.02749022699993], [-78.63109961299995, -9.027078101999962], [-78.63031836299996, -9.026748101999829], [-78.62991998799998, -9.02660935199998], [-78.62958598799997, -9.02638285199987], [-78.62942386299994, -9.026081976999933], [-78.62918948799995, -9.025710976999903], [-78.62899998699999, -9.025437476999912], [-78.62869336299991, -9.025093726999899], [-78.62789448799998, -9.025025226999901], [-78.62739448799994, -9.024994101999937], [-78.62699411299991, -9.02487497699991], [-78.62673436299991, -9.024781226999892], [-78.6261406129999, -9.02473247699993], [-78.6256427379999, -9.024619101999974], [-78.62519536299993, -9.024482476999935], [-78.62491798799982, -9.02403910199996], [-78.62463086299994, -9.023494101999972], [-78.62442573699997, -9.022833976999891], [-78.62438286299994, -9.022417976999918], [-78.62421286199992, -9.022119101999976], [-78.62400386299993, -9.021980476999943], [-78.62376948799994, -9.021816351999973], [-78.62362498799996, -9.021572226999922], [-78.6236093629999, -9.02131835199998], [-78.62356448799994, -9.02109185199987], [-78.62334961199997, -9.021019476999925], [-78.62311136299991, -9.021017601999972], [-78.62254686199992, -9.021058601999812], [-78.62190223799996, -9.021027351999976], [-78.62122261299993, -9.020544976999929], [-78.62096286299993, -9.019955101999813], [-78.62089648699998, -9.019130851999932], [-78.62095311299993, -9.01862697699994], [-78.62108011199996, -9.017398476999915], [-78.6213671129999, -9.016456976999905], [-78.62140623799996, -9.016318351999928], [-78.62109748799998, -9.016141851999976], [-78.62080898799991, -9.015778476999913], [-78.62060261199997, -9.015361351999957], [-78.62042311199997, -9.014998726999977], [-78.62027948799988, -9.014735726999959], [-78.62004461299989, -9.014508226999965], [-78.61985461299992, -9.014353351999944], [-78.61954636299998, -9.014224726999942], [-78.61884686299993, -9.014166101999933], [-78.61808998799995, -9.0139599769999], [-78.61739998799993, -9.013819976999969], [-78.61693998699997, -9.013459976999911], [-78.61666998799996, -9.01312010199996], [-78.61638998799998, -9.012639976999935], [-78.61604998799999, -9.012129976999915], [-78.61456998799991, -9.010759976999907], [-78.61350311299992, -9.009660976999896], [-78.61266998799994, -9.008869976999847], [-78.61204248799993, -9.00856910199991], [-78.61123998799997, -9.008273351999946], [-78.61094836299992, -9.008710851999979], [-78.61087898799997, -9.009000851999929], [-78.61065973799992, -9.009145851999847], [-78.61022298799998, -9.009218851999947], [-78.60910086299992, -9.01102922699988], [-78.60847311199996, -9.012152101999959], [-78.60762436299996, -9.013398601999825], [-78.60661648799999, -9.014150101999917], [-78.60575898799982, -9.014494851999928], [-78.6051621119999, -9.014664101999927], [-78.60477761199996, -9.01479547699995], [-78.60387586299998, -9.015219851999973], [-78.60330936199989, -9.015591976999929], [-78.60201473699988, -9.016478976999963], [-78.60112761299996, -9.016886601999943], [-78.59968936299998, -9.018157226999904], [-78.59852548799995, -9.020952726999951]]]], "type": "MultiPolygon"}, "properties": {"AREA": 1, "CAPITAL": "COISHCO", "CODCCPP": "0001", "DEPARTAMEN": "ANCASH", "DISTRITO": "COISHCO", "FUENTE": "INEI", "IDDIST": "021803", "IDDPTO": "02", "IDPROV": "0218", "PROVINCIA": "SANTA"}, "type": "Feature"}], "type": "FeatureCollection"});
 
         
     
-            geo_json_68def1349bdb6b74c8ac952f9388a0a9.addTo(feature_group_9a03a05ca111f05e3769a460bfa0fb10);
+            geo_json_c306c6a26b9939b90277c39eccef295c.addTo(feature_group_8fe09eab23cc2bb2297c9f4fc71f08a1);
         
     
-            feature_group_9a03a05ca111f05e3769a460bfa0fb10.addTo(map_9cff7ef5953727530313730a6424bf4f);
+            feature_group_8fe09eab23cc2bb2297c9f4fc71f08a1.addTo(map_36fb27b6583e07ba4955a9cc95fe41ed);
         
     
-            var feature_group_b6009b54c51c0c920254b6747c0620c3 = L.featureGroup(
+            var feature_group_5d849fdf20f90fb7511dae990a411311 = L.featureGroup(
                 {
 }
             );
         
     
-            var circle_aca3d92556bc97e7b7938401ed206852 = L.circle(
+            var circle_02e543e9cc2a78b52efce1f4260dc696 = L.circle(
                 [-9.0200901, -78.6122622],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_6b97191c567f45554e6bbc301065dbf8 = L.circle(
+            var circle_743013f78a4fca0d462abc74d731d2a0 = L.circle(
                 [-9.0221664, -78.6166234],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_9754b23c656a0a678ae0956251c88651 = L.circle(
+            var circle_8aa03ecfab6c26487d2e148b3dcc0147 = L.circle(
                 [-9.0173375, -78.6166913],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_e109edbbf838879327388691cf5c507b = L.circle(
+            var circle_6f83be72f430c42c504eaada815ffcf6 = L.circle(
                 [-9.0280759, -78.6177149],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_df4e3a415ee1e458a7fa28b2d4815284 = L.circle(
+            var circle_dfe50876e33714c8c9fc7427d4d28408 = L.circle(
                 [-9.024078, -78.6196648],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_7e528b968f15367962de29a13bdf703c = L.circle(
+            var circle_d7255bb531e6cb7dd144b83020fedbe0 = L.circle(
                 [-9.018412, -78.6206062],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_91cf07ff554a039b56720b1a307f37ad = L.circle(
+            var circle_214095bdbc73591c7c8fc77836745078 = L.circle(
                 [-9.0246626, -78.6206036],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_f519eb12cfedf58af48652f120ee40fb = L.circle(
+            var circle_856851bb09ff2b218ba9d4e55f203198 = L.circle(
                 [-9.0176176, -78.6132543],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_0c64e8a4884629ab338df6f5258850dc = L.circle(
+            var circle_6eae92ed0cad481bfbd1111409dd4ee4 = L.circle(
                 [-9.0193117, -78.6192705],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_65b3a92b77346ce5c197c6cda9fbee9a = L.circle(
+            var circle_506e21011b5978671c44fe260a398f38 = L.circle(
                 [-9.0304976, -78.6174098],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_e63b22b48b61c8b6f3b3547999908d09 = L.circle(
+            var circle_0185cc09e2bfc3b676b15679b3ec957b = L.circle(
                 [-9.0308662, -78.6164566],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_c7f57296ace6657336cd4c1c3285ebb8 = L.circle(
+            var circle_48fccef26a6d01c3d70604d7e6d0cb09 = L.circle(
                 [-9.0196018, -78.6041884],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_267b1cf66559cf319b3ddd1d90f3eef8 = L.circle(
+            var circle_72b76279a6d263eab61e07cf5cfb8c00 = L.circle(
                 [-9.0228468, -78.6148012],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_7653252738857bc4f39da0525b73a12d = L.circle(
+            var circle_62dfeadb2155392a251533b48fc26c67 = L.circle(
                 [-9.0183666, -78.614019],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_a4b0f33a653329c757aab165eaed5d6d = L.circle(
+            var circle_19d5768329557de67dd7163196467dee = L.circle(
                 [-9.0239919, -78.6117113],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_ce32250b559fac57068cd5b8187e0207 = L.circle(
+            var circle_37dc27b04fe3e0751712cdc885bbcf34 = L.circle(
                 [-9.0216325, -78.6082551],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_fa1728e31c075c657ffe86f7d49e10e7 = L.circle(
+            var circle_58332521f5ecaf061a796715c6dba806 = L.circle(
                 [-9.0291184, -78.6177268],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_39bcac745a21029e9aafaf7d2d489503 = L.circle(
+            var circle_f5bbf71a02bc8716526d05a8b0c0b5ce = L.circle(
                 [-9.0203031, -78.608014],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_04dbe864593ba2e987fdcaaeaac40e72 = L.circle(
+            var circle_3910837e123dfea36b4bea98a0086d7d = L.circle(
                 [-9.0202216, -78.6075713],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var circle_1f061eb361b58e1cb5d262dc08a14b83 = L.circle(
+            var circle_35b30b7d8a8bc312afa746b3b3b8853f = L.circle(
                 [-9.0208879, -78.6075929],
                 {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b6009b54c51c0c920254b6747c0620c3);
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            feature_group_b6009b54c51c0c920254b6747c0620c3.addTo(map_9cff7ef5953727530313730a6424bf4f);
+            var circle_f178ff2d4fb1c54d7ee3a79d0181db48 = L.circle(
+                [-9.0221263, -78.6182821],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
         
     
-            var feature_group_c8954a2fef0e81abb4e03a280f9b92e1 = L.featureGroup(
+            var circle_d4324fd40f4e613bd14d440ab07a2702 = L.circle(
+                [-9.0212342, -78.6044458],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
+        
+    
+            var circle_63ffcbeb310ca21c741611a0c1481f36 = L.circle(
+                [-9.0197985, -78.6054589],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
+        
+    
+            var circle_d86464a8839cff829b26082d7b2927a8 = L.circle(
+                [-9.0201464, -78.6052376],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 50, "stroke": true, "weight": 2}
+            ).addTo(feature_group_5d849fdf20f90fb7511dae990a411311);
+        
+    
+            feature_group_5d849fdf20f90fb7511dae990a411311.addTo(map_36fb27b6583e07ba4955a9cc95fe41ed);
+        
+    
+            var feature_group_9eddf9e165357fa60ee659ab3f83e383 = L.featureGroup(
                 {
 }
             );
         
     
-            var circle_marker_fe0995260b6ab24edb80254398c71f31 = L.circleMarker(
+            var circle_marker_cbbdcc76ceb990bce423781f78f7d201 = L.circleMarker(
                 [-9.0200901, -78.6122622],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_546fa557ef532d983ad11513cff50afb = L.popup({
+        var popup_4ad1a09b873a694689e3fd37a41de4cf = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_d15b7d4f53ed0021a4b6ee794eb98d20 = $(`<div id="html_d15b7d4f53ed0021a4b6ee794eb98d20" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-45674</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0200901</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6122622</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Kennedy / Jirón Cesar Vallejo</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>1</td></tr></table></div></div>`)[0];
-                popup_546fa557ef532d983ad11513cff50afb.setContent(html_d15b7d4f53ed0021a4b6ee794eb98d20);
+                var html_f18a3c4b088487f0c0f0367ca57316ee = $(`<div id="html_f18a3c4b088487f0c0f0367ca57316ee" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-45674</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0200901</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6122622</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Kennedy / Jirón Cesar Vallejo</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>1</td></tr></table></div></div>`)[0];
+                popup_4ad1a09b873a694689e3fd37a41de4cf.setContent(html_f18a3c4b088487f0c0f0367ca57316ee);
             
         
 
-        circle_marker_fe0995260b6ab24edb80254398c71f31.bindPopup(popup_546fa557ef532d983ad11513cff50afb)
+        circle_marker_cbbdcc76ceb990bce423781f78f7d201.bindPopup(popup_4ad1a09b873a694689e3fd37a41de4cf)
         ;
 
         
     
     
-            circle_marker_fe0995260b6ab24edb80254398c71f31.bindTooltip(
+            circle_marker_cbbdcc76ceb990bce423781f78f7d201.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -415,30 +439,30 @@
             );
         
     
-            var circle_marker_c1c8f0fc21b1bb829b6a71bb62ec693f = L.circleMarker(
+            var circle_marker_e7c63c8f0f66e1c1d82e72fa3c8b93fa = L.circleMarker(
                 [-9.0221664, -78.6166234],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_aebdf294c05371441efb898352049bdb = L.popup({
+        var popup_4ff901e905dadfc473f45445cace2675 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_65770f7a51660976f0d0b559b43202e3 = $(`<div id="html_65770f7a51660976f0d0b559b43202e3" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-44916</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0221664</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6166234</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Los Pescadores / Jirón Amazonas</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_aebdf294c05371441efb898352049bdb.setContent(html_65770f7a51660976f0d0b559b43202e3);
+                var html_d242946e2fd266093f06c125e4067952 = $(`<div id="html_d242946e2fd266093f06c125e4067952" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-44916</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0221664</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6166234</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Los Pescadores / Jirón Amazonas / Jirón Angamos</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_4ff901e905dadfc473f45445cace2675.setContent(html_d242946e2fd266093f06c125e4067952);
             
         
 
-        circle_marker_c1c8f0fc21b1bb829b6a71bb62ec693f.bindPopup(popup_aebdf294c05371441efb898352049bdb)
+        circle_marker_e7c63c8f0f66e1c1d82e72fa3c8b93fa.bindPopup(popup_4ff901e905dadfc473f45445cace2675)
         ;
 
         
     
     
-            circle_marker_c1c8f0fc21b1bb829b6a71bb62ec693f.bindTooltip(
+            circle_marker_e7c63c8f0f66e1c1d82e72fa3c8b93fa.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -449,30 +473,30 @@
             );
         
     
-            var circle_marker_122e8ccbe142eb920550d565d2fb3207 = L.circleMarker(
+            var circle_marker_b974cd850dbf33c8902ef563b810311d = L.circleMarker(
                 [-9.0173375, -78.6166913],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_db14819aa357068ebd73d9272f55452e = L.popup({
+        var popup_77838aa7157e3df241283f89b827bbf1 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_e1c5d26ba346685fa87718b80ebb9d1d = $(`<div id="html_e1c5d26ba346685fa87718b80ebb9d1d" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-45721</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0173375</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6166913</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle El Milagro / Jirón 28 de Julio</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_db14819aa357068ebd73d9272f55452e.setContent(html_e1c5d26ba346685fa87718b80ebb9d1d);
+                var html_9ddb7d2448509560edcaf18a5dd38f2d = $(`<div id="html_9ddb7d2448509560edcaf18a5dd38f2d" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-45721</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0173375</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6166913</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle El Milagro / Jirón 28 de Julio</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_77838aa7157e3df241283f89b827bbf1.setContent(html_9ddb7d2448509560edcaf18a5dd38f2d);
             
         
 
-        circle_marker_122e8ccbe142eb920550d565d2fb3207.bindPopup(popup_db14819aa357068ebd73d9272f55452e)
+        circle_marker_b974cd850dbf33c8902ef563b810311d.bindPopup(popup_77838aa7157e3df241283f89b827bbf1)
         ;
 
         
     
     
-            circle_marker_122e8ccbe142eb920550d565d2fb3207.bindTooltip(
+            circle_marker_b974cd850dbf33c8902ef563b810311d.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -483,30 +507,30 @@
             );
         
     
-            var circle_marker_48466122cd2fe75f2aae92f1002643ea = L.circleMarker(
+            var circle_marker_e5f571debef06d26cf1e7ba5a80ffb0a = L.circleMarker(
                 [-9.0280759, -78.6177149],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_39c1891ff20e3f7d9dd6c4c6ee22c3f3 = L.popup({
+        var popup_b27e234bf8b1f2da325d9b03095731a9 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_e8459498420c16edd83a9e9ca98c3662 = $(`<div id="html_e8459498420c16edd83a9e9ca98c3662" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-44717</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0280759</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6177149</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Leoncio Prado / Jirón San Luis</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_39c1891ff20e3f7d9dd6c4c6ee22c3f3.setContent(html_e8459498420c16edd83a9e9ca98c3662);
+                var html_1579bd8df289bd1bc35010bee4a1f65e = $(`<div id="html_1579bd8df289bd1bc35010bee4a1f65e" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-44717</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0280759</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6177149</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Leoncio Prado / Jirón San Luis</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_b27e234bf8b1f2da325d9b03095731a9.setContent(html_1579bd8df289bd1bc35010bee4a1f65e);
             
         
 
-        circle_marker_48466122cd2fe75f2aae92f1002643ea.bindPopup(popup_39c1891ff20e3f7d9dd6c4c6ee22c3f3)
+        circle_marker_e5f571debef06d26cf1e7ba5a80ffb0a.bindPopup(popup_b27e234bf8b1f2da325d9b03095731a9)
         ;
 
         
     
     
-            circle_marker_48466122cd2fe75f2aae92f1002643ea.bindTooltip(
+            circle_marker_e5f571debef06d26cf1e7ba5a80ffb0a.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -517,30 +541,30 @@
             );
         
     
-            var circle_marker_a7be531efd784d53773f69d1135c82c2 = L.circleMarker(
+            var circle_marker_2d1ca451ab7e2faa7e370533143af274 = L.circleMarker(
                 [-9.024078, -78.6196648],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_77610233f699500e0612cb8ff045518b = L.popup({
+        var popup_9c21f731ba9625f4f0053305ea4502fc = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_12c0a2c9c7bc6f3909715bf84c2378c7 = $(`<div id="html_12c0a2c9c7bc6f3909715bf84c2378c7" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-496453</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.024078</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6196648</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Jirón María Parado de Bellido / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_77610233f699500e0612cb8ff045518b.setContent(html_12c0a2c9c7bc6f3909715bf84c2378c7);
+                var html_89573a61f7e61cfe074b501bdf666ee8 = $(`<div id="html_89573a61f7e61cfe074b501bdf666ee8" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-496453</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.024078</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6196648</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Jirón María Parado de Bellido / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_9c21f731ba9625f4f0053305ea4502fc.setContent(html_89573a61f7e61cfe074b501bdf666ee8);
             
         
 
-        circle_marker_a7be531efd784d53773f69d1135c82c2.bindPopup(popup_77610233f699500e0612cb8ff045518b)
+        circle_marker_2d1ca451ab7e2faa7e370533143af274.bindPopup(popup_9c21f731ba9625f4f0053305ea4502fc)
         ;
 
         
     
     
-            circle_marker_a7be531efd784d53773f69d1135c82c2.bindTooltip(
+            circle_marker_2d1ca451ab7e2faa7e370533143af274.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -551,30 +575,30 @@
             );
         
     
-            var circle_marker_c39f6b710913dc4522e77f6e8aafa2e4 = L.circleMarker(
+            var circle_marker_739b827968db5a7906a04c3079d2c5f2 = L.circleMarker(
                 [-9.018412, -78.6206062],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_91189d3717797f6a450bf90191dbe478 = L.popup({
+        var popup_d1f72a06909d35c4fd35cf721d230478 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_df1c65e871d8daa4f1a35e46b2538b0d = $(`<div id="html_df1c65e871d8daa4f1a35e46b2538b0d" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-496443</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.018412</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6206062</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Marisol / Calle ocho</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_91189d3717797f6a450bf90191dbe478.setContent(html_df1c65e871d8daa4f1a35e46b2538b0d);
+                var html_cb1eb780a0123ae26ce171f8bf11960e = $(`<div id="html_cb1eb780a0123ae26ce171f8bf11960e" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-496443</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.018412</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6206062</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Marisol / Calle ocho</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_d1f72a06909d35c4fd35cf721d230478.setContent(html_cb1eb780a0123ae26ce171f8bf11960e);
             
         
 
-        circle_marker_c39f6b710913dc4522e77f6e8aafa2e4.bindPopup(popup_91189d3717797f6a450bf90191dbe478)
+        circle_marker_739b827968db5a7906a04c3079d2c5f2.bindPopup(popup_d1f72a06909d35c4fd35cf721d230478)
         ;
 
         
     
     
-            circle_marker_c39f6b710913dc4522e77f6e8aafa2e4.bindTooltip(
+            circle_marker_739b827968db5a7906a04c3079d2c5f2.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -585,30 +609,30 @@
             );
         
     
-            var circle_marker_970c8f6196970503b4977b04a2d3f1c2 = L.circleMarker(
+            var circle_marker_3d9cbd4854ca92de01864b266c478395 = L.circleMarker(
                 [-9.0246626, -78.6206036],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_5cdb837a490fab92ea05e1fd9b361b28 = L.popup({
+        var popup_3e35857f7c4547b2a171dd71a3c3ec57 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_f3157f9cbe747fdbeb10f7a6f1982f83 = $(`<div id="html_f3157f9cbe747fdbeb10f7a6f1982f83" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-496450</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0246626</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6206036</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle s / n / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_5cdb837a490fab92ea05e1fd9b361b28.setContent(html_f3157f9cbe747fdbeb10f7a6f1982f83);
+                var html_340a334423d95412101312d03423ba76 = $(`<div id="html_340a334423d95412101312d03423ba76" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-496450</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0246626</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6206036</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle s / n / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_3e35857f7c4547b2a171dd71a3c3ec57.setContent(html_340a334423d95412101312d03423ba76);
             
         
 
-        circle_marker_970c8f6196970503b4977b04a2d3f1c2.bindPopup(popup_5cdb837a490fab92ea05e1fd9b361b28)
+        circle_marker_3d9cbd4854ca92de01864b266c478395.bindPopup(popup_3e35857f7c4547b2a171dd71a3c3ec57)
         ;
 
         
     
     
-            circle_marker_970c8f6196970503b4977b04a2d3f1c2.bindTooltip(
+            circle_marker_3d9cbd4854ca92de01864b266c478395.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -619,30 +643,30 @@
             );
         
     
-            var circle_marker_b4b9f65c990645b6ee2e548c92258d9b = L.circleMarker(
+            var circle_marker_1f512fcc716e9c9e08d268e35352d6e4 = L.circleMarker(
                 [-9.0176176, -78.6132543],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_6915bb5f4b0b0c7ac433b51c864cda30 = L.popup({
+        var popup_9c99d56fd271d58e6319f0f5a2595da6 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_a146b19d6e02b85699525233f56071d2 = $(`<div id="html_a146b19d6e02b85699525233f56071d2" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-496481</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0176176</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6132543</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Pasaje Alto Reservorio / Pasaje Castilla</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_6915bb5f4b0b0c7ac433b51c864cda30.setContent(html_a146b19d6e02b85699525233f56071d2);
+                var html_fe5f24fd8047c5977ec58065ffa09230 = $(`<div id="html_fe5f24fd8047c5977ec58065ffa09230" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-496481</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0176176</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6132543</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Pasaje Alto Reservorio / Pasaje Castilla</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_9c99d56fd271d58e6319f0f5a2595da6.setContent(html_fe5f24fd8047c5977ec58065ffa09230);
             
         
 
-        circle_marker_b4b9f65c990645b6ee2e548c92258d9b.bindPopup(popup_6915bb5f4b0b0c7ac433b51c864cda30)
+        circle_marker_1f512fcc716e9c9e08d268e35352d6e4.bindPopup(popup_9c99d56fd271d58e6319f0f5a2595da6)
         ;
 
         
     
     
-            circle_marker_b4b9f65c990645b6ee2e548c92258d9b.bindTooltip(
+            circle_marker_1f512fcc716e9c9e08d268e35352d6e4.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -653,30 +677,30 @@
             );
         
     
-            var circle_marker_f52e9ba8b22cf0d47fd41d0b30aaf71b = L.circleMarker(
+            var circle_marker_d9ad76322aec7abbc6fc733404cc2419 = L.circleMarker(
                 [-9.0193117, -78.6192705],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_2c2c4d7b9d0a3e8dca160e9cab97ab59 = L.popup({
+        var popup_af44e08d299343c31132b00d92008e43 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_7502457bcbc2f232692a145b55bf0c09 = $(`<div id="html_7502457bcbc2f232692a145b55bf0c09" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-496466</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0193117</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6192705</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle s / n / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_2c2c4d7b9d0a3e8dca160e9cab97ab59.setContent(html_7502457bcbc2f232692a145b55bf0c09);
+                var html_9d1ee6fdc9e62310caaa1a8877c8ef63 = $(`<div id="html_9d1ee6fdc9e62310caaa1a8877c8ef63" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-496466</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0193117</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6192705</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Santa Marina / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_af44e08d299343c31132b00d92008e43.setContent(html_9d1ee6fdc9e62310caaa1a8877c8ef63);
             
         
 
-        circle_marker_f52e9ba8b22cf0d47fd41d0b30aaf71b.bindPopup(popup_2c2c4d7b9d0a3e8dca160e9cab97ab59)
+        circle_marker_d9ad76322aec7abbc6fc733404cc2419.bindPopup(popup_af44e08d299343c31132b00d92008e43)
         ;
 
         
     
     
-            circle_marker_f52e9ba8b22cf0d47fd41d0b30aaf71b.bindTooltip(
+            circle_marker_d9ad76322aec7abbc6fc733404cc2419.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -687,30 +711,30 @@
             );
         
     
-            var circle_marker_79637da71fa57a70e9166df54af78e14 = L.circleMarker(
+            var circle_marker_a96e1657cf8042578a3746018f96adfd = L.circleMarker(
                 [-9.0304976, -78.6174098],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_571d35e9918e421f2eec4f962fb90d2f = L.popup({
+        var popup_a2c6600ca48e2ca3acc764ee1ea508d6 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_d18a489aff168c6b3a4ad3a0b703d356 = $(`<div id="html_d18a489aff168c6b3a4ad3a0b703d356" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-442248</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0304976</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6174098</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Unión / Jirón Pacasmayo</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_571d35e9918e421f2eec4f962fb90d2f.setContent(html_d18a489aff168c6b3a4ad3a0b703d356);
+                var html_6465bfeb5e7feee31cfe3a43cec7a425 = $(`<div id="html_6465bfeb5e7feee31cfe3a43cec7a425" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-442248</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0304976</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6174098</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Unión / Jirón Pacasmayo</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_a2c6600ca48e2ca3acc764ee1ea508d6.setContent(html_6465bfeb5e7feee31cfe3a43cec7a425);
             
         
 
-        circle_marker_79637da71fa57a70e9166df54af78e14.bindPopup(popup_571d35e9918e421f2eec4f962fb90d2f)
+        circle_marker_a96e1657cf8042578a3746018f96adfd.bindPopup(popup_a2c6600ca48e2ca3acc764ee1ea508d6)
         ;
 
         
     
     
-            circle_marker_79637da71fa57a70e9166df54af78e14.bindTooltip(
+            circle_marker_a96e1657cf8042578a3746018f96adfd.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -721,30 +745,30 @@
             );
         
     
-            var circle_marker_efa75fc63c3958ac2fc965655ee31419 = L.circleMarker(
+            var circle_marker_471e1c0539d0c2c90f8dca73ee560f1f = L.circleMarker(
                 [-9.0308662, -78.6164566],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_a6663ebf1a2d5e5f7b70561f90dcc069 = L.popup({
+        var popup_49b600101f3b59c725fd1b2919f4081c = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_5ac6de644b636eecae302158293f59b2 = $(`<div id="html_5ac6de644b636eecae302158293f59b2" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-440761</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0308662</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6164566</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Prolongación Calle Jorge Chavez / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_a6663ebf1a2d5e5f7b70561f90dcc069.setContent(html_5ac6de644b636eecae302158293f59b2);
+                var html_6debd9a2b1e58538061692c165d3c973 = $(`<div id="html_6debd9a2b1e58538061692c165d3c973" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-440761</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0308662</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6164566</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Prolongación Calle Jorge Chavez / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_49b600101f3b59c725fd1b2919f4081c.setContent(html_6debd9a2b1e58538061692c165d3c973);
             
         
 
-        circle_marker_efa75fc63c3958ac2fc965655ee31419.bindPopup(popup_a6663ebf1a2d5e5f7b70561f90dcc069)
+        circle_marker_471e1c0539d0c2c90f8dca73ee560f1f.bindPopup(popup_49b600101f3b59c725fd1b2919f4081c)
         ;
 
         
     
     
-            circle_marker_efa75fc63c3958ac2fc965655ee31419.bindTooltip(
+            circle_marker_471e1c0539d0c2c90f8dca73ee560f1f.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -755,30 +779,30 @@
             );
         
     
-            var circle_marker_814ffe59c393ebd9c5c4b8e459116231 = L.circleMarker(
+            var circle_marker_7c4b863dac2a07ce0bb1d5652f6f6418 = L.circleMarker(
                 [-9.0196018, -78.6041884],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_7437bca47e2c035a6640b8dd39542d66 = L.popup({
+        var popup_268f66e01634a3dc2bf9f778cc9004a6 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_17047f55106f33d16f3e0f671fbdfdf8 = $(`<div id="html_17047f55106f33d16f3e0f671fbdfdf8" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-642287</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0196018</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6041884</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle s / n / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_7437bca47e2c035a6640b8dd39542d66.setContent(html_17047f55106f33d16f3e0f671fbdfdf8);
+                var html_80f147f107a0bdc8f808e629088b0cc6 = $(`<div id="html_80f147f107a0bdc8f808e629088b0cc6" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-642287</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0196018</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6041884</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle s / n / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_268f66e01634a3dc2bf9f778cc9004a6.setContent(html_80f147f107a0bdc8f808e629088b0cc6);
             
         
 
-        circle_marker_814ffe59c393ebd9c5c4b8e459116231.bindPopup(popup_7437bca47e2c035a6640b8dd39542d66)
+        circle_marker_7c4b863dac2a07ce0bb1d5652f6f6418.bindPopup(popup_268f66e01634a3dc2bf9f778cc9004a6)
         ;
 
         
     
     
-            circle_marker_814ffe59c393ebd9c5c4b8e459116231.bindTooltip(
+            circle_marker_7c4b863dac2a07ce0bb1d5652f6f6418.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -789,30 +813,30 @@
             );
         
     
-            var circle_marker_5638ae2756fb2fd7082942c7d746514c = L.circleMarker(
+            var circle_marker_2fe130b44325ce9043e2ee065cd954b2 = L.circleMarker(
                 [-9.0228468, -78.6148012],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_cc2abdedc6c8bcb4776951b180a1efa4 = L.popup({
+        var popup_2b8daadd522cf61518b543d1c88fb8e3 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_459fc2a53c87d8d724d9e172b3b69200 = $(`<div id="html_459fc2a53c87d8d724d9e172b3b69200" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-496449</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0228468</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6148012</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Jirón Unión / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_cc2abdedc6c8bcb4776951b180a1efa4.setContent(html_459fc2a53c87d8d724d9e172b3b69200);
+                var html_61613259339cf04e4cd411f4eaac7370 = $(`<div id="html_61613259339cf04e4cd411f4eaac7370" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-496449</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0228468</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6148012</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Tupac Amaru / Jirón Unión</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_2b8daadd522cf61518b543d1c88fb8e3.setContent(html_61613259339cf04e4cd411f4eaac7370);
             
         
 
-        circle_marker_5638ae2756fb2fd7082942c7d746514c.bindPopup(popup_cc2abdedc6c8bcb4776951b180a1efa4)
+        circle_marker_2fe130b44325ce9043e2ee065cd954b2.bindPopup(popup_2b8daadd522cf61518b543d1c88fb8e3)
         ;
 
         
     
     
-            circle_marker_5638ae2756fb2fd7082942c7d746514c.bindTooltip(
+            circle_marker_2fe130b44325ce9043e2ee065cd954b2.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -823,30 +847,30 @@
             );
         
     
-            var circle_marker_165c186ee9687c21909e333f04722993 = L.circleMarker(
+            var circle_marker_2e1752c35970c6c3ac2d8a5e4d524b80 = L.circleMarker(
                 [-9.0183666, -78.614019],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_d9124afa28ed3a0124b738bd5f6fb8c0 = L.popup({
+        var popup_f9592f35b2f6e8e028b399c1a1a86152 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_67afe0562820d2eb98d0c4e178aec99c = $(`<div id="html_67afe0562820d2eb98d0c4e178aec99c" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-442251</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0183666</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.614019</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Jirón Salaverry / Pasaje Castilla</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_d9124afa28ed3a0124b738bd5f6fb8c0.setContent(html_67afe0562820d2eb98d0c4e178aec99c);
+                var html_0d6f04850b0c65d23e0ffba6b55098ca = $(`<div id="html_0d6f04850b0c65d23e0ffba6b55098ca" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-442251</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0183666</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.614019</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Jirón Salaverry / Pasaje Castilla</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_f9592f35b2f6e8e028b399c1a1a86152.setContent(html_0d6f04850b0c65d23e0ffba6b55098ca);
             
         
 
-        circle_marker_165c186ee9687c21909e333f04722993.bindPopup(popup_d9124afa28ed3a0124b738bd5f6fb8c0)
+        circle_marker_2e1752c35970c6c3ac2d8a5e4d524b80.bindPopup(popup_f9592f35b2f6e8e028b399c1a1a86152)
         ;
 
         
     
     
-            circle_marker_165c186ee9687c21909e333f04722993.bindTooltip(
+            circle_marker_2e1752c35970c6c3ac2d8a5e4d524b80.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -857,30 +881,30 @@
             );
         
     
-            var circle_marker_de5d3058ede9db36be0f2a526638b710 = L.circleMarker(
+            var circle_marker_a2d8877d929e10ec04ab8e65e2058771 = L.circleMarker(
                 [-9.0239919, -78.6117113],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_dcf24f4251e359d241dee502782c9b5f = L.popup({
+        var popup_811e79b2021246e44ae3af732de19606 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_b57ba52d4764e9e5a8f3801246020e2f = $(`<div id="html_b57ba52d4764e9e5a8f3801246020e2f" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-442245</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0239919</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6117113</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Jirón González Prada / Jirón Pachacutec</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_dcf24f4251e359d241dee502782c9b5f.setContent(html_b57ba52d4764e9e5a8f3801246020e2f);
+                var html_d48fecc49ffedad723f2f9d3855e307c = $(`<div id="html_d48fecc49ffedad723f2f9d3855e307c" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-442245</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0239919</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6117113</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Jirón González Prada / Jirón Pachacutec</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_811e79b2021246e44ae3af732de19606.setContent(html_d48fecc49ffedad723f2f9d3855e307c);
             
         
 
-        circle_marker_de5d3058ede9db36be0f2a526638b710.bindPopup(popup_dcf24f4251e359d241dee502782c9b5f)
+        circle_marker_a2d8877d929e10ec04ab8e65e2058771.bindPopup(popup_811e79b2021246e44ae3af732de19606)
         ;
 
         
     
     
-            circle_marker_de5d3058ede9db36be0f2a526638b710.bindTooltip(
+            circle_marker_a2d8877d929e10ec04ab8e65e2058771.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -891,30 +915,30 @@
             );
         
     
-            var circle_marker_e37baee03652086b87caa7f07a0ca932 = L.circleMarker(
+            var circle_marker_7cc0856f3efa9d5456287a5df408eace = L.circleMarker(
                 [-9.0216325, -78.6082551],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_ca47cc42b176929a8fc1fcd058c74879 = L.popup({
+        var popup_e8019b481800287e89843281c81ec0ac = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_63c5e9192877a535726e9993c8d72c4f = $(`<div id="html_63c5e9192877a535726e9993c8d72c4f" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-299397</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0216325</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6082551</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Pasaje San Pedro / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_ca47cc42b176929a8fc1fcd058c74879.setContent(html_63c5e9192877a535726e9993c8d72c4f);
+                var html_df041a79e7d050628aa2a7a841e0a8a1 = $(`<div id="html_df041a79e7d050628aa2a7a841e0a8a1" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-299397</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0216325</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6082551</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Francisco Bolognesi / Pasaje San Pedro</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_e8019b481800287e89843281c81ec0ac.setContent(html_df041a79e7d050628aa2a7a841e0a8a1);
             
         
 
-        circle_marker_e37baee03652086b87caa7f07a0ca932.bindPopup(popup_ca47cc42b176929a8fc1fcd058c74879)
+        circle_marker_7cc0856f3efa9d5456287a5df408eace.bindPopup(popup_e8019b481800287e89843281c81ec0ac)
         ;
 
         
     
     
-            circle_marker_e37baee03652086b87caa7f07a0ca932.bindTooltip(
+            circle_marker_7cc0856f3efa9d5456287a5df408eace.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -925,30 +949,30 @@
             );
         
     
-            var circle_marker_3eb6470db5eec33cf14b03bf189dfaa9 = L.circleMarker(
+            var circle_marker_ecd4aac3fb052c3f5ee53b0eb953819c = L.circleMarker(
                 [-9.0291184, -78.6177268],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_66a0c64183e937f7910aff4a67990f66 = L.popup({
+        var popup_52aeadcae062d8117b2f8637098ce310 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_f29e24a463b0b2c73765ce801c83255d = $(`<div id="html_f29e24a463b0b2c73765ce801c83255d" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-44850</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0291184</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6177268</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Coishco / Pasaje Cerro Rocoso</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_66a0c64183e937f7910aff4a67990f66.setContent(html_f29e24a463b0b2c73765ce801c83255d);
+                var html_ccdbb04923842c7f6d961332678335e6 = $(`<div id="html_ccdbb04923842c7f6d961332678335e6" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-44850</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0291184</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6177268</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Coishco / Pasaje Cerro Rocoso</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_52aeadcae062d8117b2f8637098ce310.setContent(html_ccdbb04923842c7f6d961332678335e6);
             
         
 
-        circle_marker_3eb6470db5eec33cf14b03bf189dfaa9.bindPopup(popup_66a0c64183e937f7910aff4a67990f66)
+        circle_marker_ecd4aac3fb052c3f5ee53b0eb953819c.bindPopup(popup_52aeadcae062d8117b2f8637098ce310)
         ;
 
         
     
     
-            circle_marker_3eb6470db5eec33cf14b03bf189dfaa9.bindTooltip(
+            circle_marker_ecd4aac3fb052c3f5ee53b0eb953819c.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -959,30 +983,30 @@
             );
         
     
-            var circle_marker_3f864e915bb87c57fe1a39ff2e78b7ca = L.circleMarker(
+            var circle_marker_1204ebdb00379953e2155c3ff3ff708b = L.circleMarker(
                 [-9.0203031, -78.608014],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_87583de5ec284cdbc8781ba7ce626b84 = L.popup({
+        var popup_f9e42f778585beb99d8f608dbd34d703 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_5bb84d2c512433a1c8417b80e36e3923 = $(`<div id="html_5bb84d2c512433a1c8417b80e36e3923" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-642284</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0203031</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.608014</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle s / n / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_87583de5ec284cdbc8781ba7ce626b84.setContent(html_5bb84d2c512433a1c8417b80e36e3923);
+                var html_361309ebec87a18fc9968a8f2eb50e23 = $(`<div id="html_361309ebec87a18fc9968a8f2eb50e23" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-642284</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0203031</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.608014</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle s / n / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_f9e42f778585beb99d8f608dbd34d703.setContent(html_361309ebec87a18fc9968a8f2eb50e23);
             
         
 
-        circle_marker_3f864e915bb87c57fe1a39ff2e78b7ca.bindPopup(popup_87583de5ec284cdbc8781ba7ce626b84)
+        circle_marker_1204ebdb00379953e2155c3ff3ff708b.bindPopup(popup_f9e42f778585beb99d8f608dbd34d703)
         ;
 
         
     
     
-            circle_marker_3f864e915bb87c57fe1a39ff2e78b7ca.bindTooltip(
+            circle_marker_1204ebdb00379953e2155c3ff3ff708b.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -993,30 +1017,30 @@
             );
         
     
-            var circle_marker_e467b0a9f9b2318c39f8bbf3f42bfc09 = L.circleMarker(
+            var circle_marker_1f7cb1a54f2061d5061dd4b48e982aa3 = L.circleMarker(
                 [-9.0202216, -78.6075713],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_b96ee24cee022bed1d5bed03880f78a9 = L.popup({
+        var popup_6c2fd50a099222089076ac425330c1e7 = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_a3da8d8a7b359b3c74c3ccd2120c2f17 = $(`<div id="html_a3da8d8a7b359b3c74c3ccd2120c2f17" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-642283</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0202216</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6075713</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle s / n / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_b96ee24cee022bed1d5bed03880f78a9.setContent(html_a3da8d8a7b359b3c74c3ccd2120c2f17);
+                var html_69c8c21cc2a69bcd568608bc6ee59c1b = $(`<div id="html_69c8c21cc2a69bcd568608bc6ee59c1b" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-642283</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0202216</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6075713</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle s / n / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_6c2fd50a099222089076ac425330c1e7.setContent(html_69c8c21cc2a69bcd568608bc6ee59c1b);
             
         
 
-        circle_marker_e467b0a9f9b2318c39f8bbf3f42bfc09.bindPopup(popup_b96ee24cee022bed1d5bed03880f78a9)
+        circle_marker_1f7cb1a54f2061d5061dd4b48e982aa3.bindPopup(popup_6c2fd50a099222089076ac425330c1e7)
         ;
 
         
     
     
-            circle_marker_e467b0a9f9b2318c39f8bbf3f42bfc09.bindTooltip(
+            circle_marker_1f7cb1a54f2061d5061dd4b48e982aa3.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -1027,30 +1051,30 @@
             );
         
     
-            var circle_marker_dfbeed6f1a1086b3c7ccb7d45ff629c8 = L.circleMarker(
+            var circle_marker_66efc477b35df3eb29e4ba95bf3ca098 = L.circleMarker(
                 [-9.0208879, -78.6075929],
                 {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_c8954a2fef0e81abb4e03a280f9b92e1);
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-        var popup_ba9b42615de7e99122bb82af2d7ed6e5 = L.popup({
+        var popup_107b7ed53c6e0bef24fef678c9ed2f9c = L.popup({
   "maxWidth": 460,
 });
 
         
             
-                var html_aaf2ee270867de586578ac7a67a815c3 = $(`<div id="html_aaf2ee270867de586578ac7a67a815c3" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-642281</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0208879</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6075929</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle s / n / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
-                popup_ba9b42615de7e99122bb82af2d7ed6e5.setContent(html_aaf2ee270867de586578ac7a67a815c3);
+                var html_ea4e4b0275ee7700c1877572379486b2 = $(`<div id="html_ea4e4b0275ee7700c1877572379486b2" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-642281</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0208879</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6075929</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle s / n / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_107b7ed53c6e0bef24fef678c9ed2f9c.setContent(html_ea4e4b0275ee7700c1877572379486b2);
             
         
 
-        circle_marker_dfbeed6f1a1086b3c7ccb7d45ff629c8.bindPopup(popup_ba9b42615de7e99122bb82af2d7ed6e5)
+        circle_marker_66efc477b35df3eb29e4ba95bf3ca098.bindPopup(popup_107b7ed53c6e0bef24fef678c9ed2f9c)
         ;
 
         
     
     
-            circle_marker_dfbeed6f1a1086b3c7ccb7d45ff629c8.bindTooltip(
+            circle_marker_66efc477b35df3eb29e4ba95bf3ca098.bindTooltip(
                 `<div>
                       | 
                  </div>`,
@@ -1061,122 +1085,258 @@
             );
         
     
-            feature_group_c8954a2fef0e81abb4e03a280f9b92e1.addTo(map_9cff7ef5953727530313730a6424bf4f);
+            var circle_marker_8ceb975d3a57e1f9f8441d22f9f3ae9c = L.circleMarker(
+                [-9.0221263, -78.6182821],
+                {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
         
     
-            var feature_group_b4a2da650e569e28957f3e7f822d1682 = L.featureGroup(
+        var popup_5d637de439e8263c70aefaea92aa4e50 = L.popup({
+  "maxWidth": 460,
+});
+
+        
+            
+                var html_77b76c9ce60a292a7ff13406fb33e89d = $(`<div id="html_77b76c9ce60a292a7ff13406fb33e89d" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-44912</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0221263</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6182821</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle Los Pescadores / Jirón Pescadores / Jirón Santa</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_5d637de439e8263c70aefaea92aa4e50.setContent(html_77b76c9ce60a292a7ff13406fb33e89d);
+            
+        
+
+        circle_marker_8ceb975d3a57e1f9f8441d22f9f3ae9c.bindPopup(popup_5d637de439e8263c70aefaea92aa4e50)
+        ;
+
+        
+    
+    
+            circle_marker_8ceb975d3a57e1f9f8441d22f9f3ae9c.bindTooltip(
+                `<div>
+                      | 
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_d1a86a9c4955515420539ddd8b9f0aa7 = L.circleMarker(
+                [-9.0212342, -78.6044458],
+                {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
+        
+    
+        var popup_3fa5e1cab44e6894f65990c02f82e998 = L.popup({
+  "maxWidth": 460,
+});
+
+        
+            
+                var html_bd07df85d6fa050e74c59beaf34c3e48 = $(`<div id="html_bd07df85d6fa050e74c59beaf34c3e48" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-642290</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0212342</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6044458</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle s / n / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_3fa5e1cab44e6894f65990c02f82e998.setContent(html_bd07df85d6fa050e74c59beaf34c3e48);
+            
+        
+
+        circle_marker_d1a86a9c4955515420539ddd8b9f0aa7.bindPopup(popup_3fa5e1cab44e6894f65990c02f82e998)
+        ;
+
+        
+    
+    
+            circle_marker_d1a86a9c4955515420539ddd8b9f0aa7.bindTooltip(
+                `<div>
+                      | 
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_ef9a6b9b484bb6ad58cfccea5b20b721 = L.circleMarker(
+                [-9.0197985, -78.6054589],
+                {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
+        
+    
+        var popup_210919ac5a66be47f90dc19136012aee = L.popup({
+  "maxWidth": 460,
+});
+
+        
+            
+                var html_4d4453f559bad076e49170679aa876a5 = $(`<div id="html_4d4453f559bad076e49170679aa876a5" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-642288</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0197985</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6054589</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle s / n / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_210919ac5a66be47f90dc19136012aee.setContent(html_4d4453f559bad076e49170679aa876a5);
+            
+        
+
+        circle_marker_ef9a6b9b484bb6ad58cfccea5b20b721.bindPopup(popup_210919ac5a66be47f90dc19136012aee)
+        ;
+
+        
+    
+    
+            circle_marker_ef9a6b9b484bb6ad58cfccea5b20b721.bindTooltip(
+                `<div>
+                      | 
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_216751825548eacdb1644c62317d749b = L.circleMarker(
+                [-9.0201464, -78.6052376],
+                {"bubblingMouseEvents": true, "color": "#1d4ed8", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#1d4ed8", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_9eddf9e165357fa60ee659ab3f83e383);
+        
+    
+        var popup_64db9c0dee34f5a4cacd1d9b459b6153 = L.popup({
+  "maxWidth": 460,
+});
+
+        
+            
+                var html_caa7fdd800b5a2a7d440b6c605329d09 = $(`<div id="html_caa7fdd800b5a2a7d440b6c605329d09" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Intersección priorizada</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>id_int</th><td style='padding:2px 0;'>I-642286</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>latitud</th><td style='padding:2px 0;'>-9.0201464</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>longitud</th><td style='padding:2px 0;'>-78.6052376</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>vias</th><td style='padding:2px 0;'>Calle s / n / Calle s / n</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>siniestro_fatal</th><td style='padding:2px 0;'>0</td></tr></table></div></div>`)[0];
+                popup_64db9c0dee34f5a4cacd1d9b459b6153.setContent(html_caa7fdd800b5a2a7d440b6c605329d09);
+            
+        
+
+        circle_marker_216751825548eacdb1644c62317d749b.bindPopup(popup_64db9c0dee34f5a4cacd1d9b459b6153)
+        ;
+
+        
+    
+    
+            circle_marker_216751825548eacdb1644c62317d749b.bindTooltip(
+                `<div>
+                      | 
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            feature_group_9eddf9e165357fa60ee659ab3f83e383.addTo(map_36fb27b6583e07ba4955a9cc95fe41ed);
+        
+    
+            var feature_group_d0b91db5fe586c7226f73268361325dd = L.featureGroup(
                 {
 }
             );
         
     
-            var circle_marker_5aa46e4d2afbf93b20b3b8d977e1667e = L.circleMarker(
+            var circle_marker_f8fda7aa133f342364b17b487a355d25 = L.circleMarker(
                 [-9.020311237, -78.61246961957714],
                 {"bubblingMouseEvents": true, "color": "#d90429", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d90429", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b4a2da650e569e28957f3e7f822d1682);
+            ).addTo(feature_group_d0b91db5fe586c7226f73268361325dd);
         
     
-        var popup_3b5e13ab74d6059d8b5b5a68196fe5c1 = L.popup({
+        var popup_4113fdef57bff8a5c405534fe021a126 = L.popup({
   "maxWidth": 480,
 });
 
         
             
-                var html_878509ffc663af0b94243527e8af980a = $(`<div id="html_878509ffc663af0b94243527e8af980a" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Siniestro fatal</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>COD_ACCIDE</th><td style='padding:2px 0;'>A-2021-08-311</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>FechaDelAccidente</th><td style='padding:2px 0;'>16/08/2021</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>HoraDelAccidente</th><td style='padding:2px 0;'>10:40</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>ClaseDelAccidente</th><td style='padding:2px 0;'>DESPISTE</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>SecuenciaAccidente</th><td style='padding:2px 0;'></td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CantidadDeFallecidos</th><td style='padding:2px 0;'>1</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CantidadDeLesionados</th><td style='padding:2px 0;'>0</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>Direccion</th><td style='padding:2px 0;'>CAMINO CARROZABLE</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>LugarReferencia</th><td style='padding:2px 0;'> AA. HH. LOS ÁLAMOS</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>y</th><td style='padding:2px 0;'>-9.020311237</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>x</th><td style='padding:2px 0;'>-78.61246961957714</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CondClimatica</th><td style='padding:2px 0;'>DESPEJADO</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CausaFactorPrincipal</th><td style='padding:2px 0;'>NO IDENTIFICA LA CAUSA</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CausaEspecifica</th><td style='padding:2px 0;'></td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>OtraCausa</th><td style='padding:2px 0;'></td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>Observaciones</th><td style='padding:2px 0;'>NINGUNA</td></tr></table></div></div>`)[0];
-                popup_3b5e13ab74d6059d8b5b5a68196fe5c1.setContent(html_878509ffc663af0b94243527e8af980a);
+                var html_99453038854660937751b525bad1c0c9 = $(`<div id="html_99453038854660937751b525bad1c0c9" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Siniestro fatal</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>COD_ACCIDE</th><td style='padding:2px 0;'>A-2021-08-311</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>FechaDelAccidente</th><td style='padding:2px 0;'>16/08/2021</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>HoraDelAccidente</th><td style='padding:2px 0;'>10:40</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>ClaseDelAccidente</th><td style='padding:2px 0;'>DESPISTE</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>SecuenciaAccidente</th><td style='padding:2px 0;'></td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CantidadDeFallecidos</th><td style='padding:2px 0;'>1</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CantidadDeLesionados</th><td style='padding:2px 0;'>0</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>Direccion</th><td style='padding:2px 0;'>CAMINO CARROZABLE</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>LugarReferencia</th><td style='padding:2px 0;'> AA. HH. LOS ÁLAMOS</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>y</th><td style='padding:2px 0;'>-9.020311237</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>x</th><td style='padding:2px 0;'>-78.61246961957714</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CondClimatica</th><td style='padding:2px 0;'>DESPEJADO</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CausaFactorPrincipal</th><td style='padding:2px 0;'>NO IDENTIFICA LA CAUSA</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CausaEspecifica</th><td style='padding:2px 0;'></td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>OtraCausa</th><td style='padding:2px 0;'></td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>Observaciones</th><td style='padding:2px 0;'>NINGUNA</td></tr></table></div></div>`)[0];
+                popup_4113fdef57bff8a5c405534fe021a126.setContent(html_99453038854660937751b525bad1c0c9);
             
         
 
-        circle_marker_5aa46e4d2afbf93b20b3b8d977e1667e.bindPopup(popup_3b5e13ab74d6059d8b5b5a68196fe5c1)
+        circle_marker_f8fda7aa133f342364b17b487a355d25.bindPopup(popup_4113fdef57bff8a5c405534fe021a126)
         ;
 
         
     
     
-            var circle_marker_1dde90907e52812faa729d05789ffbe0 = L.circleMarker(
+            var circle_marker_8faf923bc1d0bbd4def885d899652784 = L.circleMarker(
                 [-9.018497, -78.617341],
                 {"bubblingMouseEvents": true, "color": "#d90429", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d90429", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b4a2da650e569e28957f3e7f822d1682);
+            ).addTo(feature_group_d0b91db5fe586c7226f73268361325dd);
         
     
-        var popup_c5de9cab455d079ae2d91cee308529c5 = L.popup({
+        var popup_c710a16759e6fd3330dd4f2f3f9dac1b = L.popup({
   "maxWidth": 480,
 });
 
         
             
-                var html_15d0ca075e8279eab465971a62ccec0f = $(`<div id="html_15d0ca075e8279eab465971a62ccec0f" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Siniestro fatal</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>COD_ACCIDE</th><td style='padding:2px 0;'>A-2023-01-107</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>FechaDelAccidente</th><td style='padding:2px 0;'>24/01/2023</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>HoraDelAccidente</th><td style='padding:2px 0;'>21:00</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>ClaseDelAccidente</th><td style='padding:2px 0;'>CHOQUE</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>SecuenciaAccidente</th><td style='padding:2px 0;'>CHOQUE FRONTAL, SEGUIDO DE VOLCADURA</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CantidadDeFallecidos</th><td style='padding:2px 0;'>2</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CantidadDeLesionados</th><td style='padding:2px 0;'>0</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>Direccion</th><td style='padding:2px 0;'>CPN 443 055</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>LugarReferencia</th><td style='padding:2px 0;'>COISHCO</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>y</th><td style='padding:2px 0;'>-9.018497</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>x</th><td style='padding:2px 0;'>-78.617341</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CondClimatica</th><td style='padding:2px 0;'>DESPEJADO</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CausaFactorPrincipal</th><td style='padding:2px 0;'>IMPRUDENCIA DEL CONDUCTOR</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CausaEspecifica</th><td style='padding:2px 0;'>INVASIÓN DE CARRIL</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>OtraCausa</th><td style='padding:2px 0;'></td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>Observaciones</th><td style='padding:2px 0;'>NINGUNA</td></tr></table></div></div>`)[0];
-                popup_c5de9cab455d079ae2d91cee308529c5.setContent(html_15d0ca075e8279eab465971a62ccec0f);
+                var html_489c4c1be244601543195f028dbaefe7 = $(`<div id="html_489c4c1be244601543195f028dbaefe7" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Siniestro fatal</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>COD_ACCIDE</th><td style='padding:2px 0;'>A-2023-01-107</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>FechaDelAccidente</th><td style='padding:2px 0;'>24/01/2023</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>HoraDelAccidente</th><td style='padding:2px 0;'>21:00</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>ClaseDelAccidente</th><td style='padding:2px 0;'>CHOQUE</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>SecuenciaAccidente</th><td style='padding:2px 0;'>CHOQUE FRONTAL, SEGUIDO DE VOLCADURA</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CantidadDeFallecidos</th><td style='padding:2px 0;'>2</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CantidadDeLesionados</th><td style='padding:2px 0;'>0</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>Direccion</th><td style='padding:2px 0;'>CPN 443 055</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>LugarReferencia</th><td style='padding:2px 0;'>COISHCO</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>y</th><td style='padding:2px 0;'>-9.018497</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>x</th><td style='padding:2px 0;'>-78.617341</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CondClimatica</th><td style='padding:2px 0;'>DESPEJADO</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CausaFactorPrincipal</th><td style='padding:2px 0;'>IMPRUDENCIA DEL CONDUCTOR</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CausaEspecifica</th><td style='padding:2px 0;'>INVASIÓN DE CARRIL</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>OtraCausa</th><td style='padding:2px 0;'></td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>Observaciones</th><td style='padding:2px 0;'>NINGUNA</td></tr></table></div></div>`)[0];
+                popup_c710a16759e6fd3330dd4f2f3f9dac1b.setContent(html_489c4c1be244601543195f028dbaefe7);
             
         
 
-        circle_marker_1dde90907e52812faa729d05789ffbe0.bindPopup(popup_c5de9cab455d079ae2d91cee308529c5)
+        circle_marker_8faf923bc1d0bbd4def885d899652784.bindPopup(popup_c710a16759e6fd3330dd4f2f3f9dac1b)
         ;
 
         
     
     
-            var circle_marker_736321189beb8f0092030440864045a9 = L.circleMarker(
+            var circle_marker_a80d91809262c5cdfac9f7db58fa3451 = L.circleMarker(
                 [-9.019175, -78.616854],
                 {"bubblingMouseEvents": true, "color": "#d90429", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#d90429", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
-            ).addTo(feature_group_b4a2da650e569e28957f3e7f822d1682);
+            ).addTo(feature_group_d0b91db5fe586c7226f73268361325dd);
         
     
-        var popup_f65c4e053adfe3a81da6ba91e2d51d40 = L.popup({
+        var popup_0e45eb7fa4ec7927e09945f44c6deabb = L.popup({
   "maxWidth": 480,
 });
 
         
             
-                var html_86b1b35d1ac4c2efffcfd09043258925 = $(`<div id="html_86b1b35d1ac4c2efffcfd09043258925" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Siniestro fatal</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>COD_ACCIDE</th><td style='padding:2px 0;'>A-2023-01-120</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>FechaDelAccidente</th><td style='padding:2px 0;'>01/01/2023</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>HoraDelAccidente</th><td style='padding:2px 0;'>22:58</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>ClaseDelAccidente</th><td style='padding:2px 0;'>CHOQUE</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>SecuenciaAccidente</th><td style='padding:2px 0;'>ACCIDENTE DE TRANSITO MULTIPLE EN LA MODALIDAD DE CHOQUE FRONTAL</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CantidadDeFallecidos</th><td style='padding:2px 0;'>1</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CantidadDeLesionados</th><td style='padding:2px 0;'>0</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>Direccion</th><td style='padding:2px 0;'>CARRETERA PANAMERICANA NORTE KM 443</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>LugarReferencia</th><td style='padding:2px 0;'>RESTAURANT ANTOJITO</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>y</th><td style='padding:2px 0;'>-9.019175</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>x</th><td style='padding:2px 0;'>-78.616854</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CondClimatica</th><td style='padding:2px 0;'>DESPEJADO</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CausaFactorPrincipal</th><td style='padding:2px 0;'>IMPRUDENCIA DEL CONDUCTOR</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CausaEspecifica</th><td style='padding:2px 0;'>INVASIÓN DE CARRIL</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>OtraCausa</th><td style='padding:2px 0;'></td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>Observaciones</th><td style='padding:2px 0;'>NINGUNA</td></tr></table></div></div>`)[0];
-                popup_f65c4e053adfe3a81da6ba91e2d51d40.setContent(html_86b1b35d1ac4c2efffcfd09043258925);
+                var html_f7cdb2ec9f0bb9ff237c17999be64291 = $(`<div id="html_f7cdb2ec9f0bb9ff237c17999be64291" style="width: 100.0%; height: 100.0%;"><div style='font-size:12px;'><div style='font-weight:700; margin-bottom:6px;'>Siniestro fatal</div><table style='border-collapse:collapse;'><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>COD_ACCIDE</th><td style='padding:2px 0;'>A-2023-01-120</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>FechaDelAccidente</th><td style='padding:2px 0;'>01/01/2023</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>HoraDelAccidente</th><td style='padding:2px 0;'>22:58</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>ClaseDelAccidente</th><td style='padding:2px 0;'>CHOQUE</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>SecuenciaAccidente</th><td style='padding:2px 0;'>ACCIDENTE DE TRANSITO MULTIPLE EN LA MODALIDAD DE CHOQUE FRONTAL</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CantidadDeFallecidos</th><td style='padding:2px 0;'>1</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CantidadDeLesionados</th><td style='padding:2px 0;'>0</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>Direccion</th><td style='padding:2px 0;'>CARRETERA PANAMERICANA NORTE KM 443</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>LugarReferencia</th><td style='padding:2px 0;'>RESTAURANT ANTOJITO</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>y</th><td style='padding:2px 0;'>-9.019175</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>x</th><td style='padding:2px 0;'>-78.616854</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CondClimatica</th><td style='padding:2px 0;'>DESPEJADO</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CausaFactorPrincipal</th><td style='padding:2px 0;'>IMPRUDENCIA DEL CONDUCTOR</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>CausaEspecifica</th><td style='padding:2px 0;'>INVASIÓN DE CARRIL</td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>OtraCausa</th><td style='padding:2px 0;'></td></tr><tr><th style='text-align:left; padding:2px 8px 2px 0; white-space:nowrap;'>Observaciones</th><td style='padding:2px 0;'>NINGUNA</td></tr></table></div></div>`)[0];
+                popup_0e45eb7fa4ec7927e09945f44c6deabb.setContent(html_f7cdb2ec9f0bb9ff237c17999be64291);
             
         
 
-        circle_marker_736321189beb8f0092030440864045a9.bindPopup(popup_f65c4e053adfe3a81da6ba91e2d51d40)
+        circle_marker_a80d91809262c5cdfac9f7db58fa3451.bindPopup(popup_0e45eb7fa4ec7927e09945f44c6deabb)
         ;
 
         
     
     
-            feature_group_b4a2da650e569e28957f3e7f822d1682.addTo(map_9cff7ef5953727530313730a6424bf4f);
+            feature_group_d0b91db5fe586c7226f73268361325dd.addTo(map_36fb27b6583e07ba4955a9cc95fe41ed);
         
     
-            map_9cff7ef5953727530313730a6424bf4f.fitBounds(
-                [[-9.0200901, -78.6122622], [-9.0221664, -78.6166234], [-9.0173375, -78.6166913], [-9.0280759, -78.6177149], [-9.024078, -78.6196648], [-9.018412, -78.6206062], [-9.0246626, -78.6206036], [-9.0176176, -78.6132543], [-9.0193117, -78.6192705], [-9.0304976, -78.6174098], [-9.0308662, -78.6164566], [-9.0196018, -78.6041884], [-9.0228468, -78.6148012], [-9.0183666, -78.614019], [-9.0239919, -78.6117113], [-9.0216325, -78.6082551], [-9.0291184, -78.6177268], [-9.0203031, -78.608014], [-9.0202216, -78.6075713], [-9.0208879, -78.6075929]],
+            map_36fb27b6583e07ba4955a9cc95fe41ed.fitBounds(
+                [[-9.0200901, -78.6122622], [-9.0221664, -78.6166234], [-9.0173375, -78.6166913], [-9.0280759, -78.6177149], [-9.024078, -78.6196648], [-9.018412, -78.6206062], [-9.0246626, -78.6206036], [-9.0176176, -78.6132543], [-9.0193117, -78.6192705], [-9.0304976, -78.6174098], [-9.0308662, -78.6164566], [-9.0196018, -78.6041884], [-9.0228468, -78.6148012], [-9.0183666, -78.614019], [-9.0239919, -78.6117113], [-9.0216325, -78.6082551], [-9.0291184, -78.6177268], [-9.0203031, -78.608014], [-9.0202216, -78.6075713], [-9.0208879, -78.6075929], [-9.0221263, -78.6182821], [-9.0212342, -78.6044458], [-9.0197985, -78.6054589], [-9.0201464, -78.6052376]],
                 {}
             );
         
     
-            var layer_control_d81577efef40a877d40b6b50f57ad3c5_layers = {
+            var layer_control_84db81f83649e0995774738076211e5d_layers = {
                 base_layers : {
-                    "openstreetmap" : tile_layer_bebc62b3001d54b82c9708320259ae71,
+                    "openstreetmap" : tile_layer_018a4b69008ab369e4aec1696b741840,
                 },
                 overlays :  {
-                    "contorno" : feature_group_9a03a05ca111f05e3769a460bfa0fb10,
-                    "intersecciones: buffers (50m)" : feature_group_b6009b54c51c0c920254b6747c0620c3,
-                    "intersecciones: puntos" : feature_group_c8954a2fef0e81abb4e03a280f9b92e1,
-                    "siniestros fatales" : feature_group_b4a2da650e569e28957f3e7f822d1682,
+                    "contorno" : feature_group_8fe09eab23cc2bb2297c9f4fc71f08a1,
+                    "intersecciones: buffers (50m)" : feature_group_5d849fdf20f90fb7511dae990a411311,
+                    "intersecciones: puntos" : feature_group_9eddf9e165357fa60ee659ab3f83e383,
+                    "siniestros fatales" : feature_group_d0b91db5fe586c7226f73268361325dd,
                 },
             };
-            let layer_control_d81577efef40a877d40b6b50f57ad3c5 = L.control.layers(
-                layer_control_d81577efef40a877d40b6b50f57ad3c5_layers.base_layers,
-                layer_control_d81577efef40a877d40b6b50f57ad3c5_layers.overlays,
+            let layer_control_84db81f83649e0995774738076211e5d = L.control.layers(
+                layer_control_84db81f83649e0995774738076211e5d_layers.base_layers,
+                layer_control_84db81f83649e0995774738076211e5d_layers.overlays,
                 {
   "position": "topright",
   "collapsed": true,
   "autoZIndex": true,
 }
-            ).addTo(map_9cff7ef5953727530313730a6424bf4f);
+            ).addTo(map_36fb27b6583e07ba4955a9cc95fe41ed);
 
         
     
-        feature_group_c8954a2fef0e81abb4e03a280f9b92e1.bringToFront();
-        feature_group_b4a2da650e569e28957f3e7f822d1682.bringToFront();
+        feature_group_9eddf9e165357fa60ee659ab3f83e383.bringToFront();
+        feature_group_d0b91db5fe586c7226f73268361325dd.bringToFront();
     
     
       (function() {
-        var puntosLayer = feature_group_c8954a2fef0e81abb4e03a280f9b92e1;
+        var puntosLayer = feature_group_9eddf9e165357fa60ee659ab3f83e383;
         var defaultColor = '#1d4ed8';
         var hiliteColor  = '#f59e0b';
 
