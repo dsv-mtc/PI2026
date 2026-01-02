@@ -32,7 +32,7 @@ DEFAULT_OUTD  = "./EstablecimientoSalud/excels"
 DEFAULT_OUTC  = "./EstablecimientoSalud/establecimientos_catalog.csv"
 
 # columnas a excluir (insensible a mayúsculas/acentos)
-DROP_COLS = {"competencia_vial", "competencia_via", "competencia_administrativa","competencia administrativa"}
+DROP_COLS = {"competencia_vial", "competencia_via", "competencia_administrativa","competencia administrativa","ubigeo"}
 
 # ------------------------------- Utilitarios -------------------------------
 def norm(s: str) -> str:
@@ -160,18 +160,24 @@ def main():
         safe_slug = sanitize_filename(slug)
         xlsx_name = f"{safe_slug}.xlsx"
         xlsx_path = out_dir / xlsx_name
+        sub["DEPARTAMENTO"] = dep
+        sub["PROVINCIA"] = prov
+        sub["DISTRITO"] = dist
+        preferred = ["ubigeo_gestor", "DEPARTAMENTO", "PROVINCIA", "DISTRITO"]
+        cols_order = [c for c in preferred if c in sub.columns] + [c for c in sub.columns if c not in preferred]
+        sub = sub[cols_order]
 
         # Guardar Excel individual
         sub.to_excel(xlsx_path, index=False)
 
         # Registrar en catálogo
         catalog_rows.append({
-            "ubigeo_gestor": u6,
-            "slug": safe_slug,
-            "excel_relpath": xlsx_path.as_posix(),
-            "departamento": dep,
-            "provincia": prov,
-            "distrito": dist
+           "ubigeo_gestor": u6,
+           "slug": safe_slug,
+           "excel_relpath": xlsx_path.as_posix(),
+           "departamento": dep,
+           "provincia": prov,
+           "distrito": dist
         })
 
         print(f"[OK] {u6} -> {xlsx_path}")
