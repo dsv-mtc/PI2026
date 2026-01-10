@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_e09fbb65d235c6569b67deb6e969250c {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <style>
+      .leaflet-interactive.zs-buffer { pointer-events: none !important; }
+
+      .searchbar-wrap {
+        position: fixed; right: 20px; bottom: 140px;
+        z-index: 10000; background: rgba(255,255,255,0.95);
+        border: 1px solid #e5e7eb;
+        padding: 10px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        font-family: system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+        display: flex; flex-direction: column; gap: 8px; min-width: 300px; max-width: 92vw;
+      }
+
+      .searchbar-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+      .searchbar-title { font-weight: 700; font-size: 14px; color: #111827; }
+      .toggle-btn { border: 0; border-radius: 8px; padding: 4px 10px; font-weight: 700; cursor: pointer; background: #111827; color: #fff; }
+      .tools-body { display: flex; flex-direction: column; gap: 8px; }
+
+      .row-flex { display:flex; gap:8px; align-items:center; }
+      .col-flex { display:flex; flex-direction:column; gap:8px; }
+      .row-flex input, .col-flex input { border:1px solid #e5e7eb; border-radius:8px; padding:6px 8px; font-size:13px; flex:1; }
+      .row-flex button, .col-flex button { border:0; border-radius:8px; padding:6px 10px; font-weight:600; cursor:pointer; }
+      .btn-dark  { background:#111827; color:#fff; }
+      .btn-gray  { background:#6b7280; color:#fff; }
+      .btn-green { background:#065f46; color:#fff; }
+      .btn-red   { background:#991b1b; color:#fff; }
+      .pill { font-size:12px; padding:4px 8px; border-radius:999px; }
+      .dist-on-line { background: rgba(17,24,39,0.85); color: #fff; padding: 2px 6px; border-radius: 6px; font-size: 12px; border: 1px solid rgba(255,255,255,0.2); }
+
+      .searchbar-wrap.collapsed { padding: 8px 10px; }
+      .searchbar-wrap.collapsed .tools-body { display: none; }
+
+      @media (max-width: 480px) {
+        .searchbar-wrap { right: 12px; bottom: 12px; min-width: 240px; }
+      }
+    </style>
+    
+    
+    <div style="
+        position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
+        z-index: 9999; background: rgba(255,255,255,0.9);
+        padding: 8px 14px; border-radius: 8px; font-weight: 600;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;">
+        LIMA-LIMA-LA_VICTORIA
+    </div>
+    
+    
+    <div id="legend-box" style="
+        position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+        background: rgba(255,255,255,0.9); padding: 10px 12px; border-radius: 8px;
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15); line-height: 1.4; min-width: 240px;">
+        <div style="font-weight: 600; margin-bottom: 6px;">Leyenda</div>
+        
+        <div style="display:flex; align-items:center; gap:8px;">
+            <span style="display:inline-block; width:14px; height:14px; background:#0ea5e9; border-radius:50%;"></span>
+            <span>Celeste oscuro: ZE a mantener</span>
+        </div>
+    
+    </div>
+    
+    
+            <div class="folium-map" id="map_e09fbb65d235c6569b67deb6e969250c" ></div>
+        
+    
+      <div class="searchbar-wrap" id="zs_tools">
+        <div class="searchbar-header">
+          <div class="searchbar-title">Herramientas</div>
+          <button id="btn_toggle_box" class="toggle-btn" title="Mostrar/Ocultar">⯆ Ocultar</button>
+        </div>
+
+        <div class="tools-body">
+          <div class="col-flex">
+            <input id="q_name" type="text" placeholder="Buscar por nombre">
+            <input id="q_code" type="text" placeholder="Buscar por código">
+          </div>
+          <div class="row-flex">
+            <button id="btn_search" class="btn-dark">Buscar</button>
+            <button id="btn_clear" class="btn-gray">Limpiar</button>
+          </div>
+
+          <hr style="border:none;border-top:1px solid #e5e7eb; margin:4px 0;">
+
+          <div class="col-flex" title="Coordenadas en grados decimales">
+            <input id="q_x" type="text" placeholder="Longitud Ejem: -77.15435">
+            <div class="row-flex">
+              <input id="q_y" type="text" placeholder="Latitud Ejem: -15.54648">
+              <button id="btn_xy_go" class="btn-green" title="Centrar en coordenadas">🔍</button>
+              <button id="btn_xy_clear" class="btn-red"   title="Quitar pin de coordenadas">✕</button>
+            </div>
+          </div>
+
+          <div class="row-flex">
+            <button id="btn_measure_toggle" class="btn-dark pill" title="Medir distancia">Medir distancia</button>
+            <span id="measure_state" style="font-size:12px; color:#991b1b">Desactivado</span>
+          </div>
+
+          <div class="row-flex">
+            <button id="btn_open_gmaps" class="btn-dark" title="Abrir esta vista en Google Maps">Abrir en Google Maps</button>
+          </div>
+        </div>
+      </div>
+    
+</body>
+<script>
+    
+    
+            var map_e09fbb65d235c6569b67deb6e969250c = L.map(
+                "map_e09fbb65d235c6569b67deb6e969250c",
+                {
+                    center: [-12.076104545454546, -77.02000272727274],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 14,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_e09fbb65d235c6569b67deb6e969250c);
+
+            
+
+        
+    
+            var tile_layer_59bf8a5ef272b62f1c0ea38b95815c49 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_59bf8a5ef272b62f1c0ea38b95815c49.addTo(map_e09fbb65d235c6569b67deb6e969250c);
+        
+    
+            var feature_group_a60af3d23fb784d5d4e7d2bab155d133 = L.featureGroup(
+                {
+}
+            );
+        
+    
+        function geo_json_29762e82c35e233a586856f8fd4022ad_styler(feature) {
+            switch(feature.properties.IDDPTO) {
+                default:
+                    return {"color": "#222222", "fill": true, "fillColor": "#9ca3af", "fillOpacity": 0.3, "opacity": 1.0, "weight": 2.5};
+            }
+        }
+
+        function geo_json_29762e82c35e233a586856f8fd4022ad_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_29762e82c35e233a586856f8fd4022ad = L.geoJson(null, {
+                onEachFeature: geo_json_29762e82c35e233a586856f8fd4022ad_onEachFeature,
+            
+                style: geo_json_29762e82c35e233a586856f8fd4022ad_styler,
+            ...{
+}
+        });
+
+        function geo_json_29762e82c35e233a586856f8fd4022ad_add (data) {
+            geo_json_29762e82c35e233a586856f8fd4022ad
+                .addData(data);
+        }
+            geo_json_29762e82c35e233a586856f8fd4022ad_add({"features": [{"geometry": {"coordinates": [[[[-77.01661123599996, -12.058888729999978], [-77.01558786199985, -12.061404354999922], [-77.01379498599994, -12.061152353999944], [-77.01077148599995, -12.060828104999928], [-77.00729298599998, -12.060333979999939], [-77.0071288609999, -12.060572229999934], [-77.00632423599995, -12.06104885499991], [-77.0059823609999, -12.061179729999822], [-77.00537111199998, -12.06143560399994], [-77.00450198599998, -12.062107479999952], [-77.00387698599997, -12.062384728999973], [-77.00315623599994, -12.06261722999983], [-77.00229298599999, -12.062939479999955], [-77.00213473699995, -12.063021354999876], [-77.0012323609999, -12.063335979999977], [-77.00066798599994, -12.063429729999825], [-77.00040823699993, -12.06345897999995], [-76.99992773599996, -12.063498104999951], [-76.99951761099999, -12.064189479999982], [-76.99629486099997, -12.06832422899987], [-77.00249998599998, -12.071921854999914], [-77.0029628609999, -12.072109354999952], [-77.00523823599997, -12.073412104999932], [-77.00560161199996, -12.073617229999968], [-77.00788286199997, -12.074929729999894], [-77.00887498599997, -12.075609354999926], [-77.00951561099987, -12.076128854999922], [-77.00965236199988, -12.07629097999984], [-77.00988673599994, -12.076679729999853], [-77.01001173699996, -12.076839854999946], [-77.01008998699996, -12.077017604999924], [-77.01025198699995, -12.077939479999884], [-77.01036323599999, -12.078201229999877], [-77.01005073599998, -12.078873104999957], [-77.00988086099989, -12.079109229999972], [-77.00946673699991, -12.079527354999925], [-77.00922073599997, -12.07970897999985], [-77.00894723599998, -12.079855479999878], [-77.00862098699992, -12.080003854999916], [-77.0074218609999, -12.08033797999991], [-77.00667773599997, -12.080523479999897], [-77.00601948599996, -12.080798854999955], [-77.00569136099989, -12.081001979999883], [-77.0052148609999, -12.08137497999985], [-77.00484373699993, -12.081820354999934], [-77.00449223599998, -12.082419979999884], [-77.00434761199995, -12.0827734799999], [-77.00429686099989, -12.082925729999886], [-77.00418948599997, -12.08340622999998], [-77.00416011099998, -12.083623104999958], [-77.00414061099991, -12.08407622899989], [-77.0099336109999, -12.084964854999953], [-77.00992573599996, -12.085535104999963], [-77.00998048699995, -12.08595310499993], [-77.01006048699992, -12.086277354999936], [-77.01009186099992, -12.086539104999929], [-77.01010736099988, -12.086728479999977], [-77.01001373599996, -12.087376979999874], [-77.00982973599992, -12.089158854999937], [-77.02281236099992, -12.090810604999945], [-77.023017612, -12.090199354999982], [-77.02319923599998, -12.08994535499994], [-77.02350786099993, -12.089445354999953], [-77.02405273599999, -12.088554729999885], [-77.02435348599994, -12.08802347999989], [-77.02806836099995, -12.078710979999869], [-77.03131061099992, -12.070767604999958], [-77.03532423599984, -12.060380854999892], [-77.03540823599997, -12.059548854999946], [-77.02576361099989, -12.058507854999903], [-77.01742186199988, -12.057461104999959], [-77.01714448599995, -12.058269479999979], [-77.01661123599996, -12.058888729999978]]]], "type": "MultiPolygon"}, "properties": {"AREA": 1, "CAPITAL": "LA VICTORIA", "CODCCPP": "0001", "DEPARTAMEN": "LIMA", "DISTRITO": "LA VICTORIA", "FUENTE": "INEI", "IDDIST": "150115", "IDDPTO": "15", "IDPROV": "1501", "PROVINCIA": "LIMA"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_29762e82c35e233a586856f8fd4022ad.addTo(feature_group_a60af3d23fb784d5d4e7d2bab155d133);
+        
+    
+            feature_group_a60af3d23fb784d5d4e7d2bab155d133.addTo(map_e09fbb65d235c6569b67deb6e969250c);
+        
+    
+            var feature_group_c207b6acfae9b376c08a63650be4f3aa = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_5df3dbba566da9dcc467749530912f5c = L.circle(
+                [-12.07358, -77.02558],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_c207b6acfae9b376c08a63650be4f3aa);
+        
+    
+            var circle_50fe5188080d13e953a7c67fcc59d888 = L.circle(
+                [-12.06632, -77.02097],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_c207b6acfae9b376c08a63650be4f3aa);
+        
+    
+            var circle_e1678252a1779b601f1d39e0c25c1f0a = L.circle(
+                [-12.06295, -77.02107],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_c207b6acfae9b376c08a63650be4f3aa);
+        
+    
+            var circle_7ca94854f2fbf17efea7ba22f33d2fbe = L.circle(
+                [-12.07034, -77.02166],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_c207b6acfae9b376c08a63650be4f3aa);
+        
+    
+            var circle_3acf72741675eb945979d4854f51358d = L.circle(
+                [-12.07916, -77.01963],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_c207b6acfae9b376c08a63650be4f3aa);
+        
+    
+            var circle_4046da2953124c8da5ba6820b0cf76f4 = L.circle(
+                [-12.08248, -77.00805],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_c207b6acfae9b376c08a63650be4f3aa);
+        
+    
+            var circle_b32a1dd0ff26e8ed21d34e4feb63655c = L.circle(
+                [-12.07571, -77.02464],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_c207b6acfae9b376c08a63650be4f3aa);
+        
+    
+            var circle_5ab956ec3e164dd9b0c54d00c49cd3ce = L.circle(
+                [-12.08869, -77.02041],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_c207b6acfae9b376c08a63650be4f3aa);
+        
+    
+            var circle_b2a4166eb5b092d4055958b77cbad808 = L.circle(
+                [-12.07178, -77.02179],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_c207b6acfae9b376c08a63650be4f3aa);
+        
+    
+            var circle_64213879f14ab56103354bb852d87d1a = L.circle(
+                [-12.08107, -77.01781],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_c207b6acfae9b376c08a63650be4f3aa);
+        
+    
+            var circle_e02199e762e18156146c3b5219ab186d = L.circle(
+                [-12.08507, -77.01842],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_c207b6acfae9b376c08a63650be4f3aa);
+        
+    
+            feature_group_c207b6acfae9b376c08a63650be4f3aa.addTo(map_e09fbb65d235c6569b67deb6e969250c);
+        
+    
+            var feature_group_397135fe215031e143efd32072ef2e87 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_cb69605e581ef4d33f4ca0d9c20ad7f5 = L.circleMarker(
+                [-12.07358, -77.02558],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_397135fe215031e143efd32072ef2e87);
+        
+    
+        var popup_7378af189826f1f7e000d1a6ed667e4f = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_ee4ecc975d8ba510e3aad08013ebca9b = $(`<div id="html_ee4ecc975d8ba510e3aad08013ebca9b" style="width: 100.0%; height: 100.0%;"><b>SACO OLIVEROS DE LA VICTORIA</b><br>Código CE: 80233<br>UBIGEO gestor: 150115<br>Latitud: -12.07358<br>Longitud: -77.02558<br>Alumnos: 575<br>Docentes: 20<br>Siniestros: 0</div>`)[0];
+                popup_7378af189826f1f7e000d1a6ed667e4f.setContent(html_ee4ecc975d8ba510e3aad08013ebca9b);
+            
+        
+
+        circle_marker_cb69605e581ef4d33f4ca0d9c20ad7f5.bindPopup(popup_7378af189826f1f7e000d1a6ed667e4f)
+        ;
+
+        
+    
+    
+            circle_marker_cb69605e581ef4d33f4ca0d9c20ad7f5.bindTooltip(
+                `<div>
+                     saco oliveros de la victoria | 80233
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_70f26aa313236cca18e30bbd2318ef37 = L.circleMarker(
+                [-12.06632, -77.02097],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_397135fe215031e143efd32072ef2e87);
+        
+    
+        var popup_29a8a8dc75c305a60967da9af59073c4 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_17ad70dd70f0df4062348e16cfbe9363 = $(`<div id="html_17ad70dd70f0df4062348e16cfbe9363" style="width: 100.0%; height: 100.0%;"><b>1105 LA SAGRADA FAMILIA</b><br>Código CE: 308679<br>UBIGEO gestor: 150115<br>Latitud: -12.06632<br>Longitud: -77.02097<br>Alumnos: 982<br>Docentes: 60<br>Siniestros: 0</div>`)[0];
+                popup_29a8a8dc75c305a60967da9af59073c4.setContent(html_17ad70dd70f0df4062348e16cfbe9363);
+            
+        
+
+        circle_marker_70f26aa313236cca18e30bbd2318ef37.bindPopup(popup_29a8a8dc75c305a60967da9af59073c4)
+        ;
+
+        
+    
+    
+            circle_marker_70f26aa313236cca18e30bbd2318ef37.bindTooltip(
+                `<div>
+                     1105 la sagrada familia | 308679
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_964b2d826bb2d68b6819d62cc4bed172 = L.circleMarker(
+                [-12.06295, -77.02107],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_397135fe215031e143efd32072ef2e87);
+        
+    
+        var popup_f99568fd6527ca4477c3a1de5236ba33 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_47b93eb8745ddf1326b46d893aa05b71 = $(`<div id="html_47b93eb8745ddf1326b46d893aa05b71" style="width: 100.0%; height: 100.0%;"><b>1107 JAVIER PRADO</b><br>Código CE: 308684<br>UBIGEO gestor: 150115<br>Latitud: -12.06295<br>Longitud: -77.02107<br>Alumnos: 900<br>Docentes: 43<br>Siniestros: 0</div>`)[0];
+                popup_f99568fd6527ca4477c3a1de5236ba33.setContent(html_47b93eb8745ddf1326b46d893aa05b71);
+            
+        
+
+        circle_marker_964b2d826bb2d68b6819d62cc4bed172.bindPopup(popup_f99568fd6527ca4477c3a1de5236ba33)
+        ;
+
+        
+    
+    
+            circle_marker_964b2d826bb2d68b6819d62cc4bed172.bindTooltip(
+                `<div>
+                     1107 javier prado | 308684
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_cf4ee296fd5b38cf44357fe3f829da03 = L.circleMarker(
+                [-12.07034, -77.02166],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_397135fe215031e143efd32072ef2e87);
+        
+    
+        var popup_712214f054abb38ab3835865c7427b68 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_d7f4415b832a5d5b715f977bfddd5c5f = $(`<div id="html_d7f4415b832a5d5b715f977bfddd5c5f" style="width: 100.0%; height: 100.0%;"><b>1119 NUESTRA SEÑORA DEL ROSARIO DE FATIMA</b><br>Código CE: 308740<br>UBIGEO gestor: 150115<br>Latitud: -12.07034<br>Longitud: -77.02166<br>Alumnos: 555<br>Docentes: 29<br>Siniestros: 0</div>`)[0];
+                popup_712214f054abb38ab3835865c7427b68.setContent(html_d7f4415b832a5d5b715f977bfddd5c5f);
+            
+        
+
+        circle_marker_cf4ee296fd5b38cf44357fe3f829da03.bindPopup(popup_712214f054abb38ab3835865c7427b68)
+        ;
+
+        
+    
+    
+            circle_marker_cf4ee296fd5b38cf44357fe3f829da03.bindTooltip(
+                `<div>
+                     1119 nuestra señora del rosario de fatima | 308740
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_23ea178d4a456a8bf3594919c2d7816a = L.circleMarker(
+                [-12.07916, -77.01963],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_397135fe215031e143efd32072ef2e87);
+        
+    
+        var popup_d97647c00458c47532d50a36801ff717 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_d3c275a24b05bc0a12f665b59120b149 = $(`<div id="html_d3c275a24b05bc0a12f665b59120b149" style="width: 100.0%; height: 100.0%;"><b>1129 CORAZON DE JESUS</b><br>Código CE: 308801<br>UBIGEO gestor: 150115<br>Latitud: -12.07916<br>Longitud: -77.01963<br>Alumnos: 561<br>Docentes: 30<br>Siniestros: 0</div>`)[0];
+                popup_d97647c00458c47532d50a36801ff717.setContent(html_d3c275a24b05bc0a12f665b59120b149);
+            
+        
+
+        circle_marker_23ea178d4a456a8bf3594919c2d7816a.bindPopup(popup_d97647c00458c47532d50a36801ff717)
+        ;
+
+        
+    
+    
+            circle_marker_23ea178d4a456a8bf3594919c2d7816a.bindTooltip(
+                `<div>
+                     1129 corazon de jesus | 308801
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_fd123a0ea9cd5106ebb1e07f54f99f1a = L.circleMarker(
+                [-12.08248, -77.00805],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_397135fe215031e143efd32072ef2e87);
+        
+    
+        var popup_12588bd82edd52c68434e84b979bfdd2 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_773e7856a82c3fb3a182835834583c5f = $(`<div id="html_773e7856a82c3fb3a182835834583c5f" style="width: 100.0%; height: 100.0%;"><b>TUPAC AMARU</b><br>Código CE: 308981<br>UBIGEO gestor: 150115<br>Latitud: -12.08248<br>Longitud: -77.00805<br>Alumnos: 1311<br>Docentes: 72<br>Siniestros: 0</div>`)[0];
+                popup_12588bd82edd52c68434e84b979bfdd2.setContent(html_773e7856a82c3fb3a182835834583c5f);
+            
+        
+
+        circle_marker_fd123a0ea9cd5106ebb1e07f54f99f1a.bindPopup(popup_12588bd82edd52c68434e84b979bfdd2)
+        ;
+
+        
+    
+    
+            circle_marker_fd123a0ea9cd5106ebb1e07f54f99f1a.bindTooltip(
+                `<div>
+                     tupac amaru | 308981
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_1ab9cbd1aa39ec1d6207fe39535ab768 = L.circleMarker(
+                [-12.07571, -77.02464],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_397135fe215031e143efd32072ef2e87);
+        
+    
+        var popup_0ac5e379ad010a700519d6e66a2095d6 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_3dbe6c585757a26c6a728ca73760a690 = $(`<div id="html_3dbe6c585757a26c6a728ca73760a690" style="width: 100.0%; height: 100.0%;"><b>REGINA DECOR CARMELI</b><br>Código CE: 309216<br>UBIGEO gestor: 150115<br>Latitud: -12.07571<br>Longitud: -77.02464<br>Alumnos: 492<br>Docentes: 30<br>Siniestros: 0</div>`)[0];
+                popup_0ac5e379ad010a700519d6e66a2095d6.setContent(html_3dbe6c585757a26c6a728ca73760a690);
+            
+        
+
+        circle_marker_1ab9cbd1aa39ec1d6207fe39535ab768.bindPopup(popup_0ac5e379ad010a700519d6e66a2095d6)
+        ;
+
+        
+    
+    
+            circle_marker_1ab9cbd1aa39ec1d6207fe39535ab768.bindTooltip(
+                `<div>
+                     regina decor carmeli | 309216
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_93c2322c133d9015b11710f886d91baf = L.circleMarker(
+                [-12.08869, -77.02041],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_397135fe215031e143efd32072ef2e87);
+        
+    
+        var popup_b1deebc3aa717cc3011ccd750c756752 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_2ed1a112adb48c0a63405b1f8a7c2745 = $(`<div id="html_2ed1a112adb48c0a63405b1f8a7c2745" style="width: 100.0%; height: 100.0%;"><b>NUESTRA SEÑORA DEL PILAR</b><br>Código CE: 309589<br>UBIGEO gestor: 150115<br>Latitud: -12.08869<br>Longitud: -77.02041<br>Alumnos: 746<br>Docentes: 81<br>Siniestros: 0</div>`)[0];
+                popup_b1deebc3aa717cc3011ccd750c756752.setContent(html_2ed1a112adb48c0a63405b1f8a7c2745);
+            
+        
+
+        circle_marker_93c2322c133d9015b11710f886d91baf.bindPopup(popup_b1deebc3aa717cc3011ccd750c756752)
+        ;
+
+        
+    
+    
+            circle_marker_93c2322c133d9015b11710f886d91baf.bindTooltip(
+                `<div>
+                     nuestra señora del pilar | 309589
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_81dc2bf8349fec041eee9b031a9781e2 = L.circleMarker(
+                [-12.07178, -77.02179],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_397135fe215031e143efd32072ef2e87);
+        
+    
+        var popup_676444c7267a53b18175c80c0bb37dc6 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_07dc8ba348a9f7e267b1867f95a862aa = $(`<div id="html_07dc8ba348a9f7e267b1867f95a862aa" style="width: 100.0%; height: 100.0%;"><b>SAN RICARDO</b><br>Código CE: 309787<br>UBIGEO gestor: 150115<br>Latitud: -12.07178<br>Longitud: -77.02179<br>Alumnos: 521<br>Docentes: 37<br>Siniestros: 0</div>`)[0];
+                popup_676444c7267a53b18175c80c0bb37dc6.setContent(html_07dc8ba348a9f7e267b1867f95a862aa);
+            
+        
+
+        circle_marker_81dc2bf8349fec041eee9b031a9781e2.bindPopup(popup_676444c7267a53b18175c80c0bb37dc6)
+        ;
+
+        
+    
+    
+            circle_marker_81dc2bf8349fec041eee9b031a9781e2.bindTooltip(
+                `<div>
+                     san ricardo | 309787
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_a46699def7ac324f99b3eae30676664d = L.circleMarker(
+                [-12.08107, -77.01781],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_397135fe215031e143efd32072ef2e87);
+        
+    
+        var popup_2c496e176ec54494b552a353a1257de6 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_bad57193ae2e3918dda9281bdf97e5cc = $(`<div id="html_bad57193ae2e3918dda9281bdf97e5cc" style="width: 100.0%; height: 100.0%;"><b>VIRGEN DE LA MERCED</b><br>Código CE: 703967<br>UBIGEO gestor: 150115<br>Latitud: -12.08107<br>Longitud: -77.01781<br>Alumnos: 22<br>Docentes: 3<br>Siniestros: 1</div>`)[0];
+                popup_2c496e176ec54494b552a353a1257de6.setContent(html_bad57193ae2e3918dda9281bdf97e5cc);
+            
+        
+
+        circle_marker_a46699def7ac324f99b3eae30676664d.bindPopup(popup_2c496e176ec54494b552a353a1257de6)
+        ;
+
+        
+    
+    
+            circle_marker_a46699def7ac324f99b3eae30676664d.bindTooltip(
+                `<div>
+                     virgen de la merced | 703967
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_b0889024fba6a6a1d23b9fafcac0e294 = L.circleMarker(
+                [-12.08507, -77.01842],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_397135fe215031e143efd32072ef2e87);
+        
+    
+        var popup_6f1fc8af155dd3e8ba6688cfb2d707c3 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_fef5b2f7880af6c7c45e6843f304c9af = $(`<div id="html_fef5b2f7880af6c7c45e6843f304c9af" style="width: 100.0%; height: 100.0%;"><b>SAN NORBERTO</b><br>Código CE: 849111<br>UBIGEO gestor: 150115<br>Latitud: -12.08507<br>Longitud: -77.01842<br>Alumnos: 534<br>Docentes: 61<br>Siniestros: 0</div>`)[0];
+                popup_6f1fc8af155dd3e8ba6688cfb2d707c3.setContent(html_fef5b2f7880af6c7c45e6843f304c9af);
+            
+        
+
+        circle_marker_b0889024fba6a6a1d23b9fafcac0e294.bindPopup(popup_6f1fc8af155dd3e8ba6688cfb2d707c3)
+        ;
+
+        
+    
+    
+            circle_marker_b0889024fba6a6a1d23b9fafcac0e294.bindTooltip(
+                `<div>
+                     san norberto | 849111
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            feature_group_397135fe215031e143efd32072ef2e87.addTo(map_e09fbb65d235c6569b67deb6e969250c);
+        
+    
+            map_e09fbb65d235c6569b67deb6e969250c.fitBounds(
+                [[-12.07358, -77.02558], [-12.06632, -77.02097], [-12.06295, -77.02107], [-12.07034, -77.02166], [-12.07916, -77.01963], [-12.08248, -77.00805], [-12.07571, -77.02464], [-12.08869, -77.02041], [-12.07178, -77.02179], [-12.08107, -77.01781], [-12.08507, -77.01842]],
+                {}
+            );
+        
+    
+            var layer_control_639413ca1a565007f86345aa0d31d310_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_59bf8a5ef272b62f1c0ea38b95815c49,
+                },
+                overlays :  {
+                    "contorno" : feature_group_a60af3d23fb784d5d4e7d2bab155d133,
+                    "colegios: buffers" : feature_group_c207b6acfae9b376c08a63650be4f3aa,
+                    "colegios: puntos" : feature_group_397135fe215031e143efd32072ef2e87,
+                },
+            };
+            let layer_control_639413ca1a565007f86345aa0d31d310 = L.control.layers(
+                layer_control_639413ca1a565007f86345aa0d31d310_layers.base_layers,
+                layer_control_639413ca1a565007f86345aa0d31d310_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_e09fbb65d235c6569b67deb6e969250c);
+
+        
+    
+            feature_group_397135fe215031e143efd32072ef2e87.bringToFront();
+        
+    
+      (function() {
+        var puntosLayer = feature_group_397135fe215031e143efd32072ef2e87;
+        var defaultTrue  = '#0ea5e9';
+        var defaultFalse = '#1d4ed8';
+        var hiliteColor  = '#f59e0b';
+
+        // ---------- Toggle colapsar/expandir ----------
+        var box = document.getElementById('zs_tools');
+        var btnToggle = document.getElementById('btn_toggle_box');
+        var saved = null;
+        try { saved = localStorage.getItem('zs_tools_collapsed'); } catch(e) {}
+        if (saved === '1') {
+          box.classList.add('collapsed');
+          btnToggle.textContent = '⯈ Mostrar';
+        }
+        function toggleBox() {
+          var collapsed = box.classList.toggle('collapsed');
+          btnToggle.textContent = collapsed ? '⯈ Mostrar' : '⯆ Ocultar';
+          try { localStorage.setItem('zs_tools_collapsed', collapsed ? '1' : '0'); } catch(e) {}
+        }
+        btnToggle.addEventListener('click', toggleBox);
+
+        // ---------- Esperar a que el mapa esté disponible ----------
+        var ly_map = null;
+        function ensureMap(cb) {
+          var tries = 0;
+          (function wait() {
+            ly_map = (puntosLayer && puntosLayer._map) ? puntosLayer._map : null;
+            if (ly_map) { cb(); return; }
+            if (tries++ < 80) { setTimeout(wait, 50); }
+          })();
+        }
+
+        ensureMap(function initTools() {
+          // ---------- Utilidades de búsqueda ----------
+          function eachMarker(fn) {
+            if (!puntosLayer || !puntosLayer._layers) return;
+            Object.values(puntosLayer._layers).forEach(function(ly) {
+              if (ly && typeof ly.setStyle === 'function') fn(ly);
+            });
+          }
+
+          function getTooltipText(ly) {
+            try {
+              var t = ly.getTooltip();
+              return t ? String(t.getContent() || '').toLowerCase() : '';
+            } catch(e) { return ''; }
+          }
+
+          function clearHighlights() {
+            eachMarker(function(ly) {
+              var st = (ly.options || {});
+              if (!st._origColor) { st._origColor = st.color; }
+              var orig = (st.color === hiliteColor) ? st._origColor : st.color;
+              ly.setStyle({ color: orig || defaultFalse, fillColor: orig || defaultFalse });
+            });
+          }
+
+          function searchAndHighlight() {
+            var qn_raw = (document.getElementById('q_name').value || '');
+            var qc_raw = (document.getElementById('q_code').value || '');
+            var qn = qn_raw.toLowerCase();
+            var qc = qc_raw.toLowerCase();
+
+            var useName = qn_raw.trim().length > 0;
+            var useCode = qc_raw.trim().length > 0;
+
+            clearHighlights();
+            if (!useName && !useCode) return;
+
+            var matchedLatLngs = [];
+            eachMarker(function(ly) {
+              var txt = getTooltipText(ly);
+              var parts = txt.split('|', 2);
+              var nameTxt = (parts[0] || '').trim();
+              var codeTxt = (parts[1] || '').trim();
+
+              var matchName = useName ? (nameTxt.indexOf(qn) !== -1) : false;
+              var matchCode = useCode ? (codeTxt.indexOf(qc) !== -1) : false;
+
+              if (matchName || matchCode) {
+                if (!ly.options._origColor) { ly.options._origColor = ly.options.color; }
+                ly.setStyle({ color: hiliteColor, fillColor: hiliteColor });
+                if (ly.getLatLng) matchedLatLngs.push(ly.getLatLng());
+              }
+            });
+
+            if (matchedLatLngs.length > 0) {
+              var group = L.featureGroup(matchedLatLngs.map(function(ll) { return L.marker(ll); }));
+              try { ly_map.fitBounds(group.getBounds().pad(0.2)); } catch(e) {}
+            }
+          }
+
+          document.getElementById('btn_search').addEventListener('click', searchAndHighlight);
+          document.getElementById('btn_clear').addEventListener('click', function() {
+            document.getElementById('q_name').value = '';
+            document.getElementById('q_code').value = '';
+            clearHighlights();
+          });
+          ['q_name','q_code'].forEach(function(id) {
+            var el = document.getElementById(id);
+            el.addEventListener('keydown', function(ev) { if (ev.key === 'Enter') searchAndHighlight(); });
+          });
+
+          // ---------- Pin por coordenadas ----------
+          var coordLayer = L.layerGroup().addTo(ly_map);
+          function goToXY() {
+            var x = parseFloat((document.getElementById('q_x').value || '').replace(',', '.'));
+            var y = parseFloat((document.getElementById('q_y').value || '').replace(',', '.'));
+            if (!isFinite(x) || !isFinite(y)) return;
+            coordLayer.clearLayers();
+            var mk = L.marker([y, x], { draggable:false, title: 'Punto (Y,X): '+y+', '+x });
+            mk.addTo(coordLayer);
+            ly_map.setView([y, x], Math.max(ly_map.getZoom(), 17));
+          }
+          function clearXY() { coordLayer.clearLayers(); }
+          document.getElementById('btn_xy_go').addEventListener('click', goToXY);
+          document.getElementById('btn_xy_clear').addEventListener('click', clearXY);
+
+          // ---------- Medición ----------
+          var measuring = false;
+          var mA = null, mB = null, mLine = null;
+
+          function haversine(lat1, lon1, lat2, lon2) {
+            var R = 6371000;
+            var dLat = (lat2-lat1) * Math.PI/180;
+            var dLon = (lon2-lon1) * Math.PI/180;
+            var a = Math.sin(dLat/2)*Math.sin(dLat/2) +
+                    Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180) *
+                    Math.sin(dLon/2)*Math.sin(dLon/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+          }
+
+          function updateMeasure() {
+            if (!(mA && mB)) return;
+            var a = mA.getLatLng(), b = mB.getLatLng();
+            var d = haversine(a.lat, a.lng, b.lat, b.lng);
+            var txt = (d >= 1000) ? (d/1000).toFixed(3)+' km' : Math.round(d)+' m';
+
+            if (!mLine) {
+              mLine = L.polyline([a, b], { color: '#111827', weight: 3, dashArray: '6,4' })
+                .bindTooltip(txt, { permanent:true, direction:'center', className:'dist-on-line' })
+                .addTo(ly_map);
+            } else {
+              mLine.setLatLngs([a, b]);
+              mLine.setTooltipContent(txt);
+            }
+          }
+
+          function clearMeasure() {
+            if (mA) ly_map.removeLayer(mA); mA = null;
+            if (mB) ly_map.removeLayer(mB); mB = null;
+            if (mLine) ly_map.removeLayer(mLine); mLine = null;
+          }
+
+          function toggleMeasure() {
+            measuring = !measuring;
+            var stateSpan = document.getElementById('measure_state');
+            stateSpan.textContent = measuring ? 'Activo' : 'Desactivado';
+            stateSpan.style.color = measuring ? '#065f46' : '#991b1b';
+            if (!measuring) {
+              clearMeasure();
+              ly_map.getContainer().style.cursor = '';
+              return;
+            }
+            ly_map.getContainer().style.cursor = 'crosshair';
+          }
+          document.getElementById('btn_measure_toggle').addEventListener('click', toggleMeasure);
+
+          ly_map.on('click', function(ev) {
+            if (!measuring) return;
+            if (!mA) {
+              mA = L.marker(ev.latlng, { draggable:true, title:'Punto A' }).addTo(ly_map);
+              mA.on('drag', updateMeasure);
+            } else if (!mB) {
+              mB = L.marker(ev.latlng, { draggable:true, title:'Punto B' }).addTo(ly_map);
+              mB.on('drag', updateMeasure);
+            } else {
+              mB.setLatLng(ev.latlng);
+            }
+            updateMeasure();
+          });
+
+          // ---------- Abrir vista actual en Google Maps ----------
+          function openInGoogleMaps() {
+            var c = ly_map.getCenter();
+            var z = ly_map.getZoom();
+            var url = 'https://www.google.com/maps/@' + c.lat + ',' + c.lng + ',' + z + 'z';
+            window.open(url, '_blank');
+          }
+          document.getElementById('btn_open_gmaps').addEventListener('click', openInGoogleMaps);
+        });
+      })();
+    
+</script>
+</html>

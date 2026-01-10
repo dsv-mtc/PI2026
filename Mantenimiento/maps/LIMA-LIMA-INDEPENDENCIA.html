@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_aab5609008ad3ce9e74ba513ea9186f9 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <style>
+      .leaflet-interactive.zs-buffer { pointer-events: none !important; }
+
+      .searchbar-wrap {
+        position: fixed; right: 20px; bottom: 140px;
+        z-index: 10000; background: rgba(255,255,255,0.95);
+        border: 1px solid #e5e7eb;
+        padding: 10px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        font-family: system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+        display: flex; flex-direction: column; gap: 8px; min-width: 300px; max-width: 92vw;
+      }
+
+      .searchbar-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+      .searchbar-title { font-weight: 700; font-size: 14px; color: #111827; }
+      .toggle-btn { border: 0; border-radius: 8px; padding: 4px 10px; font-weight: 700; cursor: pointer; background: #111827; color: #fff; }
+      .tools-body { display: flex; flex-direction: column; gap: 8px; }
+
+      .row-flex { display:flex; gap:8px; align-items:center; }
+      .col-flex { display:flex; flex-direction:column; gap:8px; }
+      .row-flex input, .col-flex input { border:1px solid #e5e7eb; border-radius:8px; padding:6px 8px; font-size:13px; flex:1; }
+      .row-flex button, .col-flex button { border:0; border-radius:8px; padding:6px 10px; font-weight:600; cursor:pointer; }
+      .btn-dark  { background:#111827; color:#fff; }
+      .btn-gray  { background:#6b7280; color:#fff; }
+      .btn-green { background:#065f46; color:#fff; }
+      .btn-red   { background:#991b1b; color:#fff; }
+      .pill { font-size:12px; padding:4px 8px; border-radius:999px; }
+      .dist-on-line { background: rgba(17,24,39,0.85); color: #fff; padding: 2px 6px; border-radius: 6px; font-size: 12px; border: 1px solid rgba(255,255,255,0.2); }
+
+      .searchbar-wrap.collapsed { padding: 8px 10px; }
+      .searchbar-wrap.collapsed .tools-body { display: none; }
+
+      @media (max-width: 480px) {
+        .searchbar-wrap { right: 12px; bottom: 12px; min-width: 240px; }
+      }
+    </style>
+    
+    
+    <div style="
+        position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
+        z-index: 9999; background: rgba(255,255,255,0.9);
+        padding: 8px 14px; border-radius: 8px; font-weight: 600;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;">
+        LIMA-LIMA-INDEPENDENCIA
+    </div>
+    
+    
+    <div id="legend-box" style="
+        position: fixed; bottom: 20px; right: 20px; z-index: 9999;
+        background: rgba(255,255,255,0.9); padding: 10px 12px; border-radius: 8px;
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15); line-height: 1.4; min-width: 240px;">
+        <div style="font-weight: 600; margin-bottom: 6px;">Leyenda</div>
+        
+        <div style="display:flex; align-items:center; gap:8px;">
+            <span style="display:inline-block; width:14px; height:14px; background:#0ea5e9; border-radius:50%;"></span>
+            <span>Celeste oscuro: ZE a mantener</span>
+        </div>
+    
+    </div>
+    
+    
+            <div class="folium-map" id="map_aab5609008ad3ce9e74ba513ea9186f9" ></div>
+        
+    
+      <div class="searchbar-wrap" id="zs_tools">
+        <div class="searchbar-header">
+          <div class="searchbar-title">Herramientas</div>
+          <button id="btn_toggle_box" class="toggle-btn" title="Mostrar/Ocultar">⯆ Ocultar</button>
+        </div>
+
+        <div class="tools-body">
+          <div class="col-flex">
+            <input id="q_name" type="text" placeholder="Buscar por nombre">
+            <input id="q_code" type="text" placeholder="Buscar por código">
+          </div>
+          <div class="row-flex">
+            <button id="btn_search" class="btn-dark">Buscar</button>
+            <button id="btn_clear" class="btn-gray">Limpiar</button>
+          </div>
+
+          <hr style="border:none;border-top:1px solid #e5e7eb; margin:4px 0;">
+
+          <div class="col-flex" title="Coordenadas en grados decimales">
+            <input id="q_x" type="text" placeholder="Longitud Ejem: -77.15435">
+            <div class="row-flex">
+              <input id="q_y" type="text" placeholder="Latitud Ejem: -15.54648">
+              <button id="btn_xy_go" class="btn-green" title="Centrar en coordenadas">🔍</button>
+              <button id="btn_xy_clear" class="btn-red"   title="Quitar pin de coordenadas">✕</button>
+            </div>
+          </div>
+
+          <div class="row-flex">
+            <button id="btn_measure_toggle" class="btn-dark pill" title="Medir distancia">Medir distancia</button>
+            <span id="measure_state" style="font-size:12px; color:#991b1b">Desactivado</span>
+          </div>
+
+          <div class="row-flex">
+            <button id="btn_open_gmaps" class="btn-dark" title="Abrir esta vista en Google Maps">Abrir en Google Maps</button>
+          </div>
+        </div>
+      </div>
+    
+</body>
+<script>
+    
+    
+            var map_aab5609008ad3ce9e74ba513ea9186f9 = L.map(
+                "map_aab5609008ad3ce9e74ba513ea9186f9",
+                {
+                    center: [-11.981012162685115, -77.04718066528902],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 14,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+            L.control.scale().addTo(map_aab5609008ad3ce9e74ba513ea9186f9);
+
+            
+
+        
+    
+            var tile_layer_79b060a59056988630aaa07514a18f17 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_79b060a59056988630aaa07514a18f17.addTo(map_aab5609008ad3ce9e74ba513ea9186f9);
+        
+    
+            var feature_group_2b805d49240d6698d893b1b7002f8462 = L.featureGroup(
+                {
+}
+            );
+        
+    
+        function geo_json_de6dcd2d508cced02eb4ac8833e8293f_styler(feature) {
+            switch(feature.properties.IDDPTO) {
+                default:
+                    return {"color": "#222222", "fill": true, "fillColor": "#9ca3af", "fillOpacity": 0.3, "opacity": 1.0, "weight": 2.5};
+            }
+        }
+
+        function geo_json_de6dcd2d508cced02eb4ac8833e8293f_onEachFeature(feature, layer) {
+
+            layer.on({
+            });
+        };
+        var geo_json_de6dcd2d508cced02eb4ac8833e8293f = L.geoJson(null, {
+                onEachFeature: geo_json_de6dcd2d508cced02eb4ac8833e8293f_onEachFeature,
+            
+                style: geo_json_de6dcd2d508cced02eb4ac8833e8293f_styler,
+            ...{
+}
+        });
+
+        function geo_json_de6dcd2d508cced02eb4ac8833e8293f_add (data) {
+            geo_json_de6dcd2d508cced02eb4ac8833e8293f
+                .addData(data);
+        }
+            geo_json_de6dcd2d508cced02eb4ac8833e8293f_add({"features": [{"geometry": {"coordinates": [[[[-77.02858011099994, -11.964617229999874], [-77.02794423599994, -11.965714104999961], [-77.02764186099995, -11.966352479999955], [-77.02765773599992, -11.966619604999948], [-77.02768361099993, -11.96705460499993], [-77.02787711099995, -11.967578603999982], [-77.02853211099989, -11.968569728999967], [-77.02956248699996, -11.971109354999953], [-77.02945123599989, -11.975673854999968], [-77.02937198599994, -11.977976104999982], [-77.02913686199992, -11.980546104999974], [-77.02895211099991, -11.982192229999953], [-77.02910323599997, -11.982931229999963], [-77.02955673699995, -11.983754354999974], [-77.03017823599993, -11.984879729999875], [-77.03032936199992, -11.985803479999959], [-77.03029986099995, -11.986020854999879], [-77.03022861099993, -11.986542604999897], [-77.03014461099997, -11.987248103999946], [-77.0301951109999, -11.988440729999922], [-77.03029698599988, -11.98896485399996], [-77.0304302369999, -11.989650104999896], [-77.03046386099993, -11.990741979999825], [-77.03034623599996, -11.992740854999909], [-77.03056461099993, -11.994672478999973], [-77.03065423599998, -11.996388729999921], [-77.03115248699999, -11.997141728999964], [-77.03195873599998, -11.998737354999946], [-77.03269786099997, -11.999963604999948], [-77.03346173599994, -12.00093460499994], [-77.03368886199996, -12.001223354999922], [-77.03803936099996, -12.00443160499998], [-77.04013348699993, -12.00657560499991], [-77.04051361099994, -12.006964854999978], [-77.04392973599988, -12.01012110499994], [-77.0448769859999, -12.011712854999814], [-77.04507673599994, -12.012248728999907], [-77.04525286099994, -12.01295872999998], [-77.04529811099997, -12.01363172999993], [-77.04531348599988, -12.013861353999857], [-77.04537298599996, -12.013973979999946], [-77.04556661199996, -12.01434022999996], [-77.04569873599996, -12.01470897999991], [-77.04572073699995, -12.015209854999966], [-77.04578136099997, -12.015936479999937], [-77.04586561099995, -12.01649497999989], [-77.04580661099993, -12.016675729999918], [-77.0456699859999, -12.016890604999958], [-77.04571686099996, -12.01714660499988], [-77.04588586099999, -12.017173479999883], [-77.04594098699994, -12.017249353999944], [-77.04609948599983, -12.017442354999957], [-77.04626498599993, -12.017614604999892], [-77.0463752359999, -12.017683604999831], [-77.04658886099998, -12.017752479999956], [-77.04696798599991, -12.017842104999886], [-77.04725748599998, -12.017842104999886], [-77.04743361099997, -12.017843729999925], [-77.04776761099998, -12.017828354999892], [-77.04795373599995, -12.017442353999854], [-77.04806398699992, -12.017166604999943], [-77.04811911099995, -12.017028729999936], [-77.04818798599996, -12.016690979999964], [-77.04818798599996, -12.016504854999823], [-77.04820186099994, -12.016304979999973], [-77.0482432359999, -12.016098229999841], [-77.04831898599997, -12.015863854999964], [-77.04838098599993, -12.015681228999881], [-77.04849136099995, -12.015453729999876], [-77.0485671109999, -12.015370979999886], [-77.04863611099984, -12.01527447999996], [-77.04865211099991, -12.015123854999956], [-77.04880148599995, -12.015019479999921], [-77.04876586099994, -12.014915479999956], [-77.04882223599998, -12.014854104999927], [-77.04882911199991, -12.01473685499991], [-77.0487808609999, -12.01466110499996], [-77.04872573599988, -12.014571479999972], [-77.04864411099999, -12.014482104999956], [-77.04869811099996, -12.014343979999978], [-77.04879461099989, -12.014109604999874], [-77.04885661099996, -12.013916604999963], [-77.04884286099997, -12.013675353999929], [-77.04881523599983, -12.013516853999931], [-77.04876698599992, -12.013254979999942], [-77.04878773599995, -12.013096479999888], [-77.04876873599989, -12.01291585499996], [-77.04887036199995, -12.012806979999937], [-77.04895998599989, -12.012696604999917], [-77.0490781119999, -12.012640604999945], [-77.04918748699998, -12.012593229999936], [-77.04923573599996, -12.012544979999916], [-77.04931848599989, -12.012489854999956], [-77.04933911199998, -12.012372729999981], [-77.04933911099994, -12.012241729999971], [-77.04933911099994, -12.0121176049999], [-77.04935161199995, -12.011460978999935], [-77.04971286099993, -12.01080260499998], [-77.05027148599999, -12.010540979999917], [-77.05296911099998, -12.011032604999912], [-77.05321211099994, -12.009979479999913], [-77.05361048599991, -12.008116104999942], [-77.0537499859999, -12.007478354999932], [-77.05752586099999, -12.007954104999953], [-77.0593823619999, -12.008203978999916], [-77.06140236099998, -12.008361354999977], [-77.06196873599993, -12.004617229999894], [-77.06252823699998, -12.000403354999946], [-77.06290823599988, -11.997540979999883], [-77.0631897369999, -11.995985104999932], [-77.06391386199994, -11.992063229999872], [-77.06404273599998, -11.991349103999937], [-77.06523398699994, -11.984797854999954], [-77.06563086099999, -11.981585979999977], [-77.06623823699988, -11.977638604999925], [-77.06423423699988, -11.977349604999915], [-77.06112298599999, -11.976902354999936], [-77.05982036099994, -11.976919979999877], [-77.05933986099996, -11.977134729999875], [-77.0581243609999, -11.976842229999932], [-77.05799748599998, -11.976308728999925], [-77.05770148599993, -11.975368728999968], [-77.05761848599997, -11.975168604999908], [-77.05760711199991, -11.975141104999977], [-77.0573632359999, -11.97511835499995], [-77.0571582359999, -11.975131354999974], [-77.05704798599993, -11.975201979999952], [-77.05699561099988, -11.975235354999938], [-77.05671598599992, -11.975248354999962], [-77.05644273599995, -11.975186604999976], [-77.05633211099996, -11.975010979999922], [-77.05614823599996, -11.974814479999964], [-77.05611123599988, -11.974679978999916], [-77.05603486199988, -11.97442397999987], [-77.05572923599988, -11.974171729999966], [-77.0556938609999, -11.97415435499994], [-77.05529361099991, -11.973957853999934], [-77.05477398599999, -11.973606229999973], [-77.05439186199999, -11.973285354999973], [-77.05417623599999, -11.973159104999922], [-77.05398686199999, -11.973048354999833], [-77.05344423599985, -11.972780979999982], [-77.05289686099997, -11.972125229999904], [-77.05234098699998, -11.971013479999954], [-77.05225423599995, -11.9706911049999], [-77.05211211099993, -11.970163354999954], [-77.05180148599999, -11.969689228999869], [-77.05147973599992, -11.96959172999982], [-77.05018298599992, -11.969198854999888], [-77.04933286099993, -11.968593854999938], [-77.04851536099994, -11.967792729999928], [-77.04792673699995, -11.967007979999892], [-77.0471256109999, -11.966370228999892], [-77.04607936199994, -11.965896228999952], [-77.04444098599998, -11.965562104999833], [-77.04439536099994, -11.96555297999987], [-77.04295661099991, -11.965487479999979], [-77.04184486199995, -11.965618354999947], [-77.04170986099996, -11.965613854999958], [-77.04037348599996, -11.965569229999971], [-77.03917998599991, -11.96524235499993], [-77.0374142359999, -11.964392104999945], [-77.03589386199997, -11.963623729999938], [-77.03497823599997, -11.963067854999963], [-77.03406273699989, -11.962413854999909], [-77.03293461099992, -11.96174372999991], [-77.03133248599994, -11.961280229999943], [-77.02945736199996, -11.960880604999886], [-77.02828123599994, -11.960677729999816], [-77.02871673599998, -11.962519479999969], [-77.02879298699997, -11.964019479999934], [-77.02858011099994, -11.964617229999874]]]], "type": "MultiPolygon"}, "properties": {"AREA": 1, "CAPITAL": "INDEPENDENCIA", "CODCCPP": "0001", "DEPARTAMEN": "LIMA", "DISTRITO": "INDEPENDENCIA", "FUENTE": "INEI", "IDDIST": "150112", "IDDPTO": "15", "IDPROV": "1501", "PROVINCIA": "LIMA"}, "type": "Feature"}], "type": "FeatureCollection"});
+
+        
+    
+            geo_json_de6dcd2d508cced02eb4ac8833e8293f.addTo(feature_group_2b805d49240d6698d893b1b7002f8462);
+        
+    
+            feature_group_2b805d49240d6698d893b1b7002f8462.addTo(map_aab5609008ad3ce9e74ba513ea9186f9);
+        
+    
+            var feature_group_8ded68858bad9483171d9b24565c8994 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_b17b42dd72b7ab1944b4fe287ef530f9 = L.circle(
+                [-11.979, -77.046],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_8ded68858bad9483171d9b24565c8994);
+        
+    
+            var circle_ad61920f5de08806e5371ac59081b0b1 = L.circle(
+                [-11.9805, -77.0403],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_8ded68858bad9483171d9b24565c8994);
+        
+    
+            var circle_5ac1e7caca2f5e2255fab9339eb1d542 = L.circle(
+                [-11.9975, -77.0512],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_8ded68858bad9483171d9b24565c8994);
+        
+    
+            var circle_676a454c5facb378808879864c6f50e9 = L.circle(
+                [-11.97215, -77.05],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_8ded68858bad9483171d9b24565c8994);
+        
+    
+            var circle_8cb965163890a3a92be555ca3830774a = L.circle(
+                [-11.9715, -77.0456],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_8ded68858bad9483171d9b24565c8994);
+        
+    
+            var circle_4e6fbaa0de191c026b1c2155e6bc6527 = L.circle(
+                [-11.98001, -77.04124],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_8ded68858bad9483171d9b24565c8994);
+        
+    
+            var circle_813d589a1e97ea7183022d8bdc8cf797 = L.circle(
+                [-11.9864251387958, -77.0559246570231],
+                {"bubblingMouseEvents": true, "className": "zs-buffer", "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 0.5, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 100, "stroke": true, "weight": 2}
+            ).addTo(feature_group_8ded68858bad9483171d9b24565c8994);
+        
+    
+            feature_group_8ded68858bad9483171d9b24565c8994.addTo(map_aab5609008ad3ce9e74ba513ea9186f9);
+        
+    
+            var feature_group_39200fd0399a638b6d0fdc744aa34f34 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_dc156b8583d67d141c253f4fa7f394ef = L.circleMarker(
+                [-11.979, -77.046],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_39200fd0399a638b6d0fdc744aa34f34);
+        
+    
+        var popup_4de649040b936437142917d4e58a5f52 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_b53d6839f9a05fe3587706184021a475 = $(`<div id="html_b53d6839f9a05fe3587706184021a475" style="width: 100.0%; height: 100.0%;"><b>09 J. WILLIAM FULBRIGHT / 3094-1 J. WILLIAM FULBRIGHT</b><br>Código CE: 305671<br>UBIGEO gestor: 150112<br>Latitud: -11.979<br>Longitud: -77.046<br>Alumnos: 1089<br>Docentes: 63<br>Siniestros: 0</div>`)[0];
+                popup_4de649040b936437142917d4e58a5f52.setContent(html_b53d6839f9a05fe3587706184021a475);
+            
+        
+
+        circle_marker_dc156b8583d67d141c253f4fa7f394ef.bindPopup(popup_4de649040b936437142917d4e58a5f52)
+        ;
+
+        
+    
+    
+            circle_marker_dc156b8583d67d141c253f4fa7f394ef.bindTooltip(
+                `<div>
+                     09 j. william fulbright / 3094-1 j. william fulbright | 305671
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_b9c5082fa5e68828bc3d0eae7121588e = L.circleMarker(
+                [-11.9805, -77.0403],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_39200fd0399a638b6d0fdc744aa34f34);
+        
+    
+        var popup_f81660145615708deccfe741bd31b532 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_27fb8488376ccf81e60b82f17ddf77b8 = $(`<div id="html_27fb8488376ccf81e60b82f17ddf77b8" style="width: 100.0%; height: 100.0%;"><b>0390-3 TAHUANTINSUYO</b><br>Código CE: 305770<br>UBIGEO gestor: 150112<br>Latitud: -11.9805<br>Longitud: -77.0403<br>Alumnos: 344<br>Docentes: 21<br>Siniestros: 0</div>`)[0];
+                popup_f81660145615708deccfe741bd31b532.setContent(html_27fb8488376ccf81e60b82f17ddf77b8);
+            
+        
+
+        circle_marker_b9c5082fa5e68828bc3d0eae7121588e.bindPopup(popup_f81660145615708deccfe741bd31b532)
+        ;
+
+        
+    
+    
+            circle_marker_b9c5082fa5e68828bc3d0eae7121588e.bindTooltip(
+                `<div>
+                     0390-3 tahuantinsuyo | 305770
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_054847232dfdb9782680bf3de7a9b28f = L.circleMarker(
+                [-11.9975, -77.0512],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_39200fd0399a638b6d0fdc744aa34f34);
+        
+    
+        var popup_3a62890bcb97ed2a29a1104c6968a027 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_ac945b7a99a46d4df00e1bff64d98644 = $(`<div id="html_ac945b7a99a46d4df00e1bff64d98644" style="width: 100.0%; height: 100.0%;"><b>INDEPENDENCIA</b><br>Código CE: 305789<br>UBIGEO gestor: 150112<br>Latitud: -11.9975<br>Longitud: -77.0512<br>Alumnos: 1479<br>Docentes: 66<br>Siniestros: 1</div>`)[0];
+                popup_3a62890bcb97ed2a29a1104c6968a027.setContent(html_ac945b7a99a46d4df00e1bff64d98644);
+            
+        
+
+        circle_marker_054847232dfdb9782680bf3de7a9b28f.bindPopup(popup_3a62890bcb97ed2a29a1104c6968a027)
+        ;
+
+        
+    
+    
+            circle_marker_054847232dfdb9782680bf3de7a9b28f.bindTooltip(
+                `<div>
+                     independencia | 305789
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_d4eef35bc8f697a6f5fa9dc6e3338b4b = L.circleMarker(
+                [-11.97215, -77.05],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_39200fd0399a638b6d0fdc744aa34f34);
+        
+    
+        var popup_84922227e08a029c9c23d4c01a8414c6 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_89a18ec159423b81ea8746b77d70290b = $(`<div id="html_89a18ec159423b81ea8746b77d70290b" style="width: 100.0%; height: 100.0%;"><b>2052 MARIA AUXILIADORA</b><br>Código CE: 305845<br>UBIGEO gestor: 150112<br>Latitud: -11.97215<br>Longitud: -77.05<br>Alumnos: 805<br>Docentes: 48<br>Siniestros: 0</div>`)[0];
+                popup_84922227e08a029c9c23d4c01a8414c6.setContent(html_89a18ec159423b81ea8746b77d70290b);
+            
+        
+
+        circle_marker_d4eef35bc8f697a6f5fa9dc6e3338b4b.bindPopup(popup_84922227e08a029c9c23d4c01a8414c6)
+        ;
+
+        
+    
+    
+            circle_marker_d4eef35bc8f697a6f5fa9dc6e3338b4b.bindTooltip(
+                `<div>
+                     2052 maria auxiliadora | 305845
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_d5104e38a1004ee0bf62c01702deb033 = L.circleMarker(
+                [-11.9715, -77.0456],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_39200fd0399a638b6d0fdc744aa34f34);
+        
+    
+        var popup_28cba9404e6c7a1262ad191151f802f3 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_b7f7d07baea076f0a8450867fdc97d44 = $(`<div id="html_b7f7d07baea076f0a8450867fdc97d44" style="width: 100.0%; height: 100.0%;"><b>2057 JOSE GABRIEL CONDORCANQUI</b><br>Código CE: 305888<br>UBIGEO gestor: 150112<br>Latitud: -11.9715<br>Longitud: -77.0456<br>Alumnos: 1843<br>Docentes: 87<br>Siniestros: 0</div>`)[0];
+                popup_28cba9404e6c7a1262ad191151f802f3.setContent(html_b7f7d07baea076f0a8450867fdc97d44);
+            
+        
+
+        circle_marker_d5104e38a1004ee0bf62c01702deb033.bindPopup(popup_28cba9404e6c7a1262ad191151f802f3)
+        ;
+
+        
+    
+    
+            circle_marker_d5104e38a1004ee0bf62c01702deb033.bindTooltip(
+                `<div>
+                     2057 jose gabriel condorcanqui | 305888
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_7822e5524a8e480389ed7098770d3ec8 = L.circleMarker(
+                [-11.98001, -77.04124],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_39200fd0399a638b6d0fdc744aa34f34);
+        
+    
+        var popup_007449931d517fd3043cd2f1ae1ed93d = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_d18098210f9eb9431dbc9d41346c2ea5 = $(`<div id="html_d18098210f9eb9431dbc9d41346c2ea5" style="width: 100.0%; height: 100.0%;"><b>2058 VIRGEN DE LA MEDALLA MILAGROSA</b><br>Código CE: 305893<br>UBIGEO gestor: 150112<br>Latitud: -11.98001<br>Longitud: -77.04124<br>Alumnos: 1136<br>Docentes: 51<br>Siniestros: 0</div>`)[0];
+                popup_007449931d517fd3043cd2f1ae1ed93d.setContent(html_d18098210f9eb9431dbc9d41346c2ea5);
+            
+        
+
+        circle_marker_7822e5524a8e480389ed7098770d3ec8.bindPopup(popup_007449931d517fd3043cd2f1ae1ed93d)
+        ;
+
+        
+    
+    
+            circle_marker_7822e5524a8e480389ed7098770d3ec8.bindTooltip(
+                `<div>
+                     2058 virgen de la medalla milagrosa | 305893
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            var circle_marker_5d859d978abfe6af246ea29787a58f96 = L.circleMarker(
+                [-11.9864251387958, -77.0559246570231],
+                {"bubblingMouseEvents": true, "color": "#0ea5e9", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#0ea5e9", "fillOpacity": 1.0, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 5, "stroke": true, "weight": 2}
+            ).addTo(feature_group_39200fd0399a638b6d0fdc744aa34f34);
+        
+    
+        var popup_ad9090fda058ae1be15552030f17dec1 = L.popup({
+  "maxWidth": 420,
+});
+
+        
+            
+                var html_6ba736f00bcc142af9a13e6fba3aa03b = $(`<div id="html_6ba736f00bcc142af9a13e6fba3aa03b" style="width: 100.0%; height: 100.0%;"><b>JESUS EL BUEN PASTOR</b><br>Código CE: 598037<br>UBIGEO gestor: 150112<br>Latitud: -11.9864251387958<br>Longitud: -77.0559246570231<br>Alumnos: 278<br>Docentes: 10<br>Siniestros: 0</div>`)[0];
+                popup_ad9090fda058ae1be15552030f17dec1.setContent(html_6ba736f00bcc142af9a13e6fba3aa03b);
+            
+        
+
+        circle_marker_5d859d978abfe6af246ea29787a58f96.bindPopup(popup_ad9090fda058ae1be15552030f17dec1)
+        ;
+
+        
+    
+    
+            circle_marker_5d859d978abfe6af246ea29787a58f96.bindTooltip(
+                `<div>
+                     jesus el buen pastor | 598037
+                 </div>`,
+                {
+  "opacity": 0,
+  "sticky": false,
+}
+            );
+        
+    
+            feature_group_39200fd0399a638b6d0fdc744aa34f34.addTo(map_aab5609008ad3ce9e74ba513ea9186f9);
+        
+    
+            map_aab5609008ad3ce9e74ba513ea9186f9.fitBounds(
+                [[-11.979, -77.046], [-11.9805, -77.0403], [-11.9975, -77.0512], [-11.97215, -77.05], [-11.9715, -77.0456], [-11.98001, -77.04124], [-11.9864251387958, -77.0559246570231]],
+                {}
+            );
+        
+    
+            var layer_control_9587b6b525ece56ad9662b66490425d0_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_79b060a59056988630aaa07514a18f17,
+                },
+                overlays :  {
+                    "contorno" : feature_group_2b805d49240d6698d893b1b7002f8462,
+                    "colegios: buffers" : feature_group_8ded68858bad9483171d9b24565c8994,
+                    "colegios: puntos" : feature_group_39200fd0399a638b6d0fdc744aa34f34,
+                },
+            };
+            let layer_control_9587b6b525ece56ad9662b66490425d0 = L.control.layers(
+                layer_control_9587b6b525ece56ad9662b66490425d0_layers.base_layers,
+                layer_control_9587b6b525ece56ad9662b66490425d0_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_aab5609008ad3ce9e74ba513ea9186f9);
+
+        
+    
+            feature_group_39200fd0399a638b6d0fdc744aa34f34.bringToFront();
+        
+    
+      (function() {
+        var puntosLayer = feature_group_39200fd0399a638b6d0fdc744aa34f34;
+        var defaultTrue  = '#0ea5e9';
+        var defaultFalse = '#1d4ed8';
+        var hiliteColor  = '#f59e0b';
+
+        // ---------- Toggle colapsar/expandir ----------
+        var box = document.getElementById('zs_tools');
+        var btnToggle = document.getElementById('btn_toggle_box');
+        var saved = null;
+        try { saved = localStorage.getItem('zs_tools_collapsed'); } catch(e) {}
+        if (saved === '1') {
+          box.classList.add('collapsed');
+          btnToggle.textContent = '⯈ Mostrar';
+        }
+        function toggleBox() {
+          var collapsed = box.classList.toggle('collapsed');
+          btnToggle.textContent = collapsed ? '⯈ Mostrar' : '⯆ Ocultar';
+          try { localStorage.setItem('zs_tools_collapsed', collapsed ? '1' : '0'); } catch(e) {}
+        }
+        btnToggle.addEventListener('click', toggleBox);
+
+        // ---------- Esperar a que el mapa esté disponible ----------
+        var ly_map = null;
+        function ensureMap(cb) {
+          var tries = 0;
+          (function wait() {
+            ly_map = (puntosLayer && puntosLayer._map) ? puntosLayer._map : null;
+            if (ly_map) { cb(); return; }
+            if (tries++ < 80) { setTimeout(wait, 50); }
+          })();
+        }
+
+        ensureMap(function initTools() {
+          // ---------- Utilidades de búsqueda ----------
+          function eachMarker(fn) {
+            if (!puntosLayer || !puntosLayer._layers) return;
+            Object.values(puntosLayer._layers).forEach(function(ly) {
+              if (ly && typeof ly.setStyle === 'function') fn(ly);
+            });
+          }
+
+          function getTooltipText(ly) {
+            try {
+              var t = ly.getTooltip();
+              return t ? String(t.getContent() || '').toLowerCase() : '';
+            } catch(e) { return ''; }
+          }
+
+          function clearHighlights() {
+            eachMarker(function(ly) {
+              var st = (ly.options || {});
+              if (!st._origColor) { st._origColor = st.color; }
+              var orig = (st.color === hiliteColor) ? st._origColor : st.color;
+              ly.setStyle({ color: orig || defaultFalse, fillColor: orig || defaultFalse });
+            });
+          }
+
+          function searchAndHighlight() {
+            var qn_raw = (document.getElementById('q_name').value || '');
+            var qc_raw = (document.getElementById('q_code').value || '');
+            var qn = qn_raw.toLowerCase();
+            var qc = qc_raw.toLowerCase();
+
+            var useName = qn_raw.trim().length > 0;
+            var useCode = qc_raw.trim().length > 0;
+
+            clearHighlights();
+            if (!useName && !useCode) return;
+
+            var matchedLatLngs = [];
+            eachMarker(function(ly) {
+              var txt = getTooltipText(ly);
+              var parts = txt.split('|', 2);
+              var nameTxt = (parts[0] || '').trim();
+              var codeTxt = (parts[1] || '').trim();
+
+              var matchName = useName ? (nameTxt.indexOf(qn) !== -1) : false;
+              var matchCode = useCode ? (codeTxt.indexOf(qc) !== -1) : false;
+
+              if (matchName || matchCode) {
+                if (!ly.options._origColor) { ly.options._origColor = ly.options.color; }
+                ly.setStyle({ color: hiliteColor, fillColor: hiliteColor });
+                if (ly.getLatLng) matchedLatLngs.push(ly.getLatLng());
+              }
+            });
+
+            if (matchedLatLngs.length > 0) {
+              var group = L.featureGroup(matchedLatLngs.map(function(ll) { return L.marker(ll); }));
+              try { ly_map.fitBounds(group.getBounds().pad(0.2)); } catch(e) {}
+            }
+          }
+
+          document.getElementById('btn_search').addEventListener('click', searchAndHighlight);
+          document.getElementById('btn_clear').addEventListener('click', function() {
+            document.getElementById('q_name').value = '';
+            document.getElementById('q_code').value = '';
+            clearHighlights();
+          });
+          ['q_name','q_code'].forEach(function(id) {
+            var el = document.getElementById(id);
+            el.addEventListener('keydown', function(ev) { if (ev.key === 'Enter') searchAndHighlight(); });
+          });
+
+          // ---------- Pin por coordenadas ----------
+          var coordLayer = L.layerGroup().addTo(ly_map);
+          function goToXY() {
+            var x = parseFloat((document.getElementById('q_x').value || '').replace(',', '.'));
+            var y = parseFloat((document.getElementById('q_y').value || '').replace(',', '.'));
+            if (!isFinite(x) || !isFinite(y)) return;
+            coordLayer.clearLayers();
+            var mk = L.marker([y, x], { draggable:false, title: 'Punto (Y,X): '+y+', '+x });
+            mk.addTo(coordLayer);
+            ly_map.setView([y, x], Math.max(ly_map.getZoom(), 17));
+          }
+          function clearXY() { coordLayer.clearLayers(); }
+          document.getElementById('btn_xy_go').addEventListener('click', goToXY);
+          document.getElementById('btn_xy_clear').addEventListener('click', clearXY);
+
+          // ---------- Medición ----------
+          var measuring = false;
+          var mA = null, mB = null, mLine = null;
+
+          function haversine(lat1, lon1, lat2, lon2) {
+            var R = 6371000;
+            var dLat = (lat2-lat1) * Math.PI/180;
+            var dLon = (lon2-lon1) * Math.PI/180;
+            var a = Math.sin(dLat/2)*Math.sin(dLat/2) +
+                    Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180) *
+                    Math.sin(dLon/2)*Math.sin(dLon/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            return R * c;
+          }
+
+          function updateMeasure() {
+            if (!(mA && mB)) return;
+            var a = mA.getLatLng(), b = mB.getLatLng();
+            var d = haversine(a.lat, a.lng, b.lat, b.lng);
+            var txt = (d >= 1000) ? (d/1000).toFixed(3)+' km' : Math.round(d)+' m';
+
+            if (!mLine) {
+              mLine = L.polyline([a, b], { color: '#111827', weight: 3, dashArray: '6,4' })
+                .bindTooltip(txt, { permanent:true, direction:'center', className:'dist-on-line' })
+                .addTo(ly_map);
+            } else {
+              mLine.setLatLngs([a, b]);
+              mLine.setTooltipContent(txt);
+            }
+          }
+
+          function clearMeasure() {
+            if (mA) ly_map.removeLayer(mA); mA = null;
+            if (mB) ly_map.removeLayer(mB); mB = null;
+            if (mLine) ly_map.removeLayer(mLine); mLine = null;
+          }
+
+          function toggleMeasure() {
+            measuring = !measuring;
+            var stateSpan = document.getElementById('measure_state');
+            stateSpan.textContent = measuring ? 'Activo' : 'Desactivado';
+            stateSpan.style.color = measuring ? '#065f46' : '#991b1b';
+            if (!measuring) {
+              clearMeasure();
+              ly_map.getContainer().style.cursor = '';
+              return;
+            }
+            ly_map.getContainer().style.cursor = 'crosshair';
+          }
+          document.getElementById('btn_measure_toggle').addEventListener('click', toggleMeasure);
+
+          ly_map.on('click', function(ev) {
+            if (!measuring) return;
+            if (!mA) {
+              mA = L.marker(ev.latlng, { draggable:true, title:'Punto A' }).addTo(ly_map);
+              mA.on('drag', updateMeasure);
+            } else if (!mB) {
+              mB = L.marker(ev.latlng, { draggable:true, title:'Punto B' }).addTo(ly_map);
+              mB.on('drag', updateMeasure);
+            } else {
+              mB.setLatLng(ev.latlng);
+            }
+            updateMeasure();
+          });
+
+          // ---------- Abrir vista actual en Google Maps ----------
+          function openInGoogleMaps() {
+            var c = ly_map.getCenter();
+            var z = ly_map.getZoom();
+            var url = 'https://www.google.com/maps/@' + c.lat + ',' + c.lng + ',' + z + 'z';
+            window.open(url, '_blank');
+          }
+          document.getElementById('btn_open_gmaps').addEventListener('click', openInGoogleMaps);
+        });
+      })();
+    
+</script>
+</html>

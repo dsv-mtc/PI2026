@@ -4,7 +4,7 @@ maps_establecimientos.py  (Establecimientos de Salud + siniestros + contorno + b
 - Normaliza encabezados a minúscula al leer cada Excel.
 - Buffer de 100 m para establecimientos (no interactivo).
 - Título del mapa = nombre del archivo .xlsx (sin extensión).
-- Buscador por nombre_establecimiento y codigo_unico (case-insensitive, contains, OR).
+- Buscador por nombre_establecimiento y codigo (case-insensitive, contains, OR).
 - Buscador de coordenadas (X=longitud, Y=latitud).
 - Herramienta de medición (dos puntos arrastrables; distancia en metros/km, etiqueta sobre la línea).
 - Botón para abrir vista actual en Google Maps.
@@ -337,7 +337,7 @@ def map_for_excel(xlsx_path: Path, out_dir: Path, distritos_gj: dict, provincias
     for _, row in df.iterrows():
         lat = float(row["latitud"]); lon = float(row["longitud"])
         name_raw = _safe_str(row.get("nombre_establecimiento", ""))
-        code_raw = _safe_str(row.get("codigo_unico", ""))
+        code_raw = _safe_str(row.get("codigo", ""))
 
         folium.Circle(
             location=(lat, lon),

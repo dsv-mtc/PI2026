@@ -8,6 +8,7 @@ RESUMEN_DIR.mkdir(parents=True, exist_ok=True)
 
 SECCIONES = [
     "ZonasEscolares",
+    "Mantenimiento",
     "Intersecciones",
     "EstablecimientoSalud",
 ]

@@ -1,0 +1,783 @@
+
+    <!doctype html><html lang="es"><head>
+      <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Mantenimiento de Zonas Escolares</title>
+      
+    <style>
+      :root {
+        --blue:#1d4ed8; --sky:#7dd3fc; --bg:#f7f7fb; --fg:#111827;
+        --green:#16a34a; --orange:#f97316; --dark:#111827;
+      }
+      * { box-sizing:border-box; }
+      body { margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); color:var(--fg); }
+      header { position:relative; padding:18px 20px; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+      .logo { position:absolute; right:20px; top:12px; height:48px; width:auto; border-radius:6px; object-fit:contain; }
+      .container { max-width:1100px; margin:0 auto; padding:24px 16px; }
+      h1 { margin-top:8px; font-size: clamp(22px, 3.2vw, 34px); }
+      .lead { font-size: clamp(14px, 2vw, 16px); line-height:1.6; }
+
+      /* >>> Parche hero sin recorte <<< */
+      .hero {
+        display:block;
+        width:100%;
+        height:auto;
+        max-height:80vh;
+        border-radius:14px;
+        box-shadow:0 6px 16px rgba(0,0,0,0.08);
+        object-fit:contain;
+      }
+
+      /* Botonera principal centrada */
+      .main-actions {
+        display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+        margin: 6px 0 18px;
+      }
+
+      .btn {
+        display:inline-block; padding:12px 16px; border-radius:12px;
+        text-decoration:none; color:#fff; font-weight:600;
+        transition: transform .08s ease, box-shadow .2s ease;
+      }
+      .btn:hover { transform: translateY(-1px); }
+      .btn.zonas { background: var(--green); box-shadow:0 4px 12px rgba(22,163,74,0.30); }
+      .btn.zonas:hover { box-shadow:0 8px 18px rgba(22,163,74,0.35); }
+      .btn.mant { background: var(--sky); color:#0f172a; box-shadow:0 4px 12px rgba(125,211,252,0.45); }
+      .btn.mant:hover { box-shadow:0 8px 18px rgba(125,211,252,0.55); }
+      .btn.inter { background: var(--orange); box-shadow:0 4px 12px rgba(249,115,22,0.30); }
+      .btn.inter:hover { box-shadow:0 8px 18px rgba(249,115,22,0.35); }
+      .btn.estab { background: var(--blue); box-shadow:0 4px 12px rgba(29,78,216,0.30); }
+      .btn.estab:hover { box-shadow:0 8px 18px rgba(29,78,216,0.35); }
+
+      .disabled { opacity:.5; pointer-events:none; filter:grayscale(0.3); }
+      .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap:14px; margin-top:14px; }
+      .card {
+        background:#fff; border-radius:14px; padding:14px;
+        box-shadow:0 4px 12px rgba(0,0,0,0.06);
+      }
+      .card h3 { margin:4px 0 10px; font-size:18px; }
+      .card .row { display:flex; gap:10px; }
+      .card a, .card span.btn-like {
+        flex:1; text-align:center; font-weight:600; padding:10px;
+        border-radius:10px; text-decoration:none; display:inline-block;
+      }
+      .dl { background:var(--dark); color:#fff; }
+      .map { background:#ffffff; color:var(--blue); border:1px solid var(--blue); }
+      .btn-like { background:#e5e7eb; color:#6b7280; border:1px solid #e5e7eb; }
+
+      .back {
+        position: fixed; top: 14px; left: 14px; z-index: 9999;
+        background:#fff; border:1px solid #e5e7eb; border-radius:10px; padding:8px 12px;
+        text-decoration:none; font-weight:600; color:#111827;
+        box-shadow:0 2px 8px rgba(0,0,0,0.08);
+      }
+      .muted { color:#6b7280; font-size:13px; margin-top:4px; }
+      footer { padding:18px; text-align:center; color:#6b7280; font-size:13px; }
+
+      /* ----- Barra de filtros ----- */
+      .filters-wrap { margin:12px 0; }
+      .filters-title { font-weight:700; font-size:14px; margin: 0 0 8px; color:#111827; }
+      .filters {
+        display:flex; flex-wrap:wrap; gap:8px; align-items:flex-end;
+        background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:10px;
+        box-shadow:0 2px 8px rgba(0,0,0,0.06);
+      }
+      .filters .field { display:flex; flex-direction:column; gap:6px; min-width:240px; flex:1; }
+      .filters label { font-size:13px; color:#374151; }
+      .filters input {
+        border:1px solid #e5e7eb; border-radius:8px; padding:8px 10px; font-size:14px;
+        width:100%;
+      }
+      /* Hacemos Distrito más largo y UBIGEO compacto con etiqueta a la izquierda */
+      .filters .field.dist { min-width:360px; flex:2; }
+      .filters .ubigeo-inline { display:flex; align-items:center; gap:10px; min-width:260px; }
+      .filters .ubigeo-inline label { margin:0; white-space:nowrap; }
+      .filters .ubigeo-inline input { flex:1; }
+
+      .filters .actions { display:flex; gap:8px; margin-left:auto; align-self:flex-end; }
+      .filters .actions button {
+        border:0; border-radius:10px; padding:8px 12px; font-weight:700; cursor:pointer;
+        font-size:14px;
+      }
+      .filters .actions .primary { background: var(--dark); color:#fff; }
+      .filters .actions .accent  { background: var(--blue); color:#fff; }
+      .filters .actions .secondary { background:#e5e7eb; color:#111827; }
+
+      /* Botón resumen más pequeño y texto auxiliar */
+      .resumen-line { display:flex; align-items:center; gap:12px; margin:10px 0 8px; }
+      .btn.small { padding:8px 12px; border-radius:10px; font-size:14px; }
+      .hint-line { font-size:14px; color:#374151; }
+
+      @media (max-width: 700px) {
+        .filters .actions { width:100%; justify-content:flex-end; flex-wrap:wrap; }
+        .filters .field.dist { min-width:240px; flex:1; }
+      }
+      @media (max-width: 480px) {
+        .logo { height:40px; top:10px; }
+      }
+    </style>
+    
+    </head><body>
+      <a class="back" href="../index.html">← Regresar</a>
+      
+    <header>
+      <img class="logo" src="../assets/img/logo.jpg?v=20260110151438" alt="logo">
+      <div class="container">
+        <h1>Mantenimiento de Zonas Escolares</h1>
+      </div>
+    </header>
+    
+      <div class="container">
+        <div class="lead"><p><strong><u>Criterios de priorizacion usados:</u></strong></p><p>Los criterios de priorizacion de estas zonas escolares en mantenimiento se basan en:<br>- Zonas escolares aprobadas en el PI 2024 Tramo II y Tramo III.</p><p><strong><u>Instrucciones:</u></strong></p><p><strong>Debajo de la imagen</strong> se tiene el boton: &quot;Descargar Excel de todas las municipalidades&quot;. Al dar click en dicho boton, se descargara la lista total de zonas escolares en mantenimiento de todas las municipalidades participantes en el PI 2026.</p><p>Sin embargo, <strong>tambien se puede descargar la lista de zonas escolares en mantenimiento de una municipalidad en especifico y visualizarlo en un mapa interactivo</strong>, para eso se tiene los filtros:<br>- Por Departamento<br>- Por Provincia<br>- Por Distrito<br>- Por Ubigeo</p><p>Como minimo se debe llenar con un criterio de filtro para realizar el filtro, para ello se tiene los siguientes botones que al dar click realiza las siguientes acciones:<br>- Buscar: Solo muestra las municipalidades que tienen coincidencia con los criterios de filtro elegidos.<br>- Traer coincidencias arriba: Las municipalidades que tienen coincidencia con los criterios de filtro son subidos al inicio de la lista sin eliminar la visualizacion de las otras municipalidades.<br>- Limpiar: Elimina los filtros realizados.</p><p>Finalmente, <strong>en cada cada recuadro de municipalidad se observa los botones:</strong><br>- Descargar Excel: Descarga en excel la lista de zonas escolares en mantenimiento de esa municipalidad.<br>- Abrir mapa: Abre un mapa interactivo donde se puede buscar las ubicaciones de las zonas escolares en mantenimiento.</p><p><strong>Para regresar a la pagina de inicio</strong> donde se observe los indicadores, dar click en el boton Regresar, ubicado en la esquina superior izquierda.</p></div>
+        <div style="margin:14px 0 18px;"><img class="hero" src="../assets/img/zonas.jpg?v=20260110151438" alt="zonas"></div>
+
+        
+        <div class="resumen-line">
+          <a class="btn estab small" href="../Resumen/Mantenimiento_resumen.xlsx" download>Descargar Excel de todas las municipalidades</a>
+          <span class="hint-line">o buscar municipalidades de acuerdo a filtros:</span>
+        </div>
+        
+        
+    <div class="filters-wrap">
+      <div class="filters-title">Filtros</div>
+      <div class="filters">
+        <div class="field">
+          <label>Departamento</label>
+          <input id="f_dep" type="text" placeholder="Ejem: Lima">
+        </div>
+        <div class="field">
+          <label>Provincia</label>
+          <input id="f_prov" type="text" placeholder="Ejem: Lima">
+        </div>
+        <div class="field dist">
+          <label>Distrito</label>
+          <input id="f_dist" type="text" placeholder="Ejem: San Juan de Lurigancho">
+        </div>
+        <div class="ubigeo-inline">
+          <label>UBIGEO</label>
+          <input id="f_ubi" type="text" placeholder="Ejem: 060101">
+        </div>
+
+        <div class="actions">
+          <button id="f_apply" class="primary">Buscar</button>
+          <button id="f_top" class="accent">Traer coincidencias arriba</button>
+          <button id="f_clear" class="secondary">Limpiar</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function(){
+        function norm(s){ return (s || '').toLowerCase().replace(/\s+|_/g, ''); }
+        function getCards(){
+          var grid = document.querySelector('.grid');
+          return grid ? Array.from(grid.querySelectorAll('.card')) : [];
+        }
+        function ensureNormalizedAttrs(card){
+          ['data-dep','data-prov','data-dist','data-ubi'].forEach(function(attr){
+            var v = card.getAttribute(attr) || '';
+            card.setAttribute(attr, norm(v));
+          });
+        }
+        function matchCard(card, q){
+          var d = card.getAttribute('data-dep')  || '';
+          var p = card.getAttribute('data-prov') || '';
+          var t = card.getAttribute('data-dist') || '';
+          var u = card.getAttribute('data-ubi')  || '';
+          var ok = true;
+          if(q.dep  && d.indexOf(q.dep)  === -1) ok = false;
+          if(q.prov && p.indexOf(q.prov) === -1) ok = false;
+          if(q.dist && t.indexOf(q.dist) === -1) ok = false;
+          if(q.ubi  && u.indexOf(q.ubi)  === -1) ok = false;
+          return ok;
+        }
+        function queryValues(){
+          var dep  = document.getElementById('f_dep');
+          var prov = document.getElementById('f_prov');
+          var dist = document.getElementById('f_dist');
+          var ubi  = document.getElementById('f_ubi');
+          return { dep: norm(dep.value), prov: norm(prov.value), dist: norm(dist.value), ubi: norm(ubi.value) };
+        }
+
+        document.addEventListener('DOMContentLoaded', function(){
+          var applyBtn = document.getElementById('f_apply');
+          var topBtn   = document.getElementById('f_top');
+          var clearBtn = document.getElementById('f_clear');
+
+          function applyHide(){
+            var q = queryValues();
+            var cards = getCards();
+            cards.forEach(ensureNormalizedAttrs);
+            cards.forEach(function(card){
+              card.style.display = matchCard(card, q) ? '' : 'none';
+            });
+          }
+
+          function bringTop(){
+            var q = queryValues();
+            var grid = document.querySelector('.grid');
+            if(!grid) return;
+            var cards = getCards();
+            cards.forEach(ensureNormalizedAttrs);
+            var matches = [], rest = [];
+            cards.forEach(function(card){
+              (matchCard(card, q) ? matches : rest).push(card);
+              card.style.display = ''; // mostrar todos, solo reordenar
+            });
+            matches.concat(rest).forEach(function(card){ grid.appendChild(card); });
+          }
+
+          function clearAll(){
+            ['f_dep','f_prov','f_dist','f_ubi'].forEach(function(id){
+              var el = document.getElementById(id); if(el) el.value='';
+            });
+            getCards().forEach(function(card){ card.style.display = ''; });
+          }
+
+          applyBtn.addEventListener('click', applyHide);
+          topBtn.addEventListener('click', bringTop);
+          clearBtn.addEventListener('click', clearAll);
+
+          ['f_dep','f_prov','f_dist','f_ubi'].forEach(function(id){
+            var el = document.getElementById(id);
+            el.addEventListener('keydown', function(ev){ if(ev.key === 'Enter') applyHide(); });
+          });
+        });
+      })();
+    </script>
+    
+
+        <div class="grid">
+          
+          <div class="card" data-dep="ANCASH" data-prov="CARHUAZ" data-dist="CARHUAZ" data-ubi="020601">
+            <h3>ANCASH - CARHUAZ - CARHUAZ</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/ANCASH-CARHUAZ-CARHUAZ.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/ANCASH-CARHUAZ-CARHUAZ.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 020601</div>
+          </div>
+        
+
+          <div class="card" data-dep="AREQUIPA" data-prov="AREQUIPA" data-dist="AREQUIPA" data-ubi="040101">
+            <h3>AREQUIPA - AREQUIPA - AREQUIPA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/AREQUIPA-AREQUIPA-AREQUIPA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/AREQUIPA-AREQUIPA-AREQUIPA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 040101</div>
+          </div>
+        
+
+          <div class="card" data-dep="AREQUIPA" data-prov="AREQUIPA" data-dist="CERRO_COLORADO" data-ubi="040104">
+            <h3>AREQUIPA - AREQUIPA - CERRO_COLORADO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/AREQUIPA-AREQUIPA-CERRO_COLORADO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/AREQUIPA-AREQUIPA-CERRO_COLORADO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 040104</div>
+          </div>
+        
+
+          <div class="card" data-dep="AREQUIPA" data-prov="CAYLLOMA" data-dist="MAJES" data-ubi="040520">
+            <h3>AREQUIPA - CAYLLOMA - MAJES</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/AREQUIPA-CAYLLOMA-MAJES.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/AREQUIPA-CAYLLOMA-MAJES.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 040520</div>
+          </div>
+        
+
+          <div class="card" data-dep="CAJAMARCA" data-prov="JAEN" data-dist="JAEN" data-ubi="060801">
+            <h3>CAJAMARCA - JAEN - JAEN</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/CAJAMARCA-JAEN-JAEN.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/CAJAMARCA-JAEN-JAEN.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 060801</div>
+          </div>
+        
+
+          <div class="card" data-dep="CAJAMARCA" data-prov="SAN_MARCOS" data-dist="PEDRO_GALVEZ" data-ubi="061001">
+            <h3>CAJAMARCA - SAN_MARCOS - PEDRO_GALVEZ</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/CAJAMARCA-SAN_MARCOS-PEDRO_GALVEZ.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/CAJAMARCA-SAN_MARCOS-PEDRO_GALVEZ.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 061001</div>
+          </div>
+        
+
+          <div class="card" data-dep="CALLAO" data-prov="CALLAO" data-dist="CALLAO" data-ubi="070101">
+            <h3>CALLAO - CALLAO - CALLAO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/CALLAO-CALLAO-CALLAO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/CALLAO-CALLAO-CALLAO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 070101</div>
+          </div>
+        
+
+          <div class="card" data-dep="CALLAO" data-prov="CALLAO" data-dist="VENTANILLA" data-ubi="070106">
+            <h3>CALLAO - CALLAO - VENTANILLA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/CALLAO-CALLAO-VENTANILLA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/CALLAO-CALLAO-VENTANILLA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 070106</div>
+          </div>
+        
+
+          <div class="card" data-dep="CUSCO" data-prov="CUSCO" data-dist="CUSCO" data-ubi="080101">
+            <h3>CUSCO - CUSCO - CUSCO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/CUSCO-CUSCO-CUSCO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/CUSCO-CUSCO-CUSCO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 080101</div>
+          </div>
+        
+
+          <div class="card" data-dep="CUSCO" data-prov="CUSCO" data-dist="SAN_JERONIMO" data-ubi="080104">
+            <h3>CUSCO - CUSCO - SAN_JERONIMO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/CUSCO-CUSCO-SAN_JERONIMO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/CUSCO-CUSCO-SAN_JERONIMO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 080104</div>
+          </div>
+        
+
+          <div class="card" data-dep="HUANUCO" data-prov="HUANUCO" data-dist="HUANUCO" data-ubi="100101">
+            <h3>HUANUCO - HUANUCO - HUANUCO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/HUANUCO-HUANUCO-HUANUCO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/HUANUCO-HUANUCO-HUANUCO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 100101</div>
+          </div>
+        
+
+          <div class="card" data-dep="ICA" data-prov="ICA" data-dist="ICA" data-ubi="110101">
+            <h3>ICA - ICA - ICA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/ICA-ICA-ICA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/ICA-ICA-ICA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 110101</div>
+          </div>
+        
+
+          <div class="card" data-dep="ICA" data-prov="ICA" data-dist="SANTIAGO" data-ubi="110111">
+            <h3>ICA - ICA - SANTIAGO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/ICA-ICA-SANTIAGO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/ICA-ICA-SANTIAGO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 110111</div>
+          </div>
+        
+
+          <div class="card" data-dep="JUNIN" data-prov="HUANCAYO" data-dist="CHILCA" data-ubi="120107">
+            <h3>JUNIN - HUANCAYO - CHILCA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/JUNIN-HUANCAYO-CHILCA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/JUNIN-HUANCAYO-CHILCA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 120107</div>
+          </div>
+        
+
+          <div class="card" data-dep="JUNIN" data-prov="HUANCAYO" data-dist="HUANCAYO" data-ubi="120101">
+            <h3>JUNIN - HUANCAYO - HUANCAYO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/JUNIN-HUANCAYO-HUANCAYO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/JUNIN-HUANCAYO-HUANCAYO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 120101</div>
+          </div>
+        
+
+          <div class="card" data-dep="JUNIN" data-prov="SATIPO" data-dist="SATIPO" data-ubi="120601">
+            <h3>JUNIN - SATIPO - SATIPO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/JUNIN-SATIPO-SATIPO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/JUNIN-SATIPO-SATIPO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 120601</div>
+          </div>
+        
+
+          <div class="card" data-dep="LAMBAYEQUE" data-prov="CHICLAYO" data-dist="CHICLAYO" data-ubi="140101">
+            <h3>LAMBAYEQUE - CHICLAYO - CHICLAYO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LAMBAYEQUE-CHICLAYO-CHICLAYO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LAMBAYEQUE-CHICLAYO-CHICLAYO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 140101</div>
+          </div>
+        
+
+          <div class="card" data-dep="LAMBAYEQUE" data-prov="CHICLAYO" data-dist="LA_VICTORIA" data-ubi="140106">
+            <h3>LAMBAYEQUE - CHICLAYO - LA_VICTORIA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LAMBAYEQUE-CHICLAYO-LA_VICTORIA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LAMBAYEQUE-CHICLAYO-LA_VICTORIA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 140106</div>
+          </div>
+        
+
+          <div class="card" data-dep="LA_LIBERTAD" data-prov="CHEPEN" data-dist="CHEPEN" data-ubi="130401">
+            <h3>LA_LIBERTAD - CHEPEN - CHEPEN</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LA_LIBERTAD-CHEPEN-CHEPEN.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LA_LIBERTAD-CHEPEN-CHEPEN.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 130401</div>
+          </div>
+        
+
+          <div class="card" data-dep="LA_LIBERTAD" data-prov="TRUJILLO" data-dist="LA_ESPERANZA" data-ubi="130105">
+            <h3>LA_LIBERTAD - TRUJILLO - LA_ESPERANZA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LA_LIBERTAD-TRUJILLO-LA_ESPERANZA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LA_LIBERTAD-TRUJILLO-LA_ESPERANZA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 130105</div>
+          </div>
+        
+
+          <div class="card" data-dep="LA_LIBERTAD" data-prov="TRUJILLO" data-dist="TRUJILLO" data-ubi="130101">
+            <h3>LA_LIBERTAD - TRUJILLO - TRUJILLO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LA_LIBERTAD-TRUJILLO-TRUJILLO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LA_LIBERTAD-TRUJILLO-TRUJILLO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 130101</div>
+          </div>
+        
+
+          <div class="card" data-dep="LA_LIBERTAD" data-prov="VIRU" data-dist="VIRU" data-ubi="131201">
+            <h3>LA_LIBERTAD - VIRU - VIRU</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LA_LIBERTAD-VIRU-VIRU.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LA_LIBERTAD-VIRU-VIRU.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 131201</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="ATE" data-ubi="150103">
+            <h3>LIMA - LIMA - ATE</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-ATE.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-ATE.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150103</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="CARABAYLLO" data-ubi="150106">
+            <h3>LIMA - LIMA - CARABAYLLO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-CARABAYLLO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-CARABAYLLO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150106</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="CHORRILLOS" data-ubi="150108">
+            <h3>LIMA - LIMA - CHORRILLOS</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-CHORRILLOS.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-CHORRILLOS.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150108</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="COMAS" data-ubi="150110">
+            <h3>LIMA - LIMA - COMAS</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-COMAS.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-COMAS.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150110</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="EL_AGUSTINO" data-ubi="150111">
+            <h3>LIMA - LIMA - EL_AGUSTINO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-EL_AGUSTINO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-EL_AGUSTINO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150111</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="INDEPENDENCIA" data-ubi="150112">
+            <h3>LIMA - LIMA - INDEPENDENCIA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-INDEPENDENCIA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-INDEPENDENCIA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150112</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="LA_MOLINA" data-ubi="150114">
+            <h3>LIMA - LIMA - LA_MOLINA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-LA_MOLINA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-LA_MOLINA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150114</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="LA_VICTORIA" data-ubi="150115">
+            <h3>LIMA - LIMA - LA_VICTORIA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-LA_VICTORIA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-LA_VICTORIA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150115</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="LIMA" data-ubi="150101">
+            <h3>LIMA - LIMA - LIMA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-LIMA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-LIMA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150101</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="LINCE" data-ubi="150116">
+            <h3>LIMA - LIMA - LINCE</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-LINCE.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-LINCE.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150116</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="LOS_OLIVOS" data-ubi="150117">
+            <h3>LIMA - LIMA - LOS_OLIVOS</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-LOS_OLIVOS.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-LOS_OLIVOS.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150117</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="LURIGANCHO" data-ubi="150118">
+            <h3>LIMA - LIMA - LURIGANCHO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-LURIGANCHO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-LURIGANCHO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150118</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="PACHACAMAC" data-ubi="150123">
+            <h3>LIMA - LIMA - PACHACAMAC</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-PACHACAMAC.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-PACHACAMAC.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150123</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="PUENTE_PIEDRA" data-ubi="150125">
+            <h3>LIMA - LIMA - PUENTE_PIEDRA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-PUENTE_PIEDRA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-PUENTE_PIEDRA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150125</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="RIMAC" data-ubi="150128">
+            <h3>LIMA - LIMA - RIMAC</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-RIMAC.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-RIMAC.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150128</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="SANTIAGO_DE_SURCO" data-ubi="150140">
+            <h3>LIMA - LIMA - SANTIAGO_DE_SURCO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-SANTIAGO_DE_SURCO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-SANTIAGO_DE_SURCO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150140</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="SAN_JUAN_DE_LURIGANCHO" data-ubi="150132">
+            <h3>LIMA - LIMA - SAN_JUAN_DE_LURIGANCHO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-SAN_JUAN_DE_LURIGANCHO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-SAN_JUAN_DE_LURIGANCHO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150132</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="SAN_JUAN_DE_MIRAFLORES" data-ubi="150133">
+            <h3>LIMA - LIMA - SAN_JUAN_DE_MIRAFLORES</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-SAN_JUAN_DE_MIRAFLORES.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-SAN_JUAN_DE_MIRAFLORES.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150133</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="SAN_MARTIN_DE_PORRES" data-ubi="150135">
+            <h3>LIMA - LIMA - SAN_MARTIN_DE_PORRES</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-SAN_MARTIN_DE_PORRES.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-SAN_MARTIN_DE_PORRES.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150135</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="SAN_MIGUEL" data-ubi="150136">
+            <h3>LIMA - LIMA - SAN_MIGUEL</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-SAN_MIGUEL.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-SAN_MIGUEL.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150136</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="VILLA_EL_SALVADOR" data-ubi="150142">
+            <h3>LIMA - LIMA - VILLA_EL_SALVADOR</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-VILLA_EL_SALVADOR.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-VILLA_EL_SALVADOR.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150142</div>
+          </div>
+        
+
+          <div class="card" data-dep="LIMA" data-prov="LIMA" data-dist="VILLA_MARIA_DEL_TRIUNFO" data-ubi="150143">
+            <h3>LIMA - LIMA - VILLA_MARIA_DEL_TRIUNFO</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LIMA-LIMA-VILLA_MARIA_DEL_TRIUNFO.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LIMA-LIMA-VILLA_MARIA_DEL_TRIUNFO.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 150143</div>
+          </div>
+        
+
+          <div class="card" data-dep="LORETO" data-prov="MAYNAS" data-dist="IQUITOS" data-ubi="160101">
+            <h3>LORETO - MAYNAS - IQUITOS</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LORETO-MAYNAS-IQUITOS.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LORETO-MAYNAS-IQUITOS.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 160101</div>
+          </div>
+        
+
+          <div class="card" data-dep="LORETO" data-prov="MAYNAS" data-dist="SAN_JUAN_BAUTISTA" data-ubi="160113">
+            <h3>LORETO - MAYNAS - SAN_JUAN_BAUTISTA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/LORETO-MAYNAS-SAN_JUAN_BAUTISTA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/LORETO-MAYNAS-SAN_JUAN_BAUTISTA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 160113</div>
+          </div>
+        
+
+          <div class="card" data-dep="MADRE_DE_DIOS" data-prov="TAMBOPATA" data-dist="TAMBOPATA" data-ubi="170101">
+            <h3>MADRE_DE_DIOS - TAMBOPATA - TAMBOPATA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/MADRE_DE_DIOS-TAMBOPATA-TAMBOPATA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/MADRE_DE_DIOS-TAMBOPATA-TAMBOPATA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 170101</div>
+          </div>
+        
+
+          <div class="card" data-dep="PIURA" data-prov="PIURA" data-dist="CASTILLA" data-ubi="200104">
+            <h3>PIURA - PIURA - CASTILLA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/PIURA-PIURA-CASTILLA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/PIURA-PIURA-CASTILLA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 200104</div>
+          </div>
+        
+
+          <div class="card" data-dep="PIURA" data-prov="PIURA" data-dist="LA_UNION" data-ubi="200110">
+            <h3>PIURA - PIURA - LA_UNION</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/PIURA-PIURA-LA_UNION.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/PIURA-PIURA-LA_UNION.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 200110</div>
+          </div>
+        
+
+          <div class="card" data-dep="PIURA" data-prov="PIURA" data-dist="PIURA" data-ubi="200101">
+            <h3>PIURA - PIURA - PIURA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/PIURA-PIURA-PIURA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/PIURA-PIURA-PIURA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 200101</div>
+          </div>
+        
+
+          <div class="card" data-dep="PIURA" data-prov="SULLANA" data-dist="SULLANA" data-ubi="200601">
+            <h3>PIURA - SULLANA - SULLANA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/PIURA-SULLANA-SULLANA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/PIURA-SULLANA-SULLANA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 200601</div>
+          </div>
+        
+
+          <div class="card" data-dep="PUNO" data-prov="SAN_ROMAN" data-dist="JULIACA" data-ubi="211101">
+            <h3>PUNO - SAN_ROMAN - JULIACA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/PUNO-SAN_ROMAN-JULIACA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/PUNO-SAN_ROMAN-JULIACA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 211101</div>
+          </div>
+        
+
+          <div class="card" data-dep="TACNA" data-prov="TACNA" data-dist="CORONEL_GREGORIO_ALBARRACIN_LANCHIPA" data-ubi="230110">
+            <h3>TACNA - TACNA - CORONEL_GREGORIO_ALBARRACIN_LANCHIPA</h3>
+            <div class="row">
+              <a class="dl" href="../Mantenimiento/excels/TACNA-TACNA-CORONEL_GREGORIO_ALBARRACIN_LANCHIPA.xlsx" download>Descargar Excel</a>
+              <a class="map" href="../Mantenimiento/maps/TACNA-TACNA-CORONEL_GREGORIO_ALBARRACIN_LANCHIPA.html" target="_blank" rel="noopener">Abrir mapa</a>
+            </div>
+            <div class="muted">UBIGEO: 230110</div>
+          </div>
+        
+        </div>
+      </div>
+      <footer>PI 2026 · Dirección de Seguridad Vial</footer>
+    </body></html>
+    

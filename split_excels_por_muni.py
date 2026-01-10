@@ -21,6 +21,8 @@ import pandas as pd
 from typing import Optional, Dict
 
 # ---------------- utilitarios ----------------
+TRUE_SET = {"true", "1", "si", "sI", "x", "t", "y", "s", "verdadero", "yes"}
+FALSE_SET = {"false", "0", "no", "n", "f", "flase", "falso", "not"}
 def to_ubigeo6(x) -> Optional[str]:
     if pd.isna(x): return None
     s = str(x).strip()
@@ -33,6 +35,18 @@ def safe_slug(s: Optional[str]) -> Optional[str]:
     t = str(s).strip()
     # evitar caracteres problemáticos en nombres de archivo
     return t.replace("/", "-").replace("\\", "-")
+
+def to_bool_soft(x) -> bool:
+    if isinstance(x, bool):
+        return x
+    if pd.isna(x):
+        return False
+    s = str(x).strip().lower()
+    if s in TRUE_SET:
+        return True
+    if s in FALSE_SET:
+        return False
+    return bool(s)
 
 # ---------------- carga ----------------
 def load_colegios_clean(path: Path) -> pd.DataFrame:
@@ -59,8 +73,8 @@ def load_catalog(path: Path) -> pd.DataFrame:
     return df
 
 # ---------------- núcleo ----------------
-def ensure_out_dirs(project_root: Path, by_hierarchy: bool) -> Path:
-    base = project_root / "ZonasEscolares" / "excels"
+def ensure_out_dirs(project_root: Path, section_dir: str, by_hierarchy: bool) -> Path:
+    base = project_root / section_dir / "excels"
     base.mkdir(parents=True, exist_ok=True)
     return base
 
@@ -157,12 +171,21 @@ def main():
     ap.add_argument("--colegios-csv", default="./ZonasEscolares/processed/Colegios_priorizados_PI2026_clean.csv")
     ap.add_argument("--catalog-csv",  default="./data/municipalidades_catalog.csv")
     ap.add_argument("--project-root", default=".")
+    ap.add_argument("--section-dir",  default="ZonasEscolares",
+                    help="Carpeta de salida (ej: ZonasEscolares o Mantenimiento).")
     ap.add_argument("--by-hierarchy", action="store_true", help="Si se activa, anida en DEP/PROV/DIST.")
+    ap.add_argument("--only-mantenimiento", action="store_true",
+                    help="Si se activa, solo exporta filas con mantenimiento=True.")
     args = ap.parse_args()
 
     root = Path(args.project_root)
     df_colegios = load_colegios_clean(Path(args.colegios_csv))
     cat = load_catalog(Path(args.catalog_csv))
+
+    if args.only_mantenimiento:
+        if "mantenimiento" not in df_colegios.columns:
+            raise KeyError("El CSV de colegios no tiene la columna 'mantenimiento'.")
+        df_colegios = df_colegios[df_colegios["mantenimiento"].map(to_bool_soft)].copy()
 
     # Comprobación de cobertura (sin modificar nada)
     s_colegios = set(df_colegios["ubigeo_gestor"].dropna())
@@ -172,11 +195,11 @@ def main():
         print("[Aviso] Existen UBIGEO_gestor sin fila en el catálogo. Se exportarán igual con ubigeo como nombre de archivo:")
         print("  Ejemplos:", ", ".join(sin_match[:20]), ("... (+{})".format(len(sin_match)-20) if len(sin_match)>20 else ""))
 
-    out_base = ensure_out_dirs(root, args.by_hierarchy)
+    out_base = ensure_out_dirs(root, args.section_dir, args.by_hierarchy)
     resumen = export_excels(df_colegios, cat, out_base, args.by_hierarchy)
 
     # Guardar un resumen de lo generado
-    resumen_path = root / "ZonasEscolares" / "excels" / "_resumen_excels_por_muni.csv"
+    resumen_path = root / args.section_dir / "excels" / "_resumen_excels_por_muni.csv"
     resumen.to_csv(resumen_path, index=False, encoding="utf-8")
 
     print("\n=== EXCELS INDIVIDUALES GENERADOS ===")

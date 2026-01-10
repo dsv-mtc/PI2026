@@ -88,6 +88,13 @@ def sanitize_filename(name: str) -> str:
     # evita nombres vacíos
     return name or "SIN_NOMBRE"
 
+def rename_codigo_columns(df: pd.DataFrame) -> pd.DataFrame:
+    colmap = {}
+    for c in df.columns:
+        if norm(c) == "id_int":
+            colmap[c] = "Codigo"
+    return df.rename(columns=colmap) if colmap else df
+
 # -----------------------------------
 # Core
 # -----------------------------------
@@ -155,6 +162,7 @@ def main():
         # Eliminar columnas no deseadas (case/acentos-insensible)
         cols_keep = [c for c in sub.columns if norm(c) not in drop_norm]
         sub = sub[cols_keep]
+        sub = rename_codigo_columns(sub)
 
         # Traer nombres oficiales desde catálogo
         row_m = muni[muni["ubigeo_gestor"].astype(str).str.zfill(6).str[:6] == u6]

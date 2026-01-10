@@ -31,10 +31,37 @@ from branca.element import MacroElement, Template
 TRUE_SET = {"true","1","si","sí","x","t","y","s","verdadero","yes"}
 FALSE_SET = {"false","0","no","n","f","flase","falso","not"}
 
-COLOR_TRUE     = "#7dd3fc"  # celeste = Mantenimiento (True)
+COLOR_TRUE     = "#7dd3fc"  # celeste = Intervenciones PI 2024 (True)
+COLOR_TRUE_MANT = "#0ea5e9"  # celeste oscuro = ZE a mantener
 COLOR_FALSE    = "#1d4ed8"  # azul    = Nuevas (False)
 COLOR_FATAL    = "#d90429"  # rojo    = siniestros fatales
 COLOR_CONTORNO = "#9ca3af"  # plomo   = contorno (relleno)
+
+MODE_ZONAS = "zonas"
+MODE_MANT = "mantenimiento"
+
+def mode_settings(mode: str):
+    if mode == MODE_MANT:
+        return {
+            "filter_mant": True,
+            "show_false": False,
+            "show_fatal": False,
+            "color_true": COLOR_TRUE_MANT,
+            "color_false": COLOR_FALSE,
+            "label_true": "Celeste oscuro: ZE a mantener",
+            "label_false": "Azul: Nuevas",
+            "label_fatal": "Rojo: Siniestro fatal",
+        }
+    return {
+        "filter_mant": False,
+        "show_false": True,
+        "show_fatal": True,
+        "color_true": COLOR_TRUE,
+        "color_false": COLOR_FALSE,
+        "label_true": "Celeste: Intervenciones PI 2024",
+        "label_false": "Azul: Nuevas",
+        "label_fatal": "Rojo: Siniestro fatal",
+    }
 
 # ---------------- utilitarios ----------------
 def to_bool_soft(x) -> bool:
@@ -122,7 +149,39 @@ def add_title(m: folium.Map, text: str):
     """
     m.get_root().html.add_child(folium.Element(html))
 
-def add_legend(m: folium.Map):
+def add_legend(
+    m: folium.Map,
+    color_true: str,
+    label_true: str,
+    color_false: str | None = None,
+    label_false: str | None = None,
+    show_false: bool = True,
+    show_fatal: bool = True,
+    color_fatal: str = COLOR_FATAL,
+    label_fatal: str = "Rojo: Siniestro fatal",
+):
+    items = []
+    if show_false and color_false and label_false:
+        items.append(f"""
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+            <span style="display:inline-block; width:14px; height:14px; background:{color_false}; border-radius:50%;"></span>
+            <span>{label_false}</span>
+        </div>
+        """)
+    items.append(f"""
+        <div style="display:flex; align-items:center; gap:8px;">
+            <span style="display:inline-block; width:14px; height:14px; background:{color_true}; border-radius:50%;"></span>
+            <span>{label_true}</span>
+        </div>
+    """)
+    if show_fatal:
+        items.append(f"""
+        <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
+            <span style="display:inline-block; width:14px; height:14px; background:{color_fatal}; border-radius:50%;"></span>
+            <span>{label_fatal}</span>
+        </div>
+        """)
+
     html = f"""
     <div id="legend-box" style="
         position: fixed; bottom: 20px; right: 20px; z-index: 9999;
@@ -130,18 +189,7 @@ def add_legend(m: folium.Map):
         font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
         box-shadow: 0 2px 6px rgba(0,0,0,0.15); line-height: 1.4; min-width: 240px;">
         <div style="font-weight: 600; margin-bottom: 6px;">Leyenda</div>
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
-            <span style="display:inline-block; width:14px; height:14px; background:{COLOR_FALSE}; border-radius:50%;"></span>
-            <span>Azul: Nuevas</span>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px;">
-            <span style="display:inline-block; width:14px; height:14px; background:{COLOR_TRUE}; border-radius:50%;"></span>
-            <span>Celeste: Mantenimiento</span>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
-            <span style="display:inline-block; width:14px; height:14px; background:{COLOR_FATAL}; border-radius:50%;"></span>
-            <span>Rojo: Siniestro fatal</span>
-        </div>
+        {''.join(items)}
     </div>
     """
     m.get_root().html.add_child(folium.Element(html))
@@ -253,16 +301,28 @@ def load_siniestros_csv(path: Path) -> pd.DataFrame:
     return df
 
 # ---------------- núcleo de mapas ----------------
-def map_for_excel(xlsx_path: Path, out_dir: Path, distritos_gj: dict, provincias_gj_list: list, siniestros_df: pd.DataFrame) -> Path:
+def map_for_excel(
+    xlsx_path: Path,
+    out_dir: Path,
+    distritos_gj: dict,
+    provincias_gj_list: list,
+    siniestros_df: pd.DataFrame | None,
+    mode: str = MODE_ZONAS,
+) -> Path:
     df = pd.read_excel(xlsx_path, dtype={"ubigeo_gestor": str})
     missing = [c for c in ("latitud","longitud","mantenimiento") if c not in df.columns]
     if missing:
         raise KeyError(f"{xlsx_path.name}: faltan columnas {missing}")
 
     df = df.copy()
+    settings = mode_settings(mode)
+    color_true = settings["color_true"]
+    color_false = settings["color_false"]
     df["latitud"]  = pd.to_numeric(df["latitud"], errors="coerce")
     df["longitud"] = pd.to_numeric(df["longitud"], errors="coerce")
     df = df.dropna(subset=["latitud","longitud"])
+    if settings["filter_mant"]:
+        df = df[df["mantenimiento"].map(to_bool_soft)].copy()
     if df.empty:
         raise ValueError(f"{xlsx_path.name}: no hay filas con lat/lon válidas")
 
@@ -310,18 +370,30 @@ def map_for_excel(xlsx_path: Path, out_dir: Path, distritos_gj: dict, provincias
     """))
 
     add_title(m, title_from_row(df))
-    add_legend(m)
+    add_legend(
+        m,
+        color_true=settings["color_true"],
+        label_true=settings["label_true"],
+        color_false=settings["color_false"],
+        label_false=settings["label_false"],
+        show_false=settings["show_false"],
+        show_fatal=settings["show_fatal"],
+        label_fatal=settings["label_fatal"],
+    )
 
     # FeatureGroups
     fg_contorno   = folium.FeatureGroup(name="contorno", show=True)
     fg_circulos   = folium.FeatureGroup(name="colegios: buffers", show=True)
     fg_puntos     = folium.FeatureGroup(name="colegios: puntos", show=True)
-    fg_siniestros = folium.FeatureGroup(name="siniestros fatales", show=True)
+    fg_siniestros = None
+    if settings["show_fatal"]:
+        fg_siniestros = folium.FeatureGroup(name="siniestros fatales", show=True)
 
     m.add_child(fg_contorno)
     m.add_child(fg_circulos)
     m.add_child(fg_puntos)
-    m.add_child(fg_siniestros)
+    if fg_siniestros is not None:
+        m.add_child(fg_siniestros)
 
     # Contorno
     target_ubi = to_ubigeo6(df["ubigeo_gestor"].dropna().iloc[0]) if "ubigeo_gestor" in df.columns and df["ubigeo_gestor"].notna().any() else None
@@ -351,7 +423,7 @@ def map_for_excel(xlsx_path: Path, out_dir: Path, distritos_gj: dict, provincias
     for _, row in df.iterrows():
         lat = float(row["latitud"]); lon = float(row["longitud"])
         mant = to_bool_soft(row.get("mantenimiento"))
-        color = COLOR_TRUE if mant else COLOR_FALSE
+        color = settings["color_true"] if mant else settings["color_false"]
 
         folium.Circle(
             location=(lat, lon),
@@ -383,7 +455,7 @@ def map_for_excel(xlsx_path: Path, out_dir: Path, distritos_gj: dict, provincias
         bounds.append((lat, lon))
 
     # Siniestros dentro del contorno
-    if feats and not siniestros_df.empty:
+    if settings["show_fatal"] and fg_siniestros is not None and feats and siniestros_df is not None and not siniestros_df.empty:
         for _, r in siniestros_df.iterrows():
             slat = float(r["__lat__"]); slon = float(r["__lon__"])
             if point_in_features(slon, slat, feats):
@@ -399,12 +471,19 @@ def map_for_excel(xlsx_path: Path, out_dir: Path, distritos_gj: dict, provincias
                 ).add_to(fg_siniestros)
 
     # Orden de capas al frente (pequeño Template sin f-string)
-    tpl_front = Template("""
-    {% macro script(this, kwargs) %}
-        {{fg_puntos}}.bringToFront();
-        {{fg_siniestros}}.bringToFront();
-    {% endmacro %}
-    """.replace("{{fg_puntos}}", fg_puntos.get_name()).replace("{{fg_siniestros}}", fg_siniestros.get_name()))
+    if fg_siniestros is not None:
+        tpl_front = Template("""
+        {% macro script(this, kwargs) %}
+            {{fg_puntos}}.bringToFront();
+            {{fg_siniestros}}.bringToFront();
+        {% endmacro %}
+        """.replace("{{fg_puntos}}", fg_puntos.get_name()).replace("{{fg_siniestros}}", fg_siniestros.get_name()))
+    else:
+        tpl_front = Template("""
+        {% macro script(this, kwargs) %}
+            {{fg_puntos}}.bringToFront();
+        {% endmacro %}
+        """.replace("{{fg_puntos}}", fg_puntos.get_name()))
     me_front = MacroElement(); me_front._template = tpl_front
     m.get_root().add_child(me_front)
 
@@ -459,8 +538,8 @@ def map_for_excel(xlsx_path: Path, out_dir: Path, distritos_gj: dict, provincias
     {% macro script(this, kwargs) %}
       (function() {
         var puntosLayer = """ + fg_puntos.get_name() + """;
-        var defaultTrue  = '""" + COLOR_TRUE + """';
-        var defaultFalse = '""" + COLOR_FALSE + """';
+        var defaultTrue  = '""" + color_true + """';
+        var defaultFalse = '""" + color_false + """';
         var hiliteColor  = '#f59e0b';
 
         // ---------- Toggle colapsar/expandir ----------
@@ -680,6 +759,8 @@ def main():
     ap = argparse.ArgumentParser(description="Generar mapas interactivos (HTML) por Excel individual con título, leyenda, contorno, buscadores y siniestros.")
     ap.add_argument("--excels-dir",        default="./ZonasEscolares/excels")
     ap.add_argument("--out-dir",           default="./ZonasEscolares/maps")
+    ap.add_argument("--mode", choices=[MODE_ZONAS, MODE_MANT], default=MODE_ZONAS,
+                    help="zonas=incluye siniestros y dos colores; mantenimiento=solo ZE a mantener.")
     ap.add_argument("--distritos-geojson", default="./Data/Distritos.geojson",
                     help="GeoJSON de distritos (usa clave IDDIST).")
     ap.add_argument("--provincias-geojson", nargs="+",
@@ -704,9 +785,11 @@ def main():
         with pp.open("r", encoding="utf-8") as f:
             provincias_gj_list.append(json.load(f))
 
-    siniestros_path = Path(args.siniestros_csv)
-    assert siniestros_path.exists(), f"No existe: {siniestros_path}"
-    siniestros_df = load_siniestros_csv(siniestros_path)
+    siniestros_df = None
+    if args.mode == MODE_ZONAS:
+        siniestros_path = Path(args.siniestros_csv)
+        assert siniestros_path.exists(), f"No existe: {siniestros_path}"
+        siniestros_df = load_siniestros_csv(siniestros_path)
 
     excel_files = scan_excels(excels_root)
     if not excel_files:
@@ -720,7 +803,7 @@ def main():
     generated = []
     for x in excel_files:
         try:
-            out_html = map_for_excel(x, out_root, distritos_gj, provincias_gj_list, siniestros_df)
+            out_html = map_for_excel(x, out_root, distritos_gj, provincias_gj_list, siniestros_df, mode=args.mode)
             print(f"[OK] {x.name} -> {out_html}")
             generated.append(out_html)
         except Exception as e:

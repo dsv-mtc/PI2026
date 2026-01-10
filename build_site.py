@@ -45,16 +45,19 @@ ESTAB_IMG  = ASSETS_IMG / "estab.jpg"  # opcional
 CATALOG_CSV = DATA / "municipalidades_catalog.csv"
 
 ZONAS_DIR = ROOT / "ZonasEscolares"
+MANT_DIR = ROOT / "Mantenimiento"
 INTER_DIR = ROOT / "Intersecciones"
 ESTAB_DIR = ROOT / "EstablecimientoSalud"
 
 HOME_HTML  = ROOT / "index.html"
 ZONAS_HTML = ZONAS_DIR / "index.html"
+MANT_HTML  = MANT_DIR / "index.html"
 INTER_HTML = INTER_DIR / "index.html"
 ESTAB_HTML = ESTAB_DIR / "index.html"
 
 RESUMEN_DIR = ROOT / "Resumen"
 ZONAS_RESUMEN_XLSX = RESUMEN_DIR / "ZonasEscolares_resumen.xlsx"
+MANT_RESUMEN_XLSX = RESUMEN_DIR / "Mantenimiento_resumen.xlsx"
 INTER_RESUMEN_XLSX = RESUMEN_DIR / "Intersecciones_resumen.xlsx"
 ESTAB_RESUMEN_XLSX = RESUMEN_DIR / "EstablecimientoSalud_resumen.xlsx"
 
@@ -97,6 +100,7 @@ def md_inline(s: str) -> str:
 
 def ensure_dirs():
     ZONAS_DIR.mkdir(parents=True, exist_ok=True)
+    MANT_DIR.mkdir(parents=True, exist_ok=True)
     INTER_DIR.mkdir(parents=True, exist_ok=True)
     ESTAB_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -141,6 +145,8 @@ def css_block():
       .btn:hover { transform: translateY(-1px); }
       .btn.zonas { background: var(--green); box-shadow:0 4px 12px rgba(22,163,74,0.30); }
       .btn.zonas:hover { box-shadow:0 8px 18px rgba(22,163,74,0.35); }
+      .btn.mant { background: var(--sky); color:#0f172a; box-shadow:0 4px 12px rgba(125,211,252,0.45); }
+      .btn.mant:hover { box-shadow:0 8px 18px rgba(125,211,252,0.55); }
       .btn.inter { background: var(--orange); box-shadow:0 4px 12px rgba(249,115,22,0.30); }
       .btn.inter:hover { box-shadow:0 8px 18px rgba(249,115,22,0.35); }
       .btn.estab { background: var(--blue); box-shadow:0 4px 12px rgba(29,78,216,0.30); }
@@ -355,7 +361,8 @@ def home_html(title_text: str, body_text: str) -> str:
       <div class="container">
         <div class="lead">{md_inline(body_text)}</div>
         <div class="main-actions">
-          <a class="btn zonas" href="ZonasEscolares/index.html">Zonas Escolares</a>
+          <a class="btn zonas" href="ZonasEscolares/index.html">Implementaci&oacute;n Zona Escolar</a>
+          <a class="btn mant" href="Mantenimiento/index.html">Mantenimiento ZE</a>
           <a class="btn inter" href="Intersecciones/index.html">Intersecciones</a>
           <a class="btn estab" href="EstablecimientoSalud/index.html">Establecimientos de Salud</a>
         </div>
@@ -536,7 +543,7 @@ def _load_catalog_index():
     return idx_slug, idx_parts
 
 # ---------- Carga catálogo & prepara items (ZONAS) ----------
-def load_catalog_zonas():
+def load_catalog_zonas(section: str = "ZonasEscolares", force_excel_base: bool = False):
     if not CATALOG_CSV.exists():
         raise FileNotFoundError(f"No se encuentra {CATALOG_CSV}")
     df = pd.read_csv(CATALOG_CSV, dtype=str).fillna("")
@@ -544,10 +551,12 @@ def load_catalog_zonas():
         if c not in df.columns: df[c] = ""
 
     def guess_excel(row):
+        name = row["slug"] or row["ubigeo"] or "SIN_NOMBRE"
+        if force_excel_base:
+            return f"{section}/excels/{name}.xlsx"
         if row["excel_relpath"]:
             return row["excel_relpath"]
-        name = row["slug"] or row["ubigeo"] or "SIN_NOMBRE"
-        return f"ZonasEscolares/excels/{name}.xlsx"
+        return f"{section}/excels/{name}.xlsx"
     df["excel_relpath"] = df.apply(guess_excel, axis=1)
 
     def to_map(p):
@@ -667,6 +676,16 @@ def build_zonas():
     ZONAS_HTML.write_text(zonas_html(title, body, items, resumen_rel=resumen_rel), encoding="utf-8")
     print(f"[OK] {ZONAS_HTML.resolve()} (items: {len(items)})")
 
+def build_mantenimiento():
+    title = read_txt(CONTENT / "mant_title.txt", "Mantenimiento")
+    body  = read_txt(CONTENT / "mant_body.txt",  "Explora los recursos por municipalidad/distrito.")
+    items = load_catalog_zonas(section="Mantenimiento", force_excel_base=True)
+    resumen_rel = None
+    if MANT_RESUMEN_XLSX.exists():
+        resumen_rel = "../Resumen/" + MANT_RESUMEN_XLSX.name
+    MANT_HTML.write_text(zonas_html(title, body, items, resumen_rel=resumen_rel), encoding="utf-8")
+    print(f"[OK] {MANT_HTML.resolve()} (items: {len(items)})")
+
 def build_inter():
     title = read_txt(CONTENT / "inter_title.txt", "Intersecciones priorizadas")
     body  = read_txt(CONTENT / "inter_body.txt",  "Explora los recursos por municipalidad/distrito.")
@@ -691,8 +710,12 @@ def main():
     ensure_dirs()
     build_home()
     build_zonas()
+    build_mantenimiento()
     build_inter()
     build_estab()
 
 if __name__ == "__main__":
     main()
+
+
+

@@ -80,6 +80,13 @@ def sanitize_filename(name: str) -> str:
     name = re.sub(r"[^A-Za-z0-9_\-\.ÁÉÍÓÚáéíóúÑñ]", "", name)
     return name or "SIN_NOMBRE"
 
+def rename_codigo_columns(df: pd.DataFrame) -> pd.DataFrame:
+    colmap = {}
+    for c in df.columns:
+        if norm(c) == "codigo_unico":
+            colmap[c] = "Codigo"
+    return df.rename(columns=colmap) if colmap else df
+
 # ------------------------------- Core -------------------------------
 def main():
     ap = argparse.ArgumentParser(description="Split de Establecimientos priorizados a Excels por ubigeo_gestor.")
@@ -145,6 +152,7 @@ def main():
         # Eliminar columnas no deseadas (competencia_vial/via y competencia_administrativa)
         cols_keep = [c for c in sub.columns if norm(c) not in drop_norm]
         sub = sub[cols_keep]
+        sub = rename_codigo_columns(sub)
 
         # Nombres oficiales desde catálogo
         row_m = muni[muni["ubigeo_gestor"].astype(str).str.zfill(6).str[:6] == u6]

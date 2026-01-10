@@ -255,7 +255,7 @@ def map_for_excel(xlsx_path: Path, out_dir: Path, distritos_gj: dict, provincias
 
     # columnas candidatas para nombre/código (tolerantes)
     NAME_CANDS = ["nombre_interseccion","interseccion","descripcion","descripcion_interseccion","nombre"]
-    CODE_CANDS = ["codigo_interseccion","codigo","id_interseccion","id"]
+    CODE_CANDS = ["codigo_interseccion","codigo","id_interseccion","id_int","id"]
 
     def pick_col(columns, cands):
         cols = {str(c).strip().lower(): c for c in columns}

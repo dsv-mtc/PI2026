@@ -7,6 +7,7 @@ EXTS = ("css", "js", "png", "jpg", "jpeg", "webp", "svg")
 DEFAULT_FILES = [
     "index.html",
     "ZonasEscolares/index.html",
+    "Mantenimiento/index.html",
     "Intersecciones/index.html",
     "EstablecimientoSalud/index.html",
 ]
