@@ -16,12 +16,13 @@ Uso:
     --by-hierarchy
 """
 import argparse
+import unicodedata
 from pathlib import Path
 import pandas as pd
 from typing import Optional, Dict
 
 # ---------------- utilitarios ----------------
-TRUE_SET = {"true", "1", "si", "sI", "x", "t", "y", "s", "verdadero", "yes"}
+TRUE_SET = {"true", "1", "si", "x", "t", "y", "s", "verdadero", "yes"}
 FALSE_SET = {"false", "0", "no", "n", "f", "flase", "falso", "not"}
 def to_ubigeo6(x) -> Optional[str]:
     if pd.isna(x): return None
@@ -42,11 +43,16 @@ def to_bool_soft(x) -> bool:
     if pd.isna(x):
         return False
     s = str(x).strip().lower()
+    s = unicodedata.normalize("NFKD", s)
+    s = "".join(ch for ch in s if not unicodedata.combining(ch))
     if s in TRUE_SET:
         return True
     if s in FALSE_SET:
         return False
     return bool(s)
+
+def format_si_no(x) -> str:
+    return "Sí" if to_bool_soft(x) else "No"
 
 # ---------------- carga ----------------
 def load_colegios_clean(path: Path) -> pd.DataFrame:
@@ -117,15 +123,22 @@ def build_admin_row(ubigeo: str, cat: pd.DataFrame) -> Dict[str, Optional[str]]:
         "slug": r.get("slug"),
     }
 
-def export_excels(df_colegios: pd.DataFrame, cat: pd.DataFrame, out_base: Path, by_hierarchy: bool) -> pd.DataFrame:
+def display_admin(value: Optional[str]) -> Optional[str]:
+    if value is None:
+        return None
+    return str(value).replace("_", " ")
+
+def export_excels(df_colegios: pd.DataFrame, cat: pd.DataFrame, out_base: Path, by_hierarchy: bool, mode: str) -> pd.DataFrame:
     """
     Genera un XLSX por cada ubigeo_gestor.
     Columnas exportadas (si existen en 'colegios'): 
     ubigeo_gestor, departamento, provincia, distrito, codigo_ce, descripcion,
-    latitud, longitud, alumnos, docentes, siniestros, mantenimiento
+    latitud, longitud, alumnos, docentes, siniestros, implementacion, intervencion_pi2024
     """
     rows = []
-    base_cols = ["codigo_ce","descripcion","latitud","longitud","alumnos","docentes","siniestros","mantenimiento"]
+    base_cols = ["codigo_ce","descripcion","latitud","longitud","alumnos","docentes","siniestros"]
+    if mode == "zonas":
+        base_cols.extend(["intervencion_pi2024"])
 
     for ubigeo, gdf in df_colegios.groupby("ubigeo_gestor", dropna=True):
         u6 = to_ubigeo6(ubigeo)
@@ -135,10 +148,19 @@ def export_excels(df_colegios: pd.DataFrame, cat: pd.DataFrame, out_base: Path, 
         gdf_out = gdf.copy()
         cols_presentes = [c for c in base_cols if c in gdf_out.columns]
         gdf_out = gdf_out[cols_presentes]
+        if mode == "zonas":
+            interv_col = None
+            for c in ("intervencion_pi2024", "intervenido_pi2024"):
+                if c in gdf_out.columns:
+                    interv_col = c
+                    break
+            if interv_col:
+                gdf_out["Intervenido PI2024"] = gdf_out[interv_col].map(format_si_no)
+                gdf_out = gdf_out.drop(columns=[interv_col])
         # insertar al inicio
-        gdf_out.insert(0, "distrito", adm["distrito"])
-        gdf_out.insert(0, "provincia", adm["provincia"])
-        gdf_out.insert(0, "departamento", adm["departamento"])
+        gdf_out.insert(0, "distrito", display_admin(adm["distrito"]))
+        gdf_out.insert(0, "provincia", display_admin(adm["provincia"]))
+        gdf_out.insert(0, "departamento", display_admin(adm["departamento"]))
         gdf_out.insert(0, "ubigeo_gestor", u6)
 
         # escoger ruta de salida
@@ -176,6 +198,8 @@ def main():
     ap.add_argument("--by-hierarchy", action="store_true", help="Si se activa, anida en DEP/PROV/DIST.")
     ap.add_argument("--only-mantenimiento", action="store_true",
                     help="Si se activa, solo exporta filas con mantenimiento=True.")
+    ap.add_argument("--only-implementacion", action="store_true",
+                    help="Si se activa, solo exporta filas con implementacion=True.")
     args = ap.parse_args()
 
     root = Path(args.project_root)
@@ -186,6 +210,10 @@ def main():
         if "mantenimiento" not in df_colegios.columns:
             raise KeyError("El CSV de colegios no tiene la columna 'mantenimiento'.")
         df_colegios = df_colegios[df_colegios["mantenimiento"].map(to_bool_soft)].copy()
+    if args.only_implementacion:
+        if "implementacion" not in df_colegios.columns:
+            raise KeyError("El CSV de colegios no tiene la columna 'implementacion'.")
+        df_colegios = df_colegios[df_colegios["implementacion"].map(to_bool_soft)].copy()
 
     # Comprobación de cobertura (sin modificar nada)
     s_colegios = set(df_colegios["ubigeo_gestor"].dropna())
@@ -196,7 +224,8 @@ def main():
         print("  Ejemplos:", ", ".join(sin_match[:20]), ("... (+{})".format(len(sin_match)-20) if len(sin_match)>20 else ""))
 
     out_base = ensure_out_dirs(root, args.section_dir, args.by_hierarchy)
-    resumen = export_excels(df_colegios, cat, out_base, args.by_hierarchy)
+    mode = "mantenimiento" if args.only_mantenimiento else "zonas"
+    resumen = export_excels(df_colegios, cat, out_base, args.by_hierarchy, mode)
 
     # Guardar un resumen de lo generado
     resumen_path = root / args.section_dir / "excels" / "_resumen_excels_por_muni.csv"

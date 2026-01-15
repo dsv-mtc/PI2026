@@ -31,8 +31,8 @@ from branca.element import MacroElement, Template
 TRUE_SET = {"true","1","si","sí","x","t","y","s","verdadero","yes"}
 FALSE_SET = {"false","0","no","n","f","flase","falso","not"}
 
-COLOR_TRUE     = "#7dd3fc"  # celeste = Intervenciones PI 2024 (True)
-COLOR_TRUE_MANT = "#0ea5e9"  # celeste oscuro = ZE a mantener
+COLOR_TRUE     = "#16a34a"  # verde = ZE intervenidas PI 2024 (True)
+COLOR_TRUE_MANT = "#0ea5e9"  # celeste oscuro = ZE aprobados PI 2024
 COLOR_FALSE    = "#1d4ed8"  # azul    = Nuevas (False)
 COLOR_FATAL    = "#d90429"  # rojo    = siniestros fatales
 COLOR_CONTORNO = "#9ca3af"  # plomo   = contorno (relleno)
@@ -48,7 +48,7 @@ def mode_settings(mode: str):
             "show_fatal": False,
             "color_true": COLOR_TRUE_MANT,
             "color_false": COLOR_FALSE,
-            "label_true": "Celeste oscuro: ZE a mantener",
+            "label_true": "Celeste: ZE aprobados PI 2024",
             "label_false": "Azul: Nuevas",
             "label_fatal": "Rojo: Siniestro fatal",
         }
@@ -58,8 +58,8 @@ def mode_settings(mode: str):
         "show_fatal": True,
         "color_true": COLOR_TRUE,
         "color_false": COLOR_FALSE,
-        "label_true": "Celeste: Intervenciones PI 2024",
-        "label_false": "Azul: Nuevas",
+        "label_true": "Verde: ZE intervenidas (+85pnts) PI 2024",
+        "label_false": "Azul: ZE Nuevas",
         "label_fatal": "Rojo: Siniestro fatal",
     }
 
@@ -310,7 +310,19 @@ def map_for_excel(
     mode: str = MODE_ZONAS,
 ) -> Path:
     df = pd.read_excel(xlsx_path, dtype={"ubigeo_gestor": str})
-    missing = [c for c in ("latitud","longitud","mantenimiento") if c not in df.columns]
+    col_impl = pick_col(df.columns, "implementacion","implementación")
+    col_interv = pick_col(
+        df.columns,
+        "intervencion pi2024","intervenido pi2024",
+        "intervencion_pi2024","intervenido_pi2024",
+        "intervencion 2024","intervenido 2024",
+    )
+    col_mant = pick_col(df.columns, "mantenimiento","mant")
+
+    missing = [c for c in ("latitud","longitud") if c not in df.columns]
+    if mode == MODE_ZONAS:
+        if not col_interv:
+            missing.append("intervencion_pi2024")
     if missing:
         raise KeyError(f"{xlsx_path.name}: faltan columnas {missing}")
 
@@ -321,8 +333,13 @@ def map_for_excel(
     df["latitud"]  = pd.to_numeric(df["latitud"], errors="coerce")
     df["longitud"] = pd.to_numeric(df["longitud"], errors="coerce")
     df = df.dropna(subset=["latitud","longitud"])
+    # Filtros por listas: nuevas implementaciones (implementacion=True) o mantenimiento (mantenimiento=True)
     if settings["filter_mant"]:
-        df = df[df["mantenimiento"].map(to_bool_soft)].copy()
+        if col_mant:
+            df = df[df[col_mant].map(to_bool_soft)].copy()
+    else:
+        if col_impl:
+            df = df[df[col_impl].map(to_bool_soft)].copy()
     if df.empty:
         raise ValueError(f"{xlsx_path.name}: no hay filas con lat/lon válidas")
 
@@ -422,8 +439,11 @@ def map_for_excel(
     bounds = []
     for _, row in df.iterrows():
         lat = float(row["latitud"]); lon = float(row["longitud"])
-        mant = to_bool_soft(row.get("mantenimiento"))
-        color = settings["color_true"] if mant else settings["color_false"]
+        if mode == MODE_MANT:
+            color = settings["color_true"]
+        else:
+            interv = to_bool_soft(row.get(col_interv)) if col_interv else False
+            color = settings["color_true"] if interv else settings["color_false"]
 
         folium.Circle(
             location=(lat, lon),

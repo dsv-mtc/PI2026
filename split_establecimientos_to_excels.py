@@ -80,6 +80,9 @@ def sanitize_filename(name: str) -> str:
     name = re.sub(r"[^A-Za-z0-9_\-\.ÁÉÍÓÚáéíóúÑñ]", "", name)
     return name or "SIN_NOMBRE"
 
+def display_admin(value: str) -> str:
+    return (value or "").replace("_", " ")
+
 def rename_codigo_columns(df: pd.DataFrame) -> pd.DataFrame:
     colmap = {}
     for c in df.columns:
@@ -157,9 +160,9 @@ def main():
         # Nombres oficiales desde catálogo
         row_m = muni[muni["ubigeo_gestor"].astype(str).str.zfill(6).str[:6] == u6]
         if not row_m.empty:
-            dep  = row_m.iloc[0]["departamento"]
-            prov = row_m.iloc[0]["provincia"]
-            dist = row_m.iloc[0]["distrito"]
+            dep  = display_admin(row_m.iloc[0]["departamento"])
+            prov = display_admin(row_m.iloc[0]["provincia"])
+            dist = display_admin(row_m.iloc[0]["distrito"])
             slug = row_m.iloc[0]["slug"] or f"{dep}-{prov}-{dist}"
         else:
             dep = prov = dist = ""

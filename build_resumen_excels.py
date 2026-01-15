@@ -39,6 +39,9 @@ def combinar_excels_seccion(seccion: str):
         return
 
     df_all = pd.concat(dfs, ignore_index=True)
+    for col in ("departamento", "provincia", "distrito", "DEPARTAMENTO", "PROVINCIA", "DISTRITO"):
+        if col in df_all.columns:
+            df_all[col] = df_all[col].astype(str).str.replace("_", " ", regex=False)
 
     out_path = RESUMEN_DIR / f"{seccion}_resumen.xlsx"
     df_all.to_excel(out_path, index=False)

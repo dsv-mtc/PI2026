@@ -10,6 +10,7 @@ Uso:
     --input-excel ./ZonasEscolares/Colegios_Priorizados_PI2026.xlsx
 """
 import argparse
+import unicodedata
 from pathlib import Path
 from typing import Optional, Iterable
 import pandas as pd
@@ -17,13 +18,15 @@ import pandas as pd
 # ----------------------------
 # Utilitarios
 # ----------------------------
-_TRUE = {"true", "1", "si", "sí", "x", "t", "y"}
-_FALSE = {"false", "0", "no", "n", "f", "flase"}
+_TRUE = {"true", "1", "si", "sA-", "x", "t", "y", "verdadero", "yes"}
+_FALSE = {"false", "0", "no", "n", "f", "flase", "falso"}
 
 def norm(s: str) -> str:
     s = str(s or "").strip().lower()
-    return (s.replace("á","a").replace("é","e").replace("í","i")
-             .replace("ó","o").replace("ú","u").replace("ñ","n"))
+    s = unicodedata.normalize("NFKD", s)
+    s = "".join(ch for ch in s if not unicodedata.combining(ch))
+    return (s.replace("a\u00ad", "a").replace("ac", "e").replace("a-", "i")
+             .replace("a3", "o").replace("a\u00a7", "u").replace("a\u00f1", "n"))
 
 def to_ubigeo6(x) -> Optional[str]:
     if pd.isna(x): return None
@@ -68,6 +71,14 @@ def transform(df: pd.DataFrame) -> pd.DataFrame:
     col_sin    = pick_column(df, "siniestros","siniestros_ie","n_siniestros")
     col_compv  = pick_column(df, "competencia_via","competencia de via", required=True)
     col_mant   = pick_column(df, "mantenimiento","mant")
+    col_impl   = pick_column(df, "implementacion","implementación","impl", required=True)
+    col_interv = pick_column(
+        df,
+        "intervencion pi2024","intervenido pi2024",
+        "intervencion_pi2024","intervenido_pi2024",
+        "intervencion 2024","intervenido 2024",
+        required=True,
+    )
 
     out = pd.DataFrame()
     out["codigo_ce"] = df[col_codigo]
@@ -87,11 +98,13 @@ def transform(df: pd.DataFrame) -> pd.DataFrame:
     if col_doc:  out["docentes"] = pd.to_numeric(df[col_doc], errors="coerce").astype("Int64")
     if col_sin:  out["siniestros"] = pd.to_numeric(df[col_sin], errors="coerce").astype("Int64")
     out["mantenimiento"] = df[col_mant].map(to_bool) if col_mant else False
+    out["implementacion"] = df[col_impl].map(to_bool) if col_impl else False
+    out["intervencion_pi2024"] = df[col_interv].map(to_bool) if col_interv else False
 
     # Orden final (ubigeo_gestor al inicio)
     cols_final = ["ubigeo_gestor", "ubigeo_original", "codigo_ce", "descripcion",
                   "latitud", "longitud", "alumnos", "docentes", "siniestros",
-                  "mantenimiento", "competencia_via"]
+                  "implementacion", "intervencion_pi2024", "mantenimiento", "competencia_via"]
     cols_final = [c for c in cols_final if c in out.columns]
     return out[cols_final]
 

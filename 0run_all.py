@@ -8,7 +8,7 @@ SCRIPTS_IN_ORDER = [
     "municipalidades_build.py",        # 1) construye municipalidades
     "process_colegios.py",             # 2) procesa colegios
     "split_establecimientos_to_excels.py",  # 3) splits
-    "split_excels_por_muni.py",
+    ["split_excels_por_muni.py", "--only-implementacion"],
     ["split_excels_por_muni.py", "--only-mantenimiento", "--section-dir", "Mantenimiento"],
     "split_intersecciones_to_excels.py",
     "maps_establecimientos.py",        # 4) maps

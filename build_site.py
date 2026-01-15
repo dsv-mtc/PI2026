@@ -361,8 +361,8 @@ def home_html(title_text: str, body_text: str) -> str:
       <div class="container">
         <div class="lead">{md_inline(body_text)}</div>
         <div class="main-actions">
-          <a class="btn zonas" href="ZonasEscolares/index.html">Implementaci&oacute;n Zona Escolar</a>
           <a class="btn mant" href="Mantenimiento/index.html">Mantenimiento ZE</a>
+          <a class="btn zonas" href="ZonasEscolares/index.html">Implementaci&oacute;n Zona Escolar</a>
           <a class="btn inter" href="Intersecciones/index.html">Intersecciones</a>
           <a class="btn estab" href="EstablecimientoSalud/index.html">Establecimientos de Salud</a>
         </div>
