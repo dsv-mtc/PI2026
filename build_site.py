@@ -34,7 +34,7 @@ import re
 ROOT = Path(".")
 ASSETS_IMG = ROOT / "assets" / "img"
 CONTENT = ROOT / "content"
-DATA = ROOT / "data"
+DATA = ROOT / "Data"
 
 LOGO_PATH  = ASSETS_IMG / "logo.jpg"
 HOME_IMG   = ASSETS_IMG / "home.jpg"
