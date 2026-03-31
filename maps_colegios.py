@@ -741,11 +741,15 @@ def map_for_excel(
           });
 
           // ---------- Abrir vista actual en Google Maps ----------
+          var lastOpenGMapsAt = 0;
           function openInGoogleMaps() {
+            var now = Date.now();
+            if (now - lastOpenGMapsAt < 2500) return; // anti-spam: evita abrir muchas pestañas seguidas
+            lastOpenGMapsAt = now;
             var c = ly_map.getCenter();
             var z = ly_map.getZoom();
             var url = 'https://www.google.com/maps/@' + c.lat + ',' + c.lng + ',' + z + 'z';
-            window.open(url, '_blank');
+            window.open(url, '_blank', 'noopener,noreferrer');
           }
           document.getElementById('btn_open_gmaps').addEventListener('click', openInGoogleMaps);
         });
