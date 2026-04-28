@@ -7,9 +7,9 @@ RESUMEN_DIR = ROOT / "Resumen"
 RESUMEN_DIR.mkdir(parents=True, exist_ok=True)
 
 SECCIONES = [
-    "ZonasEscolares",
-    "Mantenimiento",
-    "Intersecciones",
+    #"ZonasEscolares",
+    #"Mantenimiento",
+    #"Intersecciones",
     "EstablecimientoSalud",
 ]
 
